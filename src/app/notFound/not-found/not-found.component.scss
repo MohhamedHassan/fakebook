@@ -1,0 +1,15 @@
+.notFound {
+    background: #F0F2F5;
+    min-height: 100vh;
+    margin-top: -61px;
+    padding-top: 61px;
+}
+.notFound.darkMode {
+    background: #18191A;
+    color: #B8BBBF !important;
+    .text-secondary { color: #B8BBBF !important;}
+}
+.notFoundWidth {width: 25%;}
+@media only screen and (max-width: 992px) {
+    .notFoundWidth {width: 60%;}
+} 

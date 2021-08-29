@@ -1,0 +1,228 @@
+<div
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="container">
+    
+    <div class=" paddinggx">
+        <div class="row bg-white mb-5 mx-md-0 p-3 rounded-lg">
+            <div class="col-md-12 mb-3">
+              <div class="d-block d-md-flex justify-content-between align-items-center">
+                <h2 class="font-weight-bold  mb-2 mb-md-0">Following</h2>
+                <div class="position-relative parentOfSearch">
+                    <input [(ngModel)]="searchPipeValue" placeholder="Search" type="search">
+                     <i class="fas fa-search text-secondary"></i>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="visitUserService.friendsSkeltonLoading;else content">
+                <div 
+                *ngFor="let item of loadingCount"
+                class="col-md-6 mb-3">
+                 <div 
+                 [class.darkMode]="userProfilesService.userProfile?.darkMode"
+                 class="fb-item bg-white postsLoadingg rounded-lg p-4">
+                 <div class="first-section-wrapper d-flex align-items-center mb-3">
+                     <div
+                     class="item bg-white postsLoadingg">
+                         <ngx-skeleton-loader count="1" appearance="circle" [theme]="{
+                     width: '80px',
+                     height: '80px',
+                     'border-radius': '10px'
+                   }">
+                         </ngx-skeleton-loader>
+                     </div>
+                     <div class="gravatar-title mx-3">
+                         <div>
+                             <ngx-skeleton-loader [theme]="{
+                       width: '200px',
+                       'border-radius': '0',
+                       height: '15px',
+                       'margin-bottom': '10px'
+                     }"></ngx-skeleton-loader>
+                         </div>
+                         <div>
+                             <ngx-skeleton-loader
+                                 [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }">
+                             </ngx-skeleton-loader>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+                </div>
+             </ng-container>
+             <ng-template #content>
+            <ng-container *ngIf="visitUserService.following?.length;else noFollowing">
+                <ng-container *ngIf="( visitUserService.following | search : searchPipeValue) as result">
+                    <div class="col-md-6 mb-4" *ngFor="let item of visitUserService.following | search : searchPipeValue;let i = index">
+                        <div class=" borderAround">
+                            <div class="d-flex align-items-center" (mouseleave)='profileOnHover=-1'>
+                                <div 
+                                [routerLink]='["/visit",item._id]'
+                                class="overIMG" (mouseover)="profileOnHover=i" >
+                                    <img  
+                                  
+                                    [src]="item?.profilePhoto | gender :  item?.gender" alt="">
+                                </div>
+                               <div class="mx-3" (mouseover)="profileOnHover=i"  (mouseleave)='profileOnHover=-1'>
+                                   <h2  
+                                   [routerLink]='["/visit",item?._id]'
+                                   class="userName mb-1">{{item?.firstName | titlecase | slice : 0 : 12}}
+                                       {{item?.lastName | titlecase | slice : 0 : 12}}</h2>
+                                       <p class="text-secondary m-0"><i class="far fa-calendar-alt mr-2"></i> Born on 
+                                          {{item?.birthDate |date}}</p>
+                                          <div *ngIf="profileOnHover==i" class=" profileOnHover bg-white rounded-lg p-3">
+                                              <div class="d-flex align-items-center">
+                                                  <div>
+                                                    <div 
+                                                    [routerLink]='["/visit",item?._id]'
+                                                    class="overIMG">
+                                                        <img
+                                                      
+                                                        class="profile" [src]="item?.profilePhoto | gender : item?.gender" alt="">
+                                                    </div>
+                                                  </div>
+                                                  <div class="mx-3">
+                                                      <h2
+                                                      [routerLink]='["/visit",item?._id]'
+                                                      class="mb-2">{{item?.firstName |
+                                                          titlecase | slice : 0 : 12}}
+                                                          {{item?.lastName | titlecase | slice
+                                                          : 0 : 12}}</h2>
+                                                      <p><i class="far fa-calendar-alt mr-2"></i> Born on
+                                                          {{item?.birthDate |date}}</p>
+                                                    
+                                                  </div>
+                                              </div>
+                                          </div>
+                               </div>
+                             </div>
+                        </div>
+                    </div>
+                    <h2 
+                    *ngIf="result?.length === 0"
+                    class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
+                       No Result For : {{searchPipeValue}}
+                    </h2>
+                </ng-container>
+                
+          
+            </ng-container>
+            <ng-template #noFollowing>
+                <h2 class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
+                    No Friends To Show
+                </h2>
+            </ng-template>
+        </ng-template>
+            
+        </div>
+        <div class="row bg-white mx-md-0 p-3 rounded-lg">
+            <div class="col-md-12 mb-3">
+                <div class="d-block d-md-flex  justify-content-between align-items-center">
+                    <h2 class="font-weight-bold  mb-2 mb-md-0">Followers</h2>
+                    <div class="position-relative parentOfSearch">
+                        <input [(ngModel)]="searchPipeValueTwo" placeholder="Search" type="search">
+                         <i class="fas fa-search text-secondary"></i>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="visitUserService.skeltonLoadingFollowers;else contentTwo">
+                <div
+                *ngFor="let item of loadingCount"
+                class="col-md-6 mb-3">
+                 <div 
+                 [class.darkMode]="userProfilesService.userProfile?.darkMode"
+                 class="fb-item bg-white postsLoadingg rounded-lg p-4">
+                 <div class="first-section-wrapper d-flex align-items-center mb-3">
+                    <div
+                    class="item bg-white postsLoadingg">
+                        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{
+                    width: '80px',
+                    height: '80px',
+                    'border-radius': '10px'
+                  }">
+                        </ngx-skeleton-loader>
+                    </div>
+                     <div class="gravatar-title mx-3">
+                         <div>
+                             <ngx-skeleton-loader [theme]="{
+                       width: '200px',
+                       'border-radius': '0',
+                       height: '15px',
+                       'margin-bottom': '10px'
+                     }"></ngx-skeleton-loader>
+                         </div>
+                         <div>
+                             <ngx-skeleton-loader
+                                 [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }">
+                             </ngx-skeleton-loader>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+                </div>
+             </ng-container>
+        <ng-template #contentTwo>
+            <ng-container *ngIf="visitUserService.followers?.length;else noFollowers">
+                <ng-container *ngIf="( visitUserService.followers | search : searchPipeValueTwo) as resultTwo">
+                    <div class="col-md-6 mb-4" 
+                    *ngFor="let item of visitUserService.followers | search : searchPipeValueTwo;let i = index">
+                        <div class=" borderAround">
+                            <div class="d-flex align-items-center" (mouseleave)='followersOnHover=-1'>
+                                <div 
+                                [routerLink]='["/visit",item?._id]'
+                                class="overIMG" (mouseover)="followersOnHover=i" >
+                                    <img  
+                                    
+                                    [src]="item?.profilePhoto | gender : item?.gender" alt="">
+                                </div>
+                               <div class="mx-3" (mouseover)="followersOnHover=i"  (mouseleave)='followersOnHover=-1'>
+                                   <h2  
+                                   [routerLink]='["/visit",item?._id]'
+                                   class="userName mb-1">{{item?.firstName | titlecase | slice : 0 : 12}}
+                                       {{item?.lastName | titlecase | slice : 0 : 12}}</h2>
+                                       <p class="text-secondary m-0"><i class="far fa-calendar-alt mr-2"></i> Born on 
+                                          {{item.birthDate |date}}</p>
+                                          <div *ngIf="followersOnHover==i" class=" profileOnHover bg-white rounded-lg p-3">
+                                              <div class="d-flex align-items-center">
+                                                  <div>
+                                                    <div  class="overIMG" [routerLink]='["/visit",item?._id]'>
+                                                        <img
+                                                        
+                                                        class="profile" [src]="item?.profilePhoto | gender : item?.gender" alt="">
+                                                    </div>
+                                                  </div>
+                                                  <div class="mx-3">
+                                                      <h2 
+                                                      [routerLink]='["/visit",item?._id]'
+                                                      class="mb-2">{{item?.firstName |
+                                                          titlecase | slice : 0 : 12}}
+                                                          {{item?.lastName | titlecase | slice
+                                                          : 0 : 12}}</h2>
+                                                      <p><i class="far fa-calendar-alt mr-2"></i> Born on
+                                                          {{item?.birthDate |date}}</p>
+                                                   
+                                                  </div>
+                                              </div>
+                                          </div>
+                               </div>
+                             </div>
+                        </div>
+                    </div>
+                    <h2 
+                    *ngIf="resultTwo?.length === 0"
+                    class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
+                       No Result For : {{searchPipeValueTwo}}
+                    </h2>
+                </ng-container>
+             
+              
+            </ng-container>
+            <ng-template #noFollowers>
+                <h2 class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
+                    No Followers To Show
+                </h2>
+            </ng-template>
+        </ng-template>
+        
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+.notificationsMobile {
+    min-height: 100vh;
+    %notificationnn {
+        position: absolute !important;
+        bottom: 0 !important;
+        right: -6px !important;
+    }
+    .mainIMG {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%
+    }
+    .fa-comment-alt.nav {
+        @extend %notificationnn;
+        color: white;
+        background: #48D06A;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .notificationImg  {
+        width: 25px !important;
+        height: 25px !important;
+        @extend %notificationnn;
+    }
+}
+.notificationsMobile.darkMode {
+    background: #242526 !important;
+    color: #B8BBBF !important;
+}

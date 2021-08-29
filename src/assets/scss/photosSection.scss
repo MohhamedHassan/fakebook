@@ -1,0 +1,18 @@
+///////// start photosSection
+.photosSection {
+    img {
+        height: 160px;
+        border-radius: 10px;
+    }
+  }
+  .photosSection.darkMode {
+    .bg-white {
+       color:#E4E6EB;
+       background-color: #242526 !important;
+    }
+  }
+  ::ng-deep .postsLoadingg.darkMode .loader{
+    background-color: #323232 !important;
+    border: 1px solid #323232
+ }
+  //////// end photos sections

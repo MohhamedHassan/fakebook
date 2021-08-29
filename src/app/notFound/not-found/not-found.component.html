@@ -1,0 +1,10 @@
+<div 
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="notFound d-flex justify-content-center align-items-center">
+     <div class="notFoundWidth text-center">
+          <img [src]="userProfilesService.userProfile?.darkMode ? 'assets/darkModeNotFound.PNG' : 'assets/notfound.PNG'" alt="">
+          <h2 class="font-weight-bold text-secondary">This page isn't available</h2>
+          <p class="my-2">The link may be broken, or the page may have been removed. Check to see if the link you're trying to open is correct.</p>
+          <button class="btn btn-primary" routerLink='/homePage'>Go To News Feed</button>
+     </div>
+</div>

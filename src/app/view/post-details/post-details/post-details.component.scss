@@ -1,0 +1,352 @@
+%overIMG {
+    cursor: pointer;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right:0;
+    bottom: 0;
+    background-color: rgb(122 115 115 / 17%);
+}
+%profileOnHover {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    img.profile {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    button {
+        width: 100%;
+        background-color: #e4e6eb ;
+        border:none;
+        border-radius: 5px;
+        padding: 10px;
+        &:hover {
+            background-color: #D8DADF;
+        }
+    }
+}
+p,h2,h3{margin-bottom: 0;}
+.parentOfPostss {
+    min-height: 100vh;
+    background-color: #F0F2F5;
+    overflow: hidden;
+    padding-bottom: 100px;
+    .postss {       
+        position: relative;
+        .postOptions {
+            .reactionsCount {
+                img {
+                    width: 16px;
+                    height: 16px;
+                    position: absolute;
+                }
+                img.first {
+                    z-index: 2;
+                }
+                img.last {
+                    left: 13px;
+                    z-index: 1;
+                }
+                 span {margin-left: 20px;
+                    margin-top: -1px;
+                     display: block;
+                }
+                .exist + span {margin-left: 35px !important;}
+            }
+            .hideParentOfReactions {z-index: -1;}
+            .showReactions:hover .reactions {margin-top: 0 ;}
+            .parentOfReactions{
+                position: absolute;
+                top: -52px;
+              //  left: -50%;
+                height: 60px;
+                padding: 10px 5px;
+                overflow: hidden;
+                border-radius: 30px;
+                transition: .5s;
+                 }
+            .reactions {
+                margin-top: 60px;
+                border-radius: 30px;
+                transition: .5s ;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                li:not(:last-of-type) {
+                  margin-right: 10px;
+                }
+                li {
+                    transition: .5s;
+                    &:hover {
+                        transform: scale(1.5);
+                    }
+                }
+            }
+            .profileOnHover {
+                width:300px !important;
+                top: 20px !important;
+                left: -100px !important;
+            }
+            .grayP {
+                color: #65676b;
+                cursor: pointer;
+                display: inline-block;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            img {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+            }
+            textarea {
+                border: none;
+                background: #F0F2F5;
+                border-radius: 20px;
+                padding: 7px 35px 7px 15px;
+                width: 100%;
+                resize: none;
+                height: auto;
+                overflow: hidden;
+            }
+            .options {
+                border-top: 1px solid #e1e1e1;
+                border-bottom: 1px solid #e1e1e1;
+                padding:2px 10px;
+               > li {
+                    &:hover {
+                        background-color: #F2F2F2;
+                    }
+                    transition:.5s;
+                    border-radius: 5px;
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: #65676b;
+                    cursor: pointer;
+                    padding:10px 20px;
+                 }
+                 .userReact {
+                    img {
+                        width: 20px;
+                        height: 20px;
+                    }
+                 }
+            }
+            .parentOfComments {
+                .comments {
+                    li {
+                        margin-bottom: 10px;
+                    }
+                    .commnetContent {
+                        background-color: #F0F2F5;
+                        padding:5px 10px;
+                        border-radius: 10px;
+                    }
+                }
+            }
+          
+        }
+        .userName {
+            cursor: pointer;
+            border-bottom: 1px solid transparent;
+            line-height: 1;
+            &:hover {
+               border-bottom: 1px solid black;
+            }
+        }
+        .profileOnHover {
+            @extend %profileOnHover;
+            top: 37px;
+            .overIMG {
+                position: relative;
+                border-radius: 50%;
+                overflow: hidden;
+                &:hover::after {
+                    @extend %overIMG;
+                }
+            }
+        }
+     
+        .timeOnHover {
+         display: none;
+         text-align: center;
+         position: absolute;
+         top: 25px;
+         left: -18px;
+         background: rgb(13 13 13 / 77%);
+         color: white;
+         padding: 5px 10px;
+         border-radius: 5px;
+         width:100px;
+         z-index: 11
+     }
+    
+    .timee:hover  small:first-of-type {border-bottom: 1px solid var(--secondary);}
+    .timee:hover .timeOnHover { display: block ; } 
+    .fa-ellipsis-h {
+        padding:5px;
+        border-radius: 50%;
+        &:hover {
+            background:#D8DADF;
+        }
+    } 
+    }
+}
+
+.smllProfileImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.postLoading
+{
+    background: rgb(89 87 87 / 50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+    p.darkMode {color:black !important}
+}
+.parentOfPostss.darkMode
+ {
+     background-color: #18191A;
+     
+     .postss {
+        background-color: #242526 !important;
+        color:#E4E6EB;
+        .bg-white {background: #242526 !important;}
+        .userName {
+            &:hover {
+               border-bottom: 1px solid gray;
+            }
+        }
+        .fa-ellipsis-h {
+            &:hover {
+                background:  #4E4F50
+            }
+        }
+        .profileOnHover {
+            background-color: #242526 !important;
+            color:#E4E6EB;
+            box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px;
+            button {
+                background-color: rgb(227 227 227 / 10%) !important;
+                color:#E4E6EB;
+                &:hover  {
+                    background-color: #4E4F50 !important;
+                }
+            }
+        }
+    }
+   
+    .postOptions {
+        .options {
+            border-color: rgba(235, 235, 235, 0.1) !important;
+            li {
+                &:hover {
+                 background-color: #3A3B3C !important;
+                }
+                color:#B8BBBF !important
+            }
+         }
+         textarea,.commnetContent {
+             background-color: rgba(227, 227, 227, 0.1) !important;
+             color: #E4E6EB !important;
+         }
+         ::placeholder{color:#B8BBBF !important} 
+    }
+ }
+ ::ng-deep .parentOfPostss.darkMode .loader{
+    background-color: #323232 !important;
+    border: 1px solid #323232
+}
+::ng-deep .gravatar-title{width: 100%;}
+@media only screen and (max-width: 600px) {
+    .postss {
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .postss {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+   .postss {
+    .profileOnHover , .timeOnHover {
+        display: none !important;
+    }
+   }   
+}
+@media only screen and (min-width: 992px) {
+    .postss {
+        width: 50%;
+    }
+}
+////// start reactionsModal
+.parentOfReactionsModal {
+    .love {
+        border-bottom: 2px solid #EE3050;
+    }
+    .sad {
+        border-bottom: 2px solid #EAA82A;
+    }
+    .angry {
+        border-bottom: 2px solid #DD6B0E;
+    }
+    .wow {
+        border-bottom: 2px solid #EAA85F;
+    }
+    .haha {
+        border-bottom: 2px solid #EAA823;
+    }
+    .like {
+        border-bottom: 2px solid #0B86ED;
+    }
+    .reactionsModal {
+        height: 300px;
+        overflow: auto;
+        .mainIMG {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .reactionImg {
+            position: absolute;
+            right: -6px;
+            bottom: 3px;
+            width: 16px;
+            height: 16px;
+        }
+        h3:hover{text-decoration: underline;}
+    }
+}
+////// end reactionsModal
+::ng-deep {
+    .gravatar-title{width: 100%;}
+    .parentOfReactionsModal {
+        .modal-header {
+            align-items:normal !important;
+            padding: 1rem 1rem 0 !important;
+        }
+        .close {color: #b9b9b9;}
+    }
+}
+::ng-deep .darkModeMenu
+{
+   background-color: #242526 !important;
+   box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px;
+   .mat-menu-item {
+       color: #B8BBBF;
+       &:hover {background-color: #3A3B3C;}
+   }
+}

@@ -1,0 +1,56 @@
+<div
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="darkModeClass"
+>
+<div class=" photos mb-3 bg-white p-3 rounded-lg">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 routerLink="../friends" class="font-weight-bold main">Followers</h2>
+        <a routerLink="../friends">See All Followers</a>
+    </div>
+    <p *ngIf="visitUserService.followers?.length" class="text-secondary mb-3">
+        {{visitUserService?.followers?.length}} 
+        {{visitUserService?.followers?.length==1 ? "Follower" : "Followers"}} 
+    </p>
+    <div class="row">
+        <div *ngFor="let item of visitUserService.followers | slice : 0 : 6;let i =index" class="col-4 col-md-4  pb-3"
+            (mouseover)="profileOnHoverforFollowers=i" (mouseleave)='profileOnHoverforFollowers=-1'>
+            <div style="cursor: pointer;">
+                <div 
+                (click)="scrollTop()"
+                class="parentOfFollowing" [routerLink]='["/visit",item?._id]'>
+                    <img [src]="item?.profilePhoto | gender  :  item?.gender" class="followImg" alt="">
+                </div>
+
+                <p 
+                (click)="scrollTop()"
+                [routerLink]='["/visit",item?._id]'
+                class="font-weight-bold d-inline namee" #elementt>{{item?.firstName | titlecase |
+                    slice : 0 : 12 | lang : elementt}} {{item?.lastName | titlecase | slice : 0 : 12}}
+                </p>
+            </div>
+
+            <div *ngIf="profileOnHoverforFollowers==i" class=" profileOnHover bg-white rounded-lg p-3">
+                <div class="d-flex align-items-center">
+                     <div>
+                        <div 
+                        (click)="scrollTop()"
+                        class="overIMG" [routerLink]='["/visit",item?._id]'>
+                            <img class="profile" [src]="item?.profilePhoto | gender :  item?.gender" alt="">
+                        </div>
+                     </div>
+                    <div class="mx-3">
+                        <h2 
+                        (click)="scrollTop()"
+                        [routerLink]='["/visit",item?._id]'
+                        class="mb-2 ">{{item.firstName | titlecase | slice : 0 : 12}}
+                            {{item?.lastName | titlecase | slice : 0 : 12}}</h2>
+                        <p><i class="far fa-calendar-alt mr-2"></i> Born on
+                            {{item?.birthDate |date}}</p>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

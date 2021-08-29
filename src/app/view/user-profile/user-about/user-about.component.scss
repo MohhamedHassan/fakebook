@@ -1,0 +1,8 @@
+@import "src/assets/scss/about.scss";
+::ng-deep {
+    @media only screen and (max-width: 767px) {
+        .mat-datepicker-content .mat-calendar {
+            width: 220px !important;
+        }
+       }
+}

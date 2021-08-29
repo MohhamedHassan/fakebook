@@ -1,0 +1,176 @@
+<div class="container aboutParent " [class.darkMode]="userProfilesService.userProfile?.darkMode">
+    <div class="paddinggx row">
+
+
+
+        <div class="   col-md-4 mb-4">
+            <div class="rounded-lg left h-100  bg-white p-3">
+                <h2 class="font-weight-bold mb-2">About</h2>
+                <ul class="list-unstyled">
+                    <li *ngFor="let item of personalInfo;let i = index" (click)="choseCategory(i)"
+                        [class.active]="item.status">{{item.name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 mb-4">
+
+            <div class="rounded-lg bg-white rightParent p-3 h-100 position-relative">
+                <div *ngIf="visitUserService.userProfileLoading"
+                    class="aboutLoading  d-flex align-items-center justify-content-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div *ngIf="personalInfo[0].status" class="imgsiz right">
+                    <h2>Basic Info</h2>
+                    <div class="namee my-3  ">
+                        <div class=" d-flex justify-content-between align-items-center ">
+                            <div class="d-flex">
+                                <i class="fas fa-file-signature"></i>
+                                <div class="mx-3">
+                                    <span class="d-block mb-1">{{visitUserService.userProfile?.firstName |
+                                        titlecase}}</span>
+                                    <small class="text-secondary">First Name</small>
+                                </div>
+                                <div>
+                                    <span class="d-block mb-1">{{visitUserService.userProfile?.lastName |
+                                        titlecase}}</span>
+                                    <small class="text-secondary">Last Name</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gender my-3   ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                                <div>
+                                    <i [ngClass]='{
+                                    "fa-female":visitUserService.userProfile?.gender=="female",
+                                   "fa-male":visitUserService.userProfile?.gender=="male"
+                                  }' class="fas "></i>
+                                </div>
+                                <div class="mx-3">
+                                    <span class="d-block">{{visitUserService.userProfile?.gender | titlecase }}</span>
+                                    <small class="text-secondary">Gender</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="birthDate my-3  ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                                <i class="fas fa-birthday-cake"></i>
+                                <div class="mx-3">
+                                    <span class="d-block mb-1">{{visitUserService.userProfile?.birthDate | date
+                                        }}</span>
+                                    <small class="text-secondary">Birth date</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="email my-3 ">
+                        <div class="d-flex">
+                            <i class="far fa-envelope"></i>
+                            <div class="mx-3">
+                                <span class="d-block mb-1">{{visitUserService.userProfile?.email }}</span>
+                                <small class="text-secondary">Email</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="personalInfo[1].status" class="right">
+                    <h2>Work</h2>
+                    <div *ngIf="visitUserService.userProfile?.work;else work">
+
+                        <h3>
+                            <i class="mx-2 fas fa-briefcase"></i>
+                            Works At {{visitUserService.userProfile?.work}}
+                        </h3>
+                    </div>
+                    <ng-template #work>
+                        <h3 class="font-weight-bold noAvailable">
+                            <i class="fas fa-briefcase "></i>
+                           <span class="mx-2"> No workplaces to show</span>
+                        </h3>
+                    </ng-template>
+
+                </div>
+                <div *ngIf="personalInfo[3].status" class="right">
+                    <h2>Place Lived</h2>
+                    <div *ngIf="visitUserService.userProfile?.location;else city">
+
+                        <h3>
+                             <i class="fas fa-home "></i> 
+                             <span class="mx-2">Lives In {{visitUserService.userProfile?.location}}</span>
+                        </h3>
+                    </div>
+                    <ng-template #city>
+                        <h3 class="font-weight-bold noAvailable">
+                            <i class="fas fa-home "></i>
+                            <span class="mx-2"> No places to show</span>
+                        </h3>
+                    </ng-template>
+                </div>
+                <div *ngIf="personalInfo[2].status" class="right">
+                    <h2>Education</h2>
+                    <div *ngIf="visitUserService.userProfile?.study;else education">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <img class="rounded-circle" src="assets/education.png" alt="">
+                            </div>
+                            <h3 class="mx-2">Studied at {{visitUserService.userProfile?.study}}</h3>
+                        </div>
+                    </div>
+
+                    <ng-template #education>
+                        <h3 class="font-weight-bold noAvailable">
+                            <i class="fas fa-graduation-cap "></i>
+                           <span class="mx-2"> No schools/universities to show</span>
+                        </h3>
+                    </ng-template>
+                </div>
+                <div *ngIf="personalInfo[4].status" class="right">
+                    <h2>Relationship</h2>
+
+                    <div *ngIf="visitUserService.userProfile?.socialCondition;else relation">
+
+                        <h3>
+                            <i class=" fas fa-heart"></i>
+                            <span class="mx-2">{{visitUserService.userProfile?.socialCondition | titlecase}}</span>
+                        </h3>
+                    </div>
+                    <ng-template #relation>
+                        <h3 class="font-weight-bold noAvailable">
+                            <i class="fas fa-heart "></i>
+                           <span class="mx-2"> No relationship info to show</span>
+                        </h3>
+                    </ng-template>
+
+                </div>
+                <div *ngIf="personalInfo[5].status" class="right">
+                    <h2>Religion</h2>
+                    <div *ngIf="visitUserService.userProfile?.religion;else religion">
+                        <h3>
+                            <i class="fas fa-praying-hands "></i>
+                           <span class="mx-2"> {{visitUserService.userProfile?.religion | titlecase}}</span>
+                        </h3>
+                    </div>
+                    <ng-template #religion>
+                        <h3 class="font-weight-bold noAvailable">
+                            <i class="fas fa-praying-hands"></i>
+                            <span class=" mx-3">No religion info to show</span>
+                        </h3>
+                    </ng-template>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

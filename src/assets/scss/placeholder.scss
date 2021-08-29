@@ -1,0 +1,49 @@
+
+%darkmodeLoader{
+    background-color: #323232 !important;
+    border: 1px solid #323232
+}
+%profileOnHover {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    img.profile {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    button {
+        width: 100%;
+        background-color: #e4e6eb ;
+        border:none;
+        border-radius: 5px;
+        padding: 10px;
+        &:hover {
+            background-color: #D8DADF;
+        }
+    }
+  }
+  %profileOnHoverDarkMode {
+    background-color: #242526 !important;
+    color:#E4E6EB !important;
+    box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px !important;
+    button {
+        background-color: rgb(227 227 227 / 10%) !important;
+        color:#E4E6EB !important;
+        &:hover  {
+            background-color: #4E4F50 !important;
+        }
+    }
+  }
+  %overIMG {
+    cursor: pointer;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right:0;
+    bottom: 0;
+    background-color: rgb(122 115 115 / 17%);
+  }

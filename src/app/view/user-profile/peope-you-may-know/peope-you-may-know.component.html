@@ -1,0 +1,76 @@
+<div 
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="bg-white parentOfSugested rounded-lg p-3" >
+    <h2 class="mb-2">People you may know</h2>
+    <swiper (reachEnd)="fetchMoreSuggestedFriends()" #updtaeSwiper [config]="swiperConfig">
+        <ng-container *ngIf="peopleYouMayKnowLoading;else swiperContent">
+            <ng-container *ngFor="let item of swiperLoadingCount">
+                <ng-template swiperSlide>
+                    <div 
+                        class="fb-item bg-white postsLoadingg rounded-lg ">
+                        <div class="first-section-wrapper  ">
+                            <div class="item  postsLoadingg">
+                                <ngx-skeleton-loader count="1" appearance="circle" [theme]="{
+                        width: '100%',
+                        height: '150px',
+                        'border-radius': '10px',
+                        margin:0
+                    }">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <div class="gravatar-title ">
+                                <div>
+                                    <ngx-skeleton-loader [theme]="{
+                            width: '100%',
+                            'border-radius': '0',
+                            height: '10px',
+                            'margin-bottom': '2px'
+                            }"></ngx-skeleton-loader>
+                                </div>
+
+                            </div>
+                            <div class="gravatar-title ">
+                                <div>
+                                    <ngx-skeleton-loader [theme]="{
+                            width: '100%',
+                            'border-radius': '0',
+                            height: '10px'
+                            }"></ngx-skeleton-loader>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </ng-container>
+        <ng-template #swiperContent>
+            <ng-container *ngFor="let item of suggestedFriends;let i =index">
+
+                <ng-template swiperSlide>
+                    <div class="peopleYouMayknow my-2">
+                        <img (click)="navigatee(item?._id)" class="mainimg"
+                            [src]="item?.profilePhoto | gender :  item?.gender " alt="">
+                        <div class="px-2 py-3">
+                            <div class="overflow-hidden mb-2">
+                                <h2 (click)="navigatee(item?._id)" class="mainName">
+                                    {{item?.firstName | titlecase | slice : 0 : 12}}
+                                    {{item?.lastName | titlecase | slice : 0 : 12}}
+                                </h2>
+                            </div>
+                            <button [disabled]="followLoading" (click)="followOrUnFollow(item?._id)"
+                                class="follow">
+                                <i class="fas fa-user-plus"></i>
+                                <span class="mx-1"> Follow</span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </ng-template>
+    </swiper>
+    <div class="text-center mt-3">
+        <span class="text-primary font-weight-bold " style="cursor: pointer;"
+            routerLink="/peopleYouMayKnow">See All</span>
+    </div>
+</div>

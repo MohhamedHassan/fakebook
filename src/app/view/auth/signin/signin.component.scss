@@ -1,0 +1,38 @@
+.signin {
+ 
+ input {
+     &:focus {
+         border-color: #166FE5 !important;
+     }
+     background-color: white !important;
+     padding:10px !important;
+ }
+button.blue {
+    &:hover {
+        background-color: #166FE5 !important;
+    }
+    font-size: 18px !important;
+    background-color: #1877f2 !important;
+}
+
+}
+.left {
+    h1 {
+        font-size: 60px;
+        color:#166FE5;
+        font-weight: bold;
+    }
+    h2 {
+        font-size: 28px !important;
+    }
+}
+.fa-eye,.fa-eye-slash
+ {
+top:15px
+ }
+ .fa-exclamation-triangle {
+     position: absolute;
+     top: 15px;
+     right: 10px;
+     color: red;
+ }

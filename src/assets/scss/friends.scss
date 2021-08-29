@@ -1,0 +1,128 @@
+%overIMG {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right:0;
+    bottom: 0;
+    background-color: rgb(122 115 115 / 17%);
+ }
+ %profileOnHover {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    img.profile {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    button {
+        width: 100%;
+        background-color: #e4e6eb ;
+        border:none;
+        border-radius: 5px;
+        padding: 10px;
+        &:hover {
+            background-color: #D8DADF;
+        }
+    }
+ }
+ .borderAround {
+    border: 1px solid #edebeb;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    .overIMG {
+       position: relative;
+                border-radius: 10px;
+                overflow: hidden;
+                &:hover::after {
+                    @extend %overIMG;
+                }
+     img {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+     }
+    }
+    h2.userName {
+       &:hover {
+         text-decoration: underline;
+       }
+    }
+    .profileOnHover {
+       @extend %profileOnHover;
+       top: 56px;
+       .overIMG {
+           cursor: pointer;
+           position: relative;
+           border-radius: 50%;
+           overflow: hidden;
+           &:hover::after {
+               @extend %overIMG;
+           }
+       }
+    }
+    .fa-ellipsis-h {
+       padding:5px;
+       border-radius: 50%;
+       &:hover {
+           background:#D8DADF;
+       }
+    } 
+    h2{cursor: pointer;}
+ 
+ }
+ .parentOfSearch{
+    input {
+       background: #F0F2F5;
+       border: none;
+       border-radius: 30px;
+       padding: 6px 10px 6px 30px;
+       
+    }
+    i {
+       position: absolute;
+       left: 12px;
+       top: 8px;
+    }
+ }
+ .container.darkMode {
+    .bg-white {
+       color:#E4E6EB;
+       background-color: #242526 !important;
+    }
+    .borderAround {
+       border: 1px solid #424040;
+    }
+    .fa-ellipsis-h {
+       &:hover {
+          background-color: #3A3B3C;
+       }
+    } 
+   input {
+      &:hover {
+       background-color: #4E4F50;
+      }
+      color:#E4E6EB;
+    background-color: rgba(227, 227, 227, 0.1);
+   }
+   .profileOnHover {
+    box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px;
+    button {
+        background-color: rgb(227 227 227 / 10%);
+        color:#E4E6EB;
+        &:hover  {
+            background-color: #4E4F50;
+        }
+    }
+ }
+ }
+ ::ng-deep .postsLoadingg.darkMode .loader{
+    background-color: #323232 !important;
+    border: 1px solid #323232
+ }
+ 
+ 

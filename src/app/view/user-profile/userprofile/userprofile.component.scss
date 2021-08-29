@@ -1,0 +1,12 @@
+@import "src/assets/scss/user-visit-homePage.scss";
+ input::-webkit-file-upload-button {
+    cursor: pointer;
+  }
+  .mat-menu-item {
+    input {
+        @extend %inputt;
+    }
+}
+
+
+

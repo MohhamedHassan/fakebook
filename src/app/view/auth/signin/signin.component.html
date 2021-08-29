@@ -1,0 +1,61 @@
+<div style="min-height:100vh;background-color: #F0F2F5;overflow: hidden;"
+    class="d-flex justify-content-center align-items-center py-5">
+    <div class="container">
+        <div class="left row align-items-center">
+            <div class="col-md-7 mb-4">
+              <h1 class="mb-4">fakebook</h1>
+              <h2>fakebook helps you connect and share with the people in your life.</h2>
+            </div>
+            <div class="col-md-5">
+                <div class="signin p-4">
+                    <form [formGroup]='signinForm' (ngSubmit)='signin(signinForm.value)'>
+                    <div class="upperInputs">
+                    <div class="position-relative">
+                        <input 
+                        [style.border]='signinForm.controls.email?.errors != null && signinForm.controls.email.touched ? "1px solid red" : "1px solid #ccd0d5"'
+                        formControlName='email' type="email" class="w-100" placeholder="Email address">
+                        <i 
+                        *ngIf='signinForm.controls.email?.errors != null && signinForm.controls.email.touched'
+                        class="fas fa-exclamation-triangle"></i>
+                        <p
+                        *ngIf='signinForm.controls.email?.errors != null && signinForm.controls.email.touched'
+                        class="text-danger mb-2">Email is required.</p>
+                    </div>
+                    <div class="position-relative">
+                        <input  
+                        [style.border]='signinForm.controls.password?.errors != null && signinForm.controls.password.touched ? "1px solid red" : "1px solid #ccd0d5"'
+                        formControlName='password' [type]="textOrPassword ? 'password' : 'text'"
+                         class="w-100" placeholder="Password">
+                        <i class="fas" 
+                        (click)="textOrPassword = !textOrPassword"
+                       [class]='{
+                             "fa-eye": textOrPassword,
+                             "fa-eye-slash": !textOrPassword
+                       }'></i>
+                       <i
+                       *ngIf='signinForm.controls.password?.errors != null && signinForm.controls.password.touched'
+                       class="fas fa-exclamation-triangle"></i>
+                       <p
+                        *ngIf='signinForm.controls.password?.errors != null && signinForm.controls.password.touched'
+                        class="text-danger mb-2">Password is required.</p>
+                    </div>
+                    <p class="responseError  p-2 my-2" *ngIf='signinError'> {{signinError}}</p>
+                     <button 
+                     [disabled]='signinForm.invalid'
+                     type="submit" class="w-100 btn btn-primary blue font-weight-bold py-2">Log In</button>
+                     <button type="button" class="btn btn-success green w-100 py-2 mt-2" routerLink='/auth/signup' >Create New Account</button>
+                     <div *ngIf='signinErrorLoading' style="height:50px" class="text-center">
+                        <div class="lds-facebook">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                        </div>
+                  </div>
+                    </div>
+                </form>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+

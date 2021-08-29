@@ -1,0 +1,72 @@
+
+.parentOfSugg {
+   min-height: 100vh;
+   background-color: #F0F2F5;
+   overflow: hidden;
+   .peopleYouMayknow {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    background: white;
+   overflow: hidden;
+    .mainimg {
+        height: 150px;
+        width: 100%;
+        cursor: pointer;
+    }
+    .follow {
+        color: #216fdb;
+        background: #E7F3FF;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        &:hover {
+            background: #ccdef1;
+        }
+        span {font-size: large;}
+    }
+    
+    .mainName{width:1000px;cursor: pointer;}
+
+}
+}
+.parentOfSugg.darkMode {
+        color:#E4E6EB;
+        background-color: #242526 !important;
+        .bg-white {background: #242526 !important;}
+        .peopleYouMayknow {
+           
+            box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px;
+            background-color: #242526;
+            .follow {
+                color: #216fdb;
+                background-color: #263951;
+                &:hover {
+                    background: #3C4D63
+                }
+            }
+        }
+}
+::ng-deep .parentOfSugg.darkMode .loader{
+    background-color: #323232 !important;
+    border: 1px solid #323232
+}
+@media only screen and (max-width: 575px) {
+    .parentOfSugg{background: white;}
+    .parentOfSugg,.parentOfSugg.darkMode  {
+        .peopleYouMayknow {
+            box-shadow: none;
+            background: transparent;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            .mainimg {
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+            }
+            .follow{width: auto;}
+            .mainName {width: auto;}
+        }
+    } 
+ }

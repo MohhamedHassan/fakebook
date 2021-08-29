@@ -1,0 +1,353 @@
+%inputt {
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+ input::-webkit-file-upload-button {
+    cursor: pointer;
+  }
+  .mat-menu-item {
+    input {
+        @extend %inputt;
+    }
+}
+.bx {border-bottom:1px solid #cacaca}
+.coverImg {
+    height: 300px;
+    border: 1px solid #ededed;
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: #e7e7e7;
+    img {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .addCVR{
+        &:hover {
+            background-color: #e7e7e7;
+        }
+       
+        cursor: pointer;
+        background: #d8d6d6;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        position: absolute;
+        padding: 7px 10px;
+        font-weight: bold;
+        font-size: 15px;
+        bottom: 25px;
+        right: 25px;
+        border-radius: 5px;
+    
+       input {
+        @extend %inputt;
+       }
+    }
+
+    .ovr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,.5);
+        z-index: 1;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+.coverImg {
+    height: 250px;
+    .addCVR{
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 50%;
+        padding: 0;
+        font-size: 20px;
+        bottom: 60px;
+    }
+} 
+}
+
+.profileImg  {
+    .imgg{
+        width: 166px;
+        margin-top: -83px;
+        img {
+            width: 166px;
+            height: 166px;
+            border-radius: 50%;
+            border: 3px solid white;  
+            position: relative;
+            z-index:11
+        }
+    }
+  
+   .followersLength {
+       display: inline-block;
+       cursor: pointer;
+       &:hover {
+           text-decoration: underline;
+       }
+   }
+    .addprofileImg {
+        
+        &:hover {
+            background: #e7e7e7;
+        }
+        cursor: pointer;
+        position: absolute;
+        bottom: 15px;
+        right: 0;
+        z-index: 11;
+        background: #d8d6d6;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 35px;
+        font-size: 20px;
+   
+    }
+  
+    .ovr {
+        width: 100%;
+        height: 166px;
+        position: absolute;
+        background: rgba(0,0,0,.5);
+        top: 0;
+        left: 0;
+        z-index: 111;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    input {
+        @extend %inputt
+    }
+.pageItems {
+    li {
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid transparent;
+        cursor: pointer;
+         span {
+             font-size: 18px;
+             border-radius: 5px;
+             display: inline-block;
+             padding: 15px;
+         }
+     }
+     li:not(.active) span:hover  {
+         background-color: #F2F2F2;
+     }
+     .active {
+         border-bottom: 3px solid #1877f2;
+         color:#1877f2
+     }
+}
+ 
+ul.followersIMGS {
+   li {
+    > img {
+        width:40px;
+        height: 40px;
+        border-radius: 50%;
+        position: absolute;  
+        cursor: pointer;
+    }
+   
+   }
+   li:not(:last-of-type) > img{border-right: 2px solid white}
+    li:nth-of-type(6) {
+       > img {
+            left:145px;
+            z-index: 1;
+        }
+    }
+   li:nth-of-type(5) {
+    > img {
+        left:120px;
+        z-index: 2;
+    }
+   }
+   li:nth-of-type(4) {
+  >  img {
+        left:90px;
+        z-index: 3;
+    }
+   }
+   li:nth-of-type(3) {
+  >  img {
+        left:60px;
+        z-index: 4;
+    }
+   }
+   li:nth-of-type(2) {
+   > img {
+        left: 30px;
+        z-index: 5;
+    }
+   }
+   li:first-of-type {
+   > img {
+        left: 0;
+        z-index: 6;
+    }
+   }
+   .profileOnHover {
+    position: absolute;
+    left: -50px;
+    z-index: 10;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 300px;
+    top:37px;
+    img.profile {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    button {
+        width: 100%;
+        background-color: #e4e6eb ;
+        border:none;
+        border-radius: 5px;
+        padding: 10px;
+        &:hover {
+            background-color: #D8DADF;
+        }
+    }
+    img,h2 {cursor: pointer;}
+    .overIMG {
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        &:hover::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            right:0;
+            bottom: 0;
+            background-color: rgb(122 115 115 / 17%);
+        }
+    }
+}
+}
+}
+
+.btn-secondary
+{
+    background: transparent;
+    color: #1877f2;
+    border: none;
+    &:hover {
+        background-color: #E4E6E9;
+    }
+}
+.profile-down {
+    background-color: #F0F2F5;
+}
+.profile-down.darkMode {background-color: #18191A;}
+@media only screen and (max-width: 600px) {
+    .profileImg {
+        li {
+            span {
+                font-size: 15px;
+            }
+        }
+    }
+}
+    ::ng-deep .mat-menu-content{padding:0 !important}
+
+
+
+
+
+.bx.darkMode {
+    background-color: #242526;
+    border-bottom: 1px solid transparent;
+    .coverImg {
+        background-color: #171818;
+        border: 1px solid #171818;
+        border-top: none;
+    }
+    .addCVR {
+        &:hover {
+            background-color: #373839;
+        }
+        background-color: #414242;
+        color:#E7E9EC;
+    }
+.profileImg {
+    .imgg {
+        img { border: 3px solid #242526; }
+    }
+   
+    h1,h3,p {color:#E4E6EB;}
+    .profileOnHover {
+        background-color: #242526 !important;
+        color:#E4E6EB;
+        box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px;
+        button {
+            background-color: rgb(227 227 227 / 10%);
+            color:#E4E6EB;
+            &:hover  {
+                background-color: #4E4F50;
+            }
+        }
+    }
+}
+.addprofileImg {
+    &:hover {
+        background-color: #373839;
+    }
+    background-color: #414242;
+    color:#E7E9EC
+}
+hr {border-top: 1px solid rgb(235 235 235 / 10%);}
+.pageItems {
+    color: #B8BBBF;
+    li:not(.active) span:hover {
+        &:hover {
+        background-color: #3A3B3C;
+    }
+    }
+}
+ul.followersIMGS {
+    li:not(:last-of-type) > img{border-right: 2px solid #242526;}
+}
+}
+
+ ::ng-deep  .darkModeMenu
+{
+   background-color: #242526 !important;
+   box-shadow: rgb(249 233 233 / 24%) 0px 3px 15px;
+   .mat-menu-item {
+       color: #B8BBBF;
+       &:hover {background-color: #3A3B3C;}
+   }
+} 
+@media only screen and (max-width: 600px) {
+    .profileImg {
+        .pageItems {
+            li {
+                span {
+                    padding:10px;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}

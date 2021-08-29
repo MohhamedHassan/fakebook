@@ -1,0 +1,59 @@
+///////////// start intro section 
+i{margin-top: 4px;}
+.intro {
+    .bi {    
+        border-bottom: 1px solid #d0d0d0;
+        padding-bottom: 5px;
+    }
+    p {
+        background-color: #e4e6eb ;
+        cursor: pointer;
+        letter-spacing: 1px;
+        &:hover {
+            background-color: #D8DADF;
+        }
+    }
+     i {color: #8C939D;font-size: 20px;width: 25px;}
+    .cancell {
+        background-color: #F0F2F5;
+        &:hover {
+            background-color: #E4E6E9
+        }
+    }
+    .bioLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgb(239 239 239 / 50%);
+    z-index: 1;
+    .lds-ellipsis div {background-color: rgb(172, 171, 171);}
+    }
+  }
+  ///////////// end intro section
+  .darkModeClass.darkMode {
+    hr {border-top: 1px solid rgb(235 235 235 / 10%);}
+    .intro {
+        background-color: #242526 !important;
+        color:#E4E6EB;
+        p,textarea {
+            background-color: rgb(227 227 227 / 10%);
+            &:hover  {
+                background-color: #4E4F50;
+            }
+        }
+        textarea{
+            color:#E4E6EB;
+            border-color: transparent;
+        }
+        i {
+            color: #8C939D;
+        }
+        ::placeholder {color:#B8BBBF}
+    }
+
+}

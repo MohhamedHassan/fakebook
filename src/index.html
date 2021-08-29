@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fakebook</title>
+  <base href="./">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .dot-flashing {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1877F1;
+  color: #1877F1;
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: .5s;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1877F1;
+  color: #1877F1;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1877F1;
+  color: #1877F1;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+  0% {
+    background-color: #1877F1;
+  }
+  50%,
+  100% {
+    background-color: #ebe6ff;
+  }
+}
+
+  </style>
+</head>
+<body class="mat-typography">
+  
+  <app-root>
+   
+    <div 
+    class="d-flex justify-content-center align-items-center"
+    style="z-index: 111111111111111111;position: fixed;top: 0;left: 0;right: 0;bottom: 0">
+       <div>
+        <img 
+        style="width: 100px;
+        height: 100px;
+        border-radius: 50%;"
+        src="assets/mainLogo.png" alt="">
+        <div class="snippet justify-content-center d-flex mt-4" data-title=".dot-flashing">
+          <div class="stage">
+            <div class="dot-flashing"></div>
+          </div>
+        </div>
+       </div>
+       <h3 style="position: absolute;bottom: 15px;letter-spacing: 3px;
+       font-weight: bold;" class="text-secondary">FAKEBOOK</h3>
+    </div>
+  </app-root>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~swiper/swiper-bundle';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "src/assets/scss/animationLoading.scss";
+
+p,h2,h3{margin-bottom: 0 !important;}
+html {scroll-behavior: smooth;}
+*:focus {
+        outline: none;
+}
+* {word-break: break-word;}
+.paddinggx {
+  padding: 0 100px;
+}
+.sticky-top {z-index: 900 !important;}
+@media only screen and (max-width: 991px) {
+  .paddinggx {
+    padding: 0;
+  }
+ }
+.signUp,.signin
+{
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    .upperInputs {
+        input {
+        
+            background: #F5F6F7;
+            border: 1px solid #ccd0d5;
+            border-radius: 5px;
+            padding: 7px 10px;
+            margin-bottom: 10px;
+        }
+    }
+    button.green {    
+        &:hover {
+            background-color: #00a400 !important;
+        }
+        background-color:#42b72a !important;
+        font-weight: bold;font-size: 18px !important;
+        border-radius: 5px !important;
+    }
+}
+.fa-eye,.fa-eye-slash
+ {
+  position: absolute;
+  right: 35px;
+  cursor: pointer;
+ }
+ .responseError{
+  background-color: #BE4B49;
+  color: white;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgb(139 3 0 / 75%), 0 1px 10px rgb(0 0 0 / 35%);
+}
+
+/// start global
+
+.postsLoadingg.darkMode {
+    background-color: #242526 !important;
+}
+.smllProfileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+   /* width */
+   nav .searcContainer::-webkit-scrollbar,
+   .parentOfComments::-webkit-scrollbar,
+   textarea::-webkit-scrollbar , 
+   .parentOfimg::-webkit-scrollbar{
+     width: 10px
+   }
+   
+   /* Track */
+   nav .searcContainer::-webkit-scrollbar-track,
+   .parentOfComments::-webkit-scrollbar-track,
+   textarea::-webkit-scrollbar-track,
+     .parentOfimg::-webkit-scrollbar-track {
+     box-shadow: inset 0 0 5px rgb(223, 221, 221); 
+     border-radius: 10px;
+   }
+    
+   /* Handle */
+   nav .searcContainer::-webkit-scrollbar-thumb,
+   .parentOfComments::-webkit-scrollbar-thumb,
+   textarea::-webkit-scrollbar-thumb,
+   .parentOfimg::-webkit-scrollbar-thumb{
+     background: rgb(199, 199, 199); 
+     border-radius: 10px;
+   }
+   
+   /* Handle on hover */
+   nav .searcContainer::-webkit-scrollbar-thumb:hover,
+   .parentOfComments::-webkit-scrollbar-thumb:hover,
+   textarea::-webkit-scrollbar-thumb:hover,
+   .parentOfimg::-webkit-scrollbar-thumb:hover{
+     background: rgb(223, 221, 221);; 
+   }
+   .love {
+    color: #EE3050;
+}
+.sad {
+    color: #EAA82A;
+}
+.angry {
+    color: #DD6B0E;
+}
+.wow {
+    color: #EAA85F;
+}
+.haha {
+    color: #EAA823;
+}
+.like {
+    color: #0B86ED;
+}
+/// end global
+
+@media only screen and (max-width: 600px) {
+        .signUp {
+            width: 90% !important;
+            label {font-size: small;}
+        }
+        .modal-body {
+          ::placeholder {
+              font-size: 20px;
+          }
+      }
+      .add-post {
+          p {
+              font-size: small;
+          }
+      }
+    }
+    @media only screen and (min-width: 600px) and (max-width: 992px) {
+        .signUp {
+            width: 50% !important;
+        }
+    }
+    .inputsError {
+        
+             &::after {
+            font-family: "Font Awesome 5 Free" !important;
+            content: '\f06a' !important;
+            position: absolute !important;
+            right: 10px !important;
+            top: 8px !important;
+            color: #BE4B49 !important;
+            font-weight: 900 !important;
+          }
+          input {
+            border: 1px solid red !important;
+          }
+    }
+    .errorr  {
+      border: 1px solid red !important;
+    }
+
+      
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.fa-times:not(.signupp) {
+  background: #d8d6d6;
+  padding: 10px;
+  border-radius: 50%;
+  &:hover {
+      background-color: #E4E6E9
+  }
+}
+
+
+.bioo {
+  width: 100%;
+  background-color: #F0F2F5;
+  border: 1px solid #E4E6E9;
+  resize: none;
+  border-radius: 5px;
+  &:hover {
+      background-color: #E4E6E9
+  }
+}
+.popupDarkMode {
+  background-color: #242526 !important;
+  color: #E4E6EB;
+  textarea {
+    &:hover { background-color: #4E4F50 !important;}
+      color: #E4E6EB;
+      background-color: rgba(227, 227, 227, 0.1);
+      border: transparent;
+  }
+  .text-secondary{
+      color:#E4E6EB !important;
+  }
+  .toYourPost {
+      border: 1px solid #65676b !important;
+  }
+  .modal-header {border-bottom: 1px solid #65676b;}
+  i {
+    color: #E4E6EB !important;
+    background-color:#4E4F50  !important;
+    &:hover {background-color:rgba(227, 227, 227, 0.1)  !important;}
+  }
+  .photoIcon:hover {
+    &:hover {
+        background-color: #3A3B3C !important;
+    }
+}
+}
+.modal-backdrop.show {z-index: 111111111111111111;}
+.modal {z-index:11111111111}
+@media only screen and (max-width: 600px) {
+  .postss {
+      .options {
+         > li {
+              padding: 5px 10px !important;
+              font-size: 15px !important;
+          }
+      }
+  }
+}
+@media only screen and (max-width: 992px) {
+     
+  .profileOnHover , .timeOnHover {
+      display: none !important;
+  }
+    
+}
+
+.fa-paper-plane {
+    position: absolute;
+    top: 10px;
+    font-size: medium;
+}
+
+@media only screen and (max-width: 350px) {
+     
+  .reactions {
+      img {
+          width: 20px !important;
+      }
+  }
+     
+}

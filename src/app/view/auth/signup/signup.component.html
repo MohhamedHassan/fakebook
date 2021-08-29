@@ -1,0 +1,114 @@
+<style>
+      select { background-image: url("assets/arrowDown.png");}
+</style>
+<div style="min-height:100vh;background-color: #F0F2F5;overflow: hidden;"
+      class="d-flex justify-content-center align-items-center">
+      <div class="signUp py-4 position-relative">
+            <i class="fas fa-times signupp" routerLink='/auth/signin'></i>
+            <div class="px-3">
+                  <h2 class="font-weight-bold mb-1">Sign Up</h2>
+                  <p class="easy my-2">It's quick and easy.</p>
+            </div>
+            <hr>
+            <form [formGroup]='signUpForm' (ngSubmit)='signUp(signUpForm.value)'>
+                  <div class="px-3 pt-3 upperInputs">
+                        <div class="d-flex">
+                              <div class="position-relative w-50 mr-3"
+                                    [class.inputsError]='inputs.firstName.errors?.required && inputs.firstName.touched'>
+                                    <input (keyup)="showErrorMessage(firstErr,'firstName')"
+                                          (focus)="showErrorMessage(firstErr,'firstName')"
+                                          (blur)="hideErrorMessage(firstErr)" type="text" formControlName='firstName'
+                                          placeholder="First name" class=" w-100 ">
+                                    <p #firstErr class="errorBG m-0 d-none">What's your name?</p>
+                              </div>
+                              <div class="position-relative w-50 "
+                                    [class.inputsError]='inputs.lastName.errors?.required && inputs.lastName.touched'>
+                                    <input (keyup)="showErrorMessage(lastErr,'lastName')"
+                                          (focus)="showErrorMessage(lastErr,'lastName')"
+                                          (blur)="hideErrorMessage(lastErr)" type="text" formControlName='lastName'
+                                          placeholder="Surname" class="w-100">
+                                    <p #lastErr class="errorBG m-0 d-none">What's your surname name?</p>
+                              </div>
+                        </div>
+                        <div class="position-relative"
+                              [class.inputsError]='inputs.email.errors !== null && inputs.email.touched'>
+                              <input (keyup)="showErrorMessage(emailErr,'email')"
+                                    (focus)="showErrorMessage(emailErr,'email')" (blur)="hideErrorMessage(emailErr)"
+                                    type="email" formControlName='email' class="w-100" placeholder="Email address">
+                              <p #emailErr class="errorBG m-0 d-none">Enter a valid Email, You'll use this when you log in </p>
+                        </div>
+                        <div class="position-relative"
+                              [class.inputsError]='inputs.password.errors !== null && inputs.password.touched'>
+                              <input (keyup)="showErrorMessage(passErr,'password')"
+                                    (focus)="showErrorMessage(passErr,'password')" (blur)="hideErrorMessage(passErr)"
+                                    [type]="textOrPassword ? 'password' : 'text'"
+                                     formControlName='password' class="w-100" placeholder="New password">
+                              <i class="fas" 
+                               (click)="textOrPassword = !textOrPassword"
+                              [class]='{
+                                    "fa-eye": textOrPassword,
+                                    "fa-eye-slash": !textOrPassword
+                              }'></i>
+                              <p #passErr class="errorBG m-0 d-none">Enter at least six numbers or letters</p>
+                        </div>
+                  </div>
+                  <div class="px-3 pt-2 lowerInputs">
+                        <div class="d-flex mb-2 justify-content-between align-items-center">
+                              <p class="dateAndGender ">Date of birth <i class="fas fa-question-circle"></i></p>
+                              <i *ngIf='(inputs.day.errors?.required  && inputs.day.touched) ||
+                              (inputs.month.errors?.required  && inputs.month.touched) || 
+                              (inputs.year.errors?.required  && inputs.year.touched)' class="fas fa-exclamation-circle"
+                                    style="color: #BE4B49;padding-right:10px;"></i>
+                        </div>
+                        <div class="d-flex">
+                              <select [class.errorr]='(inputs.day.errors?.required  && inputs.day.touched)'
+                                    formControlName='day'>
+                                    <option value="">Day</option>
+                                    <option *ngFor="let day of daysOfBirth" [value]="day">{{day}}</option>
+                              </select>
+                              <select [class.errorr]='(inputs.month.errors?.required  && inputs.month.touched)'
+                                    formControlName='month'>
+                                    <option value="">Month</option>
+                                    <option *ngFor="let month of monthsOfBirth;let i = index" [value]="i+1">{{month}}
+                                    </option>
+                              </select>
+                              <select [class.errorr]='(inputs.year.errors?.required  && inputs.year.touched)'
+                                    formControlName='year'>
+                                    <option value="">Year</option>
+                                    <option *ngFor="let year of yearsOfBirth" [value]="year">{{year}}</option>
+                              </select>
+                        </div>
+                  </div>
+                  <div class="px-3 pt-3 lowerInputs">
+                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                              <p class="dateAndGender ">Gender <i class="fas fa-question-circle"></i></p>
+
+                        </div>
+                        <div class="d-flex labParent">
+                              <div class="labl">
+                                    <label>Female</label>
+                                    <input formControlName='gender' type="radio" name="gender" value="female">
+                              </div>
+                              <div class="labl">
+                                    <label>Male</label>
+                                    <input formControlName='gender' type="radio" name="gender" value="male">
+                              </div>
+                              <div style="width: 32%;"></div>
+                        </div>
+                  </div>
+                  <p class="responseError m-3 p-2" *ngIf='signupError'>{{signupError}}</p>
+                  <div class="text-center mt-4">
+                        <button [disabled]='signUpForm.invalid' type="submit" class="btn btn-success green">Sign Up</button>
+                        <div *ngIf='signupErrorLoading' style="height:50px">
+                              <div class="lds-facebook">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                              </div>
+                        </div>
+                  </div>
+
+
+            </form>
+      </div>
+</div>

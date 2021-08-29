@@ -1,0 +1,43 @@
+<div 
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="parentOfSearch">
+    <div class="container">
+        <div class="d-flex align-items-center py-3">
+            <i routerLink="/homePage" class="fas fa-arrow-left"></i>
+            <div class="position-relative mx-3 w-100">
+                <input (keyup)="clear(searchInput)" (keydown.enter)="searchForUsers(searchInput)" #searchInput type="search" placeholder="Search"> 
+                <i (click)="searchForUsers(searchInput)" class="fas fa-search"></i>
+            </div>
+        </div>
+        <ul class="list-unstyled m-0">
+            <li class="d-flex justify-content-center" *ngIf="searchLoading;else searchContent">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                </li>
+            <ng-template #searchContent>
+                <ng-container *ngIf="searchResult?.length;else noResult">
+                    <li 
+                    class="p-2 rounded-lg"  
+                    style="cursor: pointer;"
+                    [routerLink]="['/visit',item?._id]"
+                    *ngFor="let item of searchResult">
+                    <div class="d-flex align-items-center">
+                    <div>
+                        <img [src]="item?.profilePhoto | gender  :  searchResult?.gender" alt="">
+                    </div>
+                    <div class="mx-2">
+                        <p>
+                            {{item?.firstName | titlecase | slice : 0 : 12}}
+                            {{item?.lastName | titlecase | slice : 0 : 12}}
+                        </p>
+                    </div>
+                </div>
+                    </li>
+                </ng-container>
+                <ng-template #noResult>
+                    <li>No Result</li>
+                </ng-template>
+            </ng-template>
+            
+        </ul>
+    </div>
+</div>

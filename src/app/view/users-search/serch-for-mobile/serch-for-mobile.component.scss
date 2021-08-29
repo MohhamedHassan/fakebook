@@ -1,0 +1,40 @@
+.parentOfSearch {
+    min-height: 100vh;
+    input {
+        width: 100%;
+        background: #F0F2F5;
+        border: none;
+        padding: 10px 20px 10px 45px;
+        border-radius: 25px;
+    }
+    i {
+        font-size: large;
+    }
+    .fa-search {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+    }
+    li:not(:last-of-type) {
+        margin-bottom: 15px;
+    }
+    .lds-ring div {
+        width: 44px;
+        height: 44px;
+        margin: 8px;
+        border: 2px solid gray;
+        border-color: #c4c4c4 transparent transparent transparent;
+    }
+    img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+.parentOfSearch.darkMode {
+    background: #18191A;
+    color: #B8BBBF ;
+    input {background: #3A3B3C;color: #B8BBBF}
+    ::placeholder {color: #B8BBBF }
+}

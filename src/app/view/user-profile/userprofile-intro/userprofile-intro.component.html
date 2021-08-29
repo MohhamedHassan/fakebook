@@ -1,0 +1,77 @@
+
+<div 
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="darkModeClass"
+>
+<div class="  intro bg-white p-3 rounded-lg mb-3">
+    <h2 class="font-weight-bold">Intro</h2>
+    <!-- start Bio -->
+    <div class="d-none d-md-block">
+        <h3 *ngIf="userProfilesService.userProfile?.bio && !showBioTextArea" class="my-2 text-center">
+            {{userProfilesService.userProfile?.bio | titlecase}}</h3>
+        <div class="position-relative">
+            <div class="bioLoading" *ngIf="bioLoading">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <form [formGroup]="bioForm" (ngSubmit)="addBio(bioForm.value)" class="mb-3" *ngIf="showBioTextArea">
+                <textarea formControlName='bio' #bioo placeholder="Describe who you are" maxLength="101"
+                    (keyup)="remaining()" class="text-center p-2 bioo"></textarea>
+                <span class="d-block my-1 text-secondary text-right">{{101 - textAreaLength}} characters
+                    remaining</span>
+                <div class="d-flex">
+                    <button (click)="showBioTextArea=false" type="button"
+                        class=" cancell btn">Cancel</button>
+                    <button type="button" *ngIf="userProfilesService.userProfile?.bio"
+                        (click)="deleteBio()" type="button" class="mx-2 cancell btn">Remove</button>
+                    <button [disabled]="bioForm.invalid" type="submit"
+                        [class.mx-2]="!userProfilesService.userProfile?.bio"
+                        class=" btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+        <p *ngIf="!showBioTextArea" (click)="patchhValue();remaining();" class="  font-weight-bold rounded-lg p-2 text-center mb-3 mt-2">
+            <a>{{userProfilesService.userProfile?.bio ? 'Edit' : 'Add'}} Bio</a>
+        </p>
+    </div>
+    <!-- end Bio -->
+    <!-- start personal information -->
+    <h3 *ngIf="userProfilesService.userProfile?.work" class="my-2 d-flex ">
+        <i class="fas fa-briefcase"></i>
+        <span class="mx-2">
+            Works At 
+            <small class="font-weight-bold">
+                {{userProfilesService.userProfile?.work | titlecase}}
+            </small>
+        </span>
+    </h3>
+    <h3 *ngIf="userProfilesService.userProfile?.study" class="my-2 d-flex ">
+        <i class="fas fa-graduation-cap"></i>
+        <span class="mx-2">
+            Studied at <small class="font-weight-bold">
+                {{userProfilesService.userProfile?.study | titlecase}}
+            </small>
+        </span>
+    </h3>
+    <h3 *ngIf="userProfilesService.userProfile?.location" class="my-2 d-flex ">
+        <i class="fas fa-home"></i>
+        <span class="mx-2">
+            Lives In <small class="font-weight-bold">{{userProfilesService.userProfile?.location | titlecase }}</small>
+        </span>
+    </h3>
+    <h3 *ngIf="userProfilesService.userProfile?.socialCondition" class="my-2 d-flex ">
+        <i class="fas fa-heart"></i>
+        <span class="mx-2">
+            {{userProfilesService.userProfile?.socialCondition | titlecase}}
+        </span>
+    </h3>
+    <p routerLink='/myProfile/layout/about' class="font-weight-bold rounded-lg p-2 text-center"><a>Edit
+            Details</a></p>
+    <!-- end personal information -->
+</div>
+
+</div>

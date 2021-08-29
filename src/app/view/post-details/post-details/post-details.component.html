@@ -1,0 +1,468 @@
+<div class="parentOfPostss" 
+[class.darkMode]="userService.userProfile?.darkMode"
+>
+    <div  class="mx-auto my-5 postss bg-white py-2 rounded-lg mb-3">
+        <!-- start post animation while loading -->
+        <ng-container *ngIf="skeltonLoading;else postConetentt">
+            <div [class.darkMode]="userService.userProfile?.darkMode"
+                class="fb-item bg-white  postsLoadingg rounded-lg p-4 my-3">
+                <div class="first-section-wrapper d-flex align-items-center mb-3">
+                    <div class="gravatar ">
+                        <ngx-skeleton-loader appearance="circle"
+                         [theme]="{ width: '80px', height: '80px' }">
+                        </ngx-skeleton-loader>
+                    </div>
+                    <div class="gravatar-title mx-3">
+                        <div>
+                            <ngx-skeleton-loader [theme]="{
+                      width: '90%',
+                      'border-radius': '0',
+                      height: '15px',
+                      'margin-bottom': '10px'
+                    }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+                            <ngx-skeleton-loader
+                                [theme]="{ width: '70%', 'border-radius': '0', height: '15px' }">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+                <div class="second-section-wrapper">
+                    <div class="wrapper">
+                        <ngx-skeleton-loader [theme]="{
+                    width: '80%',
+                    'border-radius': '0',
+                    height: '15px',
+                    'margin-bottom': '10px'
+                  }"></ngx-skeleton-loader>
+                    </div>
+                    <div class="wrapper">
+                        <ngx-skeleton-loader [theme]="{
+                    width: '90%',
+                    'border-radius': '0',
+                    height: '15px',
+                    'margin-bottom': '10px'
+                  }"></ngx-skeleton-loader>
+                    </div>
+                    <div class="wrapper">
+                        <ngx-skeleton-loader [theme]="{
+                    width: '60%',
+                    'border-radius': '0',
+                    height: '15px',
+                    'margin-bottom': '10px'
+                  }"></ngx-skeleton-loader>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <!-- end post animation while loading -->
+     <!-- start post content -->
+       <ng-template #postConetentt>
+     
+        <div class="p-3 d-flex justify-content-between align-items-center">
+            <div (mouseleave)='profileOnHoverMain=false' class="d-flex  align-items-center ">
+                <div (mouseover)="profileOnHoverMain=true">
+                    <img 
+                    [routerLink]='["/visit",postDetails?.author?._id]'
+                    style="cursor: pointer;"
+                    class="smllProfileImg mr-3"
+                     [src]="postDetails?.author?.profilePhoto | gender  :  postDetails?.author?.gender" alt="">
+                </div>
+
+                <div>
+                    <div (mouseover)="profileOnHoverMain=true" (mouseleave)='profileOnHoverMain=false'>
+                        <h2 
+                        [routerLink]='["/visit",postDetails?.author?._id]'
+                        style="cursor: pointer;"
+                        class="userName">
+                            {{postDetails?.author?.firstName | titlecase |
+                            slice : 0 : 12}}
+                            {{postDetails?.author?.lastName | titlecase | slice : 0 : 12}}
+                        </h2>
+                        <div *ngIf="profileOnHoverMain" class=" profileOnHover bg-white rounded-lg p-3">
+                            <div class="d-flex align-items-center">
+                                 <div>
+                                    <div  
+                                    [routerLink]='["/visit",postDetails?.author?._id]'
+                                    style="cursor: pointer;"
+                                    class="overIMG">
+                                        <img class="profile" [src]="postDetails?.author?.profilePhoto | gender  : postDetails?.author?.gender" alt="">
+                                    </div>
+                                 </div>
+                                <div class="mx-3">
+                                    <h2
+                                    [routerLink]='["/visit",postDetails?.author?._id]'
+                                    style="cursor: pointer;"
+                                    class="mb-2">{{postDetails?.author?.firstName |
+                                        titlecase | slice : 0 : 12}}
+                                        {{postDetails?.author?.lastName | titlecase | slice
+                                        : 0 : 12}}</h2>
+                                    <p><i class="far fa-calendar-alt mr-2"></i> Born on
+                                        {{userService.userProfile?.birthDate |date}}</p>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="position-relative">
+                        <div class="timee d-inline-block">
+                            <small class="text-secondary ">{{postDetails?.updatedAt | date : 'medium'}}</small>
+                            <small class="timeOnHover">{{postDetails?.updatedAt | date :'medium'}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p 
+        *ngIf="postDetails?.content"
+        #elementt class="px-3  text-break">
+            {{postDetails?.content | text : i : seeMoreIndex | lang : elementt }}
+            <span *ngIf="postDetails?.content?.length>500" class="font-weight-bold text-secondary"
+                style="cursor: pointer;direction: inherit;"
+                (click)="seeMoreIndex = seeMoreIndex == i ? -1 : i">
+                {{seeMoreIndex == i ? 'See Less' : '... See more'}}</span>
+        </p>
+        <img *ngIf="postDetails?.image" [src]="postDetails?.image" alt="" class="w-100 mt-3">
+       </ng-template>
+      <!-- end post content -->
+      <!-- start comments section -->
+        <div class="postOptions px-3">
+            <div class="mt-3 d-flex justify-content-between align-items-center">
+                <div (click)="filterReactions='';reacionsModaClassIndex=-1;openReactionModal(reaction)"
+                style="cursor: pointer;" class="position-relative reactionsCount">                                             
+                            <img class="first" [src]="reactionPipe?.numOfLoves | mostReaction : reactionPipe?.numOfSads : reactionPipe?.numOfWows : reactionPipe?.numOfHahas : reactionPipe?.numOfAngrys : reactionPipe?.numOfLikes" alt="">
+                            <img #secondIMG  class="last" [src]="reactionPipe?.numOfLoves | secondReaction: reactionPipe?.numOfSads : reactionPipe?.numOfWows : reactionPipe?.numOfHahas : reactionPipe?.numOfAngrys : reactionPipe?.numOfLikes  : secondIMG" alt=""> 
+                            <span  
+                            *ngIf="reactionPipe?.numOfReactions">
+                            {{reactionPipe?.numOfReactions}}</span>   
+                                              
+            </div>  
+                    <p 
+                    *ngIf="postComments?.length"
+                     >
+                    {{postComments?.length}} 
+                    {{postComments?.length==1 ? "Comment" : "Comments"}}
+                </p>
+            </div>
+            <ng-container *ngIf="!commentsLoading">
+                <div class="position-relative">
+                    <ul class="options list-unstyled d-flex justify-content-center my-3">
+                        <li (mouseover)="showParentOfReactionsOnHover(parentOfReactions)"
+                                                (mouseleave)="hideParentOfReactionsOnHover(parentOfReactions)"
+                                                class="showReactions">
+                                                <div class="userReact">
+                                                    <div *ngIf="!reactionPipe?.myReaction?.length;else reactionFound">
+                                                        <i class="far fa-thumbs-up"></i> <span class="mx-2">Like</span>
+                                                    </div>
+                                                    <ng-template #reactionFound>
+                                                        <ng-container *ngFor="let itemm of reactions">
+                                                            <div *ngIf="reactionPipe?.myReaction[0]?.reaction==itemm?.reaction"
+                                                                class="d-flex justify-content-center">
+                                                                <img [src]="'assets/'+itemm?.reaction+'.png'">
+                                                                <span [class]="itemm?.reaction" class="mx-2">
+                                                                    {{itemm.reaction | titlecase}}</span>
+                                                            </div>
+                                                        </ng-container>
+                                                    </ng-template>
+                                                </div>
+                                                <div #parentOfReactions class="hideParentOfReactions parentOfReactions">
+                                                    <ul class="reactions bg-white p-1 d-flex list-unstyled ">
+                                                        <li 
+                                                         (click)="makeReaction(item?.reaction,parentOfReactions)"
+                                                        *ngFor="let item of reactions">
+                                                            <img [src]="item?.imgSrc" alt="">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                        <li
+                        (click)="textarea.focus()"
+                        >
+                            <i class="far fa-comment-alt "></i> 
+                            <span class="mx-2">Comment</span>
+                        </li>
+                    </ul>
+                </div>
+            
+                    <div  class="d-flex align-items-center">
+                        <img
+                        [src]="userService.userProfile?.profilePhoto | gender  : userService.userProfile?.gender" alt="">
+                          <div class="position-relative w-100">
+                            <i 
+                            style="right: 10px;"
+                            (click)="makeAComment($event,addCommentInput,postDetails?._id)"
+                            class="mx-2 fas fa-paper-plane text-primary d-md-none"></i>
+                                <textarea
+                            #textarea
+                            (keydown.enter)="makeAComment($event,addCommentInput,postDetails?._id)"
+                           (input)="textAreaHeightAuto(addCommentInput)"
+                           rows=1
+                            #addCommentInput type="text" class="mx-2" placeholder="Write a comment..."></textarea>
+                          </div>
+                        
+                    </div>
+            </ng-container> 
+                <div class="parentOfComments mt-2">
+                    <ul  class="comments list-unstyled my-2">
+                        <ng-container *ngIf="commentsLoading;else commentsConetent">
+                             <li>
+                                <div [class.darkMode]="userService.userProfile?.darkMode"
+                                class="fb-item bg-white postsLoadingg rounded-lg">
+                                <div class="first-section-wrapper d-flex align-items-center mb-3">
+                                    <div class="gravatar ">
+                                        <ngx-skeleton-loader appearance="circle" [theme]="{
+                                                'width': '32px',
+                                                'height': '32px',
+                                                'margin':'0'
+                                            }">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <div class="gravatar-title mx-3">
+                                        <div>
+                                            <ngx-skeleton-loader [theme]="{
+                                      width: '200px',
+                                      'border-radius': '0',
+                                      height: '5px',
+                                      'margin-bottom': '5px'
+                                    }"></ngx-skeleton-loader>
+                                        </div>
+                                        <div>
+                                            <ngx-skeleton-loader
+                                                [theme]="{ width: '170px', 'border-radius': '0', height: '5px' }">
+                                            </ngx-skeleton-loader>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             </li>
+                             <li>
+                                <div [class.darkMode]="userService.userProfile?.darkMode"
+                                class="fb-item bg-white postsLoadingg rounded-lg">
+                                <div class="first-section-wrapper d-flex align-items-center mb-3">
+                                    <div class="gravatar ">
+                                        <ngx-skeleton-loader appearance="circle" [theme]="{
+                                                'width': '32px',
+                                                'height': '32px',
+                                                'margin':'0'
+                                            }">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <div class="gravatar-title mx-3">
+                                        <div>
+                                            <ngx-skeleton-loader [theme]="{
+                                      width: '200px',
+                                      'border-radius': '0',
+                                      height: '5px',
+                                      'margin-bottom': '5px'
+                                    }"></ngx-skeleton-loader>
+                                        </div>
+                                        <div>
+                                            <ngx-skeleton-loader
+                                                [theme]="{ width: '170px', 'border-radius': '0', height: '5px' }">
+                                            </ngx-skeleton-loader>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             </li>
+                        </ng-container>
+                        <ng-template #commentsConetent>
+                            <ng-container *ngIf="postComments?.length;else noCommentsYet">
+                                <li 
+                            *ngFor="let comment of postComments;let i = index"
+                            class="d-flex">
+                         <div  (mouseleave)="profileOnHoverForCommentsIMG=-1" class="position-relative">
+                            <img 
+                            (mouseover)="profileOnHoverForCommentsIMG=i"
+                           
+                            [routerLink]="['/visit',comment?.user?._id]"
+                            style="cursor: pointer;"
+                            [src]="comment.user?.profilePhoto | gender :  comment.user?.gender"
+                            alt="">
+                            <div *ngIf="profileOnHoverForCommentsIMG == i" class=" profileOnHover bg-white rounded-lg p-3">
+                                <div class="d-flex align-items-center">
+                                   <div>
+                                    <div  
+                                    [routerLink]="['/visit',comment?.user?._id]"
+                                    style="cursor: pointer;"
+                                    class="overIMG">
+                                        <img class="profile" 
+                                        [src]="comment?.user?.profilePhoto | gender  : comment?.user?.gender" alt="">
+                                    </div>
+                                   </div>
+                                    <div class="mx-3">
+                                        <h2
+                                        [routerLink]="['/visit',comment?.user?._id]"
+                                        style="cursor: pointer;"
+                                        class="mb-2">
+                                        {{comment?.user?.firstName |
+                                            titlecase | slice : 0 : 12}}
+                                            {{comment?.user?.lastName | titlecase | slice
+                                            : 0 : 12}}
+                                        </h2>
+                                        <p><i class="far fa-calendar-alt mr-2"></i> Born on
+                                            {{comment?.user?.birthDate |date}}</p>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                         <ng-container *ngIf="editCommentIndex == i;else commentContent">  
+                            <div class="w-100" >
+                              <div class="position-relative w-100">
+                                <i 
+                                style="right: 10px;"
+                                (click)="updateComment(comment?._id,editCommentInpu.value,$event)"
+                                class="mx-2 fas fa-paper-plane text-primary d-md-none"></i>
+                                <textarea
+                                style="height:32px !important"
+                                class="mx-2"
+                                #editCommentInpu
+                                (input)="textAreaHeightAuto(editCommentInpu)"
+                                (focus)="enterESCtoCancel=true"
+                                (blur)="enterESCtoCancel=false"
+                                (keydown.esc)="editCommentIndex=-1" 
+                                (keydown.enter)="updateComment(comment?._id,editCommentInpu.value,$event)"
+                                placeholder="Write a comment...">{{comment?.comment | lang : editCommentInpu}}</textarea>                            
+                              </div>
+                            <small class="mx-2"><span class=" d-none d-md-inline" *ngIf="enterESCtoCancel">Press Esc To </span> <span class="text-primary"
+                                 style="cursor: pointer;" 
+                                 (click)="editCommentIndex=-1"
+                                 >cancel</span>.</small>
+                            </div>
+                     </ng-container>
+                     <ng-template #commentContent>
+                        <div class="mx-2">
+                            <div class="commnetContent">
+                                <div class="d-flex">
+                                    <p 
+                                    (mouseover)="profileOnHoverForComments=i"
+                                    (mouseleave)="profileOnHoverForComments=-1"
+                                    [routerLink]="['/visit',comment?.user?._id]"
+                                    style="cursor: pointer;"
+                                    class="font-weight-bold position-relative">
+                                        {{comment.user?.firstName | titlecase | slice : 0 : 12}}
+                                        {{comment.user?.lastName | titlecase | slice : 0 : 12}}
+                                        <ng-container>
+                                            <div *ngIf="profileOnHoverForComments == i" class=" profileOnHover bg-white rounded-lg p-3">
+                                                <div class="d-flex align-items-center">
+                                                   <div>
+                                                    <div  
+                                                    [routerLink]="['/visit',comment?.user?._id]"
+                                                    style="cursor: pointer;"
+                                                    class="overIMG">
+                                                        <img class="profile" 
+                                                        [src]="comment?.user?.profilePhoto | gender  :comment?.user?.gender" alt="">
+                                                    </div>
+                                                   </div>
+                                                    <div class="mx-3">
+                                                        <h2
+                                                        [routerLink]="['/visit',comment?.user?._id]"
+                                                        style="cursor: pointer;"
+                                                        class="mb-2">
+                                                        {{comment?.user?.firstName |
+                                                            titlecase | slice : 0 : 12}}
+                                                            {{comment?.user?.lastName | titlecase | slice
+                                                            : 0 : 12}}</h2>
+                                                        <p><i class="far fa-calendar-alt mr-2"></i> Born on
+                                                            {{comment?.user?.birthDate |date}}</p>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          </ng-container>
+                                          
+                                    </p>
+                                    
+                                    <i 
+                                    [matMenuTriggerFor]="EditComment" 
+                                    *ngIf="comment?.user?._id == userService.userProfile?._id"
+                                    class=" fas fa-ellipsis-h mx-2" style="cursor: pointer;"></i>
+                                    <mat-menu #EditComment="matMenu">
+                                        <div [class.darkModeMenu]="userService.userProfile?.darkMode">
+                                            <button mat-menu-item (click)="editCommentIndex = i;resizeTextArea()">
+                                                Edit 
+                                            </button>
+                                            <button
+                                              (click)="deleteComment(comment?._id,comment?.post)"
+                                                mat-menu-item>
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </mat-menu>
+                                </div>
+                                <p #commentP>{{comment?.comment | lang : commentP}}</p>
+                            </div>
+                            <div class="position-relative">
+                                <div class="timee d-inline-block">
+                                    <small class="text-secondary ">{{comment?.createdAt | date : "medium"}}</small>
+                                    <small class="timeOnHover">{{comment?.createdAt | date :'medium'}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                            </li>
+                            </ng-container>
+                             <ng-template #noCommentsYet>
+                                 <li>No Comments Yet</li>
+                             </ng-template>
+                        </ng-template>
+                    </ul>
+                </div>
+        </div>
+          <!-- end comments section -->
+    </div>
+
+</div>
+<ng-template #reaction>
+    <div class="parentOfReactionsModal" [class.popupDarkMode]="userService.userProfile?.darkMode">
+        <div class="modal-header">
+            
+<swiper  [config]="reactionSwiper">
+ 
+    <ng-template swiperSlide>
+        <div style="cursor: pointer;text-align:center;" class="p-2"
+         [class.like]="filterReactions==''"
+        (click)="filterReactions='';reacionsModaClassIndex=-1">All</div>
+    </ng-template>
+    <ng-container *ngFor="let item of sortReaction;let i = index">
+        <ng-template swiperSlide>
+                <div 
+                style="cursor: pointer;text-align: center;"
+                (click)="filterReactions=item?.reactionImg;reacionsModaClassIndex=i"
+                    [ngClass]="reacionsModaClassIndex==i ?  item?.reactionImg :  ''"
+                    class="d-flex align-items-center p-2" >
+                    <img style="width: 20px;height: 20px;margin: 0 5px;" [src]="'assets/'+item?.reactionImg+'.png'"
+                        alt="">
+                    <p>{{item?.length}}</p>
+                </div>
+        </ng-template>
+    </ng-container>
+
+</swiper>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body parentOfimg reactionsModal">
+            <ul class="list-unstyled">
+                <li class="mb-3" *ngFor="let item of postReactions | reactionType : filterReactions">
+                    <div class="d-flex align-items-center">
+                        <div class="position-relative">
+                            <img style="cursor: pointer;" (click)="modalRef.hide()"
+                                [routerLink]="['/visit',item?.user?._id]" class="mainIMG"
+                                [src]="item?.user?.profilePhoto | gender : item?.user?.gender" alt="">
+                            <img [src]="'assets/'+item?.reaction+'.png'" class="reactionImg" alt="">
+                        </div>
+                        <h3 (click)="modalRef.hide()" style="cursor: pointer;" [routerLink]="['/visit',item?.user?._id]"
+                            class="mx-3">
+                            {{item?.user?.firstName | titlecase | slice : 0 : 12}}
+                            {{item?.user?.lastName | titlecase | slice : 0 : 12}}
+                        </h3>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-template>

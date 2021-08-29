@@ -1,0 +1,222 @@
+<nav 
+id="nav"
+*ngIf="authService.isLogin()"
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="bg-white">
+    <div class="container-fluid">
+        <div class="px-3 pt-2 d-flex d-md-none justify-content-between align-items-center">
+            <i routerLink="/search" class="fas fa-search"></i>
+            <h2 class="text-primary">Fakebook</h2>
+        </div>
+        <div class="d-flex ju justify-content-between align-items-center">
+            <div class="mainLogo d-none d-md-flex align-items-center">
+                <img routerLink="/homePage" src="assets/mainLogo.png" alt="">
+                <div class="position-relative mx-2">
+                    <div class="position-relative">
+                        <input #searcValue 
+                        (blur)="cloaseSearcConatiner(searcValue)"
+                        (keydown.enter)="searchForUsers(searcValue)"
+                        (keydown.esc)="showSearchContainer=false"
+                        (keyup)="cleartheInput(searcValue)"
+                         type="search" placeholder="Search Fakebook">
+                        <i  class="fas fa-search"></i>
+                    </div>
+                    <div class="searcContainer" *ngIf="showSearchContainer">
+                       <ul class="list-unstyled m-0">
+                           <li class="d-flex justify-content-center" *ngIf="searchLoading;else searchContent">
+                               <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            </li>
+                          <ng-template #searchContent>
+                            <ng-container *ngIf="searchResult.length;else noResult">
+                                <li 
+                                class="p-2 rounded-lg"  
+                                style="cursor: pointer;"
+                                [routerLink]="['/visit',item?._id]"
+                                *ngFor="let item of searchResult">
+                                <div class="d-flex align-items-center">
+                                 <div>
+                                     <img [src]="item?.profilePhoto | gender  : searchResult?.gender" alt="">
+                                 </div>
+                                 <div class="mx-2">
+                                     <p>
+                                        {{item?.firstName | titlecase | slice : 0 : 12}}
+                                        {{item?.lastName | titlecase | slice : 0 : 12}}
+                                     </p>
+                                 </div>
+                             </div>
+                                </li>
+                            </ng-container>
+                             <ng-template #noResult>
+                                <li class="p-2 rounded-lg">No Result</li>
+                             </ng-template>
+                          </ng-template>
+                          
+                       </ul>
+                    </div>
+                
+                </div>
+            </div> 
+            <ul class="order-2 order-md-1 list-unstyled d-flex m-0 pageItems">
+                <li  routerLinkActive="active" routerLink="/homePage">
+                    <i class="bi bi-house-door"></i>
+                </li>
+                <li  routerLinkActive="active" routerLink="/peopleYouMayKnow">
+                    <i class="bi bi-people"></i>
+                </li>
+            </ul>
+            <ul class="order-1 order-md-2 list-unstyled d-flex align-items-center m-0 rightUL">
+                <li 
+                routerLinkActive="active" routerLink="/myProfile"
+                class="img d-none d-md-flex align-items-center">
+                    <img [src]="userProfilesService.userProfile?.profilePhoto | gender  : userProfilesService.userProfile?.gender" alt="">
+                    <span  class="mx-2 userNameSpan">
+                        {{userProfilesService?.userProfile?.firstName  | titlecase | slice : 0 : 12}}
+                    </span>
+                </li>
+                <li 
+               (click)="getMyNotifications()"
+                mat-button [matMenuTriggerFor]="notifications"
+                class="order-2 bell notificationsForLargeScreen order-md-1 position-relative">
+                     <small *ngIf="userProfilesService?.myNotifications?.length"
+                      class="counter">
+                      {{userProfilesService?.myNotifications?.length}}
+                    </small>
+                        <i class="fas fa-bell"></i>
+                        <mat-menu 
+                        class="test"
+                        
+                        #notifications="matMenu">
+                         <div 
+                         [class.darkModeNotification]="userProfilesService.userProfile?.darkMode"
+                         class="notificationsMenuee" >
+                            <h2 mat-menu-item class="font-weight-bold">Notifications</h2>
+                            <ng-container  *ngIf="!userProfilesService?.myNotifications?.length;else notificationsContent">
+                                <p mat-menu-item>No Notifications</p>
+                            </ng-container>
+                            <ng-template #notificationsContent>
+                                <button
+                                (click)="openNotification(item?._id,item?.post)"
+                                mat-menu-item
+                                  *ngFor="let item of userProfilesService?.myNotifications"
+                                >
+                                   <div class="d-flex align-items-center">
+                                       <div class="position-relative">
+                                           <img [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
+                                           <i *ngIf="item?.type=='comment';else react" class="fas fa-comment-alt nav"></i>
+                                         <ng-template #react>
+                                            <img class="notificationImg" [src]="'assets/'+item?.type+'.png'" alt="">
+                                         </ng-template>
+                                         
+                                       </div>
+                                       <div class="ml-3">
+                                          <strong>
+                                            {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
+                                          </strong> {{item?.type=="comment" ? "Cmomented on" : "Reacted to"}} your post <br> <small> {{item?.createdAt | date }}</small>
+                                       </div>
+                                   </div>
+                                </button>
+                            </ng-template>                    
+                         </div>
+                           
+                          </mat-menu>
+                </li>
+                <li routerLink="/notifications" class="order-2 bell notificationsForMobile order-md-1 position-relative">
+                    <small *ngIf="userProfilesService?.myNotifications?.length"
+                    class="counter">
+                    {{userProfilesService?.myNotifications?.length}}
+                  </small>
+                    <i class="far fa-bell"></i>
+                </li>
+               <li class="order-1 order-md-2 pt-md-1" [matMenuTriggerFor]="navbar">
+                <i class="d-none d-md-block bi bi-caret-down-fill"></i>
+                <i class="d-md-none fas fa-bars"></i>
+               </li>
+               <mat-menu 
+               
+               #navbar="matMenu">
+                <div
+                class="p-2 navBarMenu"
+                [class.darkMode]="userProfilesService.userProfile?.darkMode"
+                >
+                <button mat-menu-item>
+                  <div class="d-flex py-2" routerLink="/myProfile">
+                      <div class="mr-3">
+                        <img [src]="userProfilesService.userProfile?.profilePhoto | gender  :  userProfilesService.userProfile?.gender" alt="">
+                      </div>
+                      <div>
+                          <h2 class="m-0">
+                            {{userProfilesService?.userProfile?.firstName  | titlecase | slice : 0 : 12}}
+                            {{userProfilesService?.userProfile?.lastName  | titlecase | slice : 0 : 12}}
+                          </h2>
+                          <span class="text-secondary">See your profile</span>
+                      </div>
+                  </div>
+                </button>
+                 <button  mat-menu-item  routerLink="/myProfile/layout/about">                         
+                    <i class="fas fa-cog"></i>   <span class="mx-3">Settings</span>  
+
+                 </button>
+             <button mat-menu-item
+             (click)="darkModeToggle()"
+             >
+                <i class="fas fa-moon"></i> 
+                <span class="mx-3">Dark Mood</span>  
+                <mat-slide-toggle [class.mat-checked]="userProfilesService.userProfile?.darkMode" ></mat-slide-toggle>
+             </button>
+             <button 
+             (click)="logOut()"
+             mat-menu-item>
+                <i class="fas fa-sign-out-alt"></i> <span class="mx-3">Log Out</span> 
+             </button>
+                </div>
+             
+                  </mat-menu>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div [class.marginn]="authService.isLogin()">
+    <router-outlet></router-outlet>
+</div>
+<div
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="notification" *ngIf="commentService.showNotification">
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+           <h3 class="m-0"><strong>New notification</strong></h3>
+           <i 
+           (click)="commentService.showNotification=false"
+           style="cursor: pointer;" class="fas fa-times"></i>
+    </div>
+    <div class="d-flex align-items-center" 
+    (click)="commentSound()"
+    style="cursor: pointer;">
+        <div class="mb-0 commentOrReaction">
+            <div style="width: 60px;" class="mx-auto position-relative">
+                <img 
+                class="userImg"
+                [src]="commentService.ownerOfTheComent?.profilePhoto | gender : commentService.ownerOfTheComent?.gender"
+                alt="">
+                <i *ngIf="commentService.commenrOrReact == 'comment';else reactionTemplate" class="fas fa-comment-alt"></i> 
+              <ng-template #reactionTemplate>
+                     <img [src]="reactImgSrc" alt=""> 
+              </ng-template>
+              
+            </div>
+        </div>
+        <div class="mx-3">
+            <p>
+                <strong>
+                    {{commentService.ownerOfTheComent?.firstName | titlecase | slice : 0 : 12}}
+                </strong> 
+                {{commentService.commenrOrReact == 'comment' ? 'Commented' : 'Reacted'}} on your post</p>
+            <p class="d-none d-md-block text-primary">a few seconds ago</p>
+        </div>
+    </div>
+    <div class="d-none d-md-block sign bg-primary"></div>
+</div> 
+<div *ngIf="darkModeLoading" class="darkModeLoading">
+    <div class="text-center">
+        <i style="font-size: 50px;" class="mb-2 text-white fas fa-moon"></i>
+        <h2 class="text-white">Loading</h2>
+    </div>
+</div>

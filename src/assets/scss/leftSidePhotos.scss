@@ -1,0 +1,95 @@
+@import "src/assets/scss/placeholder.scss";
+///////////// stat photos section
+.photos {
+    h2 {
+        border-bottom: 1px solid transparent;
+        line-height: 1;
+        cursor: pointer;
+    }
+    .namee{border-bottom: 1px solid transparent}
+    h2.main,.namee {
+        &:hover {
+            border-bottom: 1px solid black;
+        }
+    } 
+    a {
+        color:#216fdb;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 17px;
+        &:hover {
+            background-color: #F2F2F2;
+        }
+    }
+    .parentOfFollowing {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom:5px;
+        &:hover::after {
+           @extend %overIMG;
+        }
+        .followImg {
+            width: 100%;
+            border-radius: 10px;
+            height: 100px;
+            position: relative;
+        }
+    }
+   
+    .profileOnHover {
+        @extend %profileOnHover;
+        width: 300px;
+        top:130px;
+        img,h2 {cursor: pointer;}
+        .overIMG {
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            &:hover::after {
+                @extend %overIMG;
+            }
+        }
+    }
+  }
+  ////////////  end photos section
+  .darkModeClass.darkMode {
+    hr {border-top: 1px solid rgb(235 235 235 / 10%);}
+    .intro {
+        background-color: #242526 !important;
+        color:#E4E6EB;
+        p,textarea {
+            background-color: rgb(227 227 227 / 10%);
+            &:hover  {
+                background-color: #4E4F50;
+            }
+        }
+        textarea{
+            color:#E4E6EB;
+            border-color: transparent;
+        }
+        i {
+            color: #8C939D;
+        }
+        ::placeholder {color:#B8BBBF}
+    }
+    .photos {
+        background-color: #242526 !important;
+        color:#E4E6EB;
+        h2.main,.namee {
+            &:hover {
+                border-bottom: 1px solid #E4E6EB;
+            }
+        }
+        a {
+            &:hover {
+                background-color: #3A3B3C;
+            }
+        }
+    }
+    .profileOnHover {
+        @extend %profileOnHoverDarkMode;
+      }
+
+}

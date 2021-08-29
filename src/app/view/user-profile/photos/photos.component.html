@@ -1,0 +1,43 @@
+<div
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="container photosSection">
+    
+    <div class="paddinggx">
+        <div class="row bg-white mb-5 mx-md-0 p-3 rounded-lg">
+            <div class="col-md-12 mb-3">
+                <h2 class="font-weight-bold m-0">Photos</h2>
+            </div>
+            <ng-container *ngIf="userProfilesService.skeltonLoadingForPhotos;else content">
+                <div 
+                *ngFor="let item of loadingCount"
+                class="col-sm-3 mb-4">
+                    <div
+                    [class.darkMode]="userProfilesService.userProfile?.darkMode"
+                    class="item bg-white postsLoadingg">
+                        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{
+                    width: '100%',
+                    height: '160px',
+                    'border-radius': '10px'
+                  }">
+                        </ngx-skeleton-loader>
+                    </div>
+                </div>
+             </ng-container>
+             <ng-template #content>
+            <ng-container *ngIf="userProfilesService.photos.length;else noPhotos">
+                    <div class="col-6 col-sm-4 col-md-3 mb-4" *ngFor="let item of userProfilesService.photos">
+                        <div>
+                          <img [src]="item" class="w-100" alt="">
+                        </div>
+                    </div>
+                </ng-container>
+            <ng-template #noPhotos>
+                <h2 class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
+                    No Photos To Show
+                </h2>
+            </ng-template>
+        </ng-template>
+            
+        </div>
+    </div>
+</div>

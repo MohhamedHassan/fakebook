@@ -1,0 +1,51 @@
+.profilePhotos {
+    height:100vh;
+    background: black;
+    .fa-redo-alt,.fa-times,.fa-trash-alt {
+        position: absolute;
+        color: white;
+        text-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+        background: rgba(0,0,0,.5);
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        z-index: 111;
+    }
+    .fa-times{top: 40px;right: 35px;font-size: 25px;}
+    .fa-redo-alt{top: 40px;right: 75px;font-size: 25px;}
+    .fa-trash-alt{top: 35px;right: 35px;font-size: 15px;}
+}
+::ng-deep {
+    img {
+        height: 100vh;
+    }
+    .carousel-indicators{display: none;}
+    .icon-next,.icon-prev {
+        background-image: none;
+        &:after {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 600;
+            box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+            background: gray;
+            color: black;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            position: absolute;
+        }
+    }
+    .icon-next {&:after {content: "\f054";right: 45px;}}
+    .icon-prev {&:after {content: "\f053";left: 45px;}}
+}
+.profilePhotosWidth {width: 50%;}
+@media only screen and (max-width: 600px) {
+    .profilePhotosWidth {
+        width: 95%;
+    }
+    .fa-trash-alt
+    {
+        top: 40px !important;
+        right:unset !important;
+        left: 40px !important;
+    }
+}

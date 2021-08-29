@@ -1,0 +1,40 @@
+@import "src/assets/scss/user-visit-homePage.scss";
+.parentOfHomePage {
+    min-height: 100vh;
+    background-color: #F0F2F5;
+    .profileOnHover h2{cursor: pointer;}
+}
+.parentOfHomePage.darkMode {
+    background-color: #18191A;
+    .bg-white {background: #242526 !important;}
+    .noMorePosts{
+        color: #B8BBBF  !important;
+        .text-secondary {color: #B8BBBF  !important;}
+    }
+}
+// ::ng-deep .parentOfHomePage.darkMode .loader{
+//    @extend %darkmodeLoader;
+// }
+@media only screen and (max-width: 600px) {
+    .parentOfHomePageContainer {
+        width: 95%;
+    }
+    .add-post {
+        p {
+            font-size: small !important;
+        }
+     }
+}
+
+@media only screen and (min-width: 600px) {
+    .parentOfHomePageContainer {
+        width: 60%;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .parentOfHomePageContainer {
+        width: 40%;
+    }
+}
+::ng-deep .gravatar-title{width: 100%;}
+.fa-paper-plane {right: 15px;}
