@@ -4,11 +4,11 @@
   <div class="profilePhotosWidth mx-auto">
     <carousel [interval]="0">
         <slide *ngIf="visituser?.userProfile?.profilePhoto">
-            <img [src]="visituser?.userProfile?.profilePhoto" alt="first slide" style="display: block; width: 100%;">
+            <img class="vhIMG" [src]="visituser?.userProfile?.profilePhoto" alt="first slide" style="display: block; width: 100%;">
         </slide>
      <ng-container *ngIf="visituser?.userProfile?.previousProfilePhotos?.length">
         <slide *ngFor="let item of visituser?.userProfile?.previousProfilePhotos">
-                <img [src]="item?.profilePhoto" alt="second slide" style="display: block; width: 100%;">
+                <img class="vhIMG" [src]="item?.profilePhoto" alt="second slide" style="display: block; width: 100%;">
           </slide>
      </ng-container>
       </carousel>
