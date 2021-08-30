@@ -131,14 +131,14 @@ class SignupComponent {
                 this.userservice.myNotifications = [];
                 localStorage.setItem('fakebookToken', res.token);
                 location.reload();
-                this.subscriptions.push(this.userservice.getMyNotifications().subscribe((res) => {
-                    this.userservice.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
-                    this.subscriptions.push(this.userservice.getMyProfile().subscribe((res) => {
-                        this.userservice.userProfile = res === null || res === void 0 ? void 0 : res.user;
-                        this.router.navigate(["/homePage"]);
-                    }, err => {
-                    }));
-                }, err => { }));
+                this.subscriptions.push(this.userservice.getMyProfile().subscribe((res) => {
+                    this.userservice.userProfile = res === null || res === void 0 ? void 0 : res.user;
+                    this.router.navigate(["/homePage"]);
+                    this.subscriptions.push(this.userservice.getMyNotifications().subscribe((res) => {
+                        this.userservice.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
+                    }, err => { }));
+                }, err => {
+                }));
             }, err => {
                 this.signupErrorLoading = false;
                 this.signupError = err.error.error;
@@ -486,14 +486,14 @@ class SigninComponent {
             this.userservice.myNotifications = [];
             localStorage.setItem('fakebookToken', res === null || res === void 0 ? void 0 : res.token);
             location.reload();
-            this.subscriptions.push(this.userservice.getMyNotifications().subscribe((res) => {
-                this.userservice.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
-                this.subscriptions.push(this.userservice.getMyProfile().subscribe((res) => {
-                    this.userservice.userProfile = res === null || res === void 0 ? void 0 : res.user;
-                    this.router.navigate(["/homePage"]);
-                }, err => {
-                }));
-            }, err => { }));
+            this.subscriptions.push(this.userservice.getMyProfile().subscribe((res) => {
+                this.userservice.userProfile = res === null || res === void 0 ? void 0 : res.user;
+                this.router.navigate(["/homePage"]);
+                this.subscriptions.push(this.userservice.getMyNotifications().subscribe((res) => {
+                    this.userservice.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
+                }, err => { }));
+            }, err => {
+            }));
         }, err => {
             var _a;
             this.signinError = (_a = err === null || err === void 0 ? void 0 : err.error) === null || _a === void 0 ? void 0 : _a.error;
