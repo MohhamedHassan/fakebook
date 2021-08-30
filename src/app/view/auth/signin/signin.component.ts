@@ -46,23 +46,25 @@ export class SigninComponent implements OnInit , OnDestroy  {
           this.userservice.myNotifications=[]
           localStorage.setItem('fakebookToken',res?.token)
           location.reload()
-            this.subscriptions.push(
-              this.userservice.getMyNotifications().subscribe(
-                (res:any) => {
-                  this.userservice.myNotifications=res?.newNotification
-                  this.subscriptions.push(
-                    this.userservice.getMyProfile().subscribe(
-                      (res:any) => {
-                        this.userservice.userProfile=res?.user
-                        this.router.navigate(["/homePage"])
-                      } ,err => {
-                      }
-                    )
+          this.subscriptions.push(
+            this.userservice.getMyProfile().subscribe(
+              (res:any) => {
+                this.userservice.userProfile=res?.user
+                this.router.navigate(["/homePage"])
+                this.subscriptions.push(
+                  this.userservice.getMyNotifications().subscribe(
+                    (res:any) => {
+                      this.userservice.myNotifications=res?.newNotification
+                    
+                    },
+                    err => {}
                   )
-                },
-                err => {}
-              )
+                )
+              } ,err => {
+              }
             )
+          )
+         
           
         } , 
         err => {

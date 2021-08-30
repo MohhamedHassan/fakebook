@@ -66,22 +66,24 @@ signUp(userInfo:any) {
         localStorage.setItem('fakebookToken',res.token)
         location.reload()
         this.subscriptions.push(
-          this.userservice.getMyNotifications().subscribe(
+          this.userservice.getMyProfile().subscribe(
             (res:any) => {
-              this.userservice.myNotifications=res?.newNotification
+              this.userservice.userProfile=res?.user
+              this.router.navigate(["/homePage"])
               this.subscriptions.push(
-                this.userservice.getMyProfile().subscribe(
+                this.userservice.getMyNotifications().subscribe(
                   (res:any) => {
-                    this.userservice.userProfile=res?.user
-                    this.router.navigate(["/homePage"])
-                  } ,err => {
-                  }
+                    this.userservice.myNotifications=res?.newNotification
+                  
+                  },
+                  err => {}
                 )
               )
-            },
-            err => {}
+            } ,err => {
+            }
           )
         )
+    
        
       },
       err => {
