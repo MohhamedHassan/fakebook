@@ -131,7 +131,9 @@
             <div class="mt-3 d-flex justify-content-between align-items-center">
                 <div (click)="filterReactions='';reacionsModaClassIndex=-1;openReactionModal(reaction)"
                 style="cursor: pointer;" class="position-relative reactionsCount">                                             
-                            <img class="first" [src]="reactionPipe?.numOfLoves | mostReaction : reactionPipe?.numOfSads : reactionPipe?.numOfWows : reactionPipe?.numOfHahas : reactionPipe?.numOfAngrys : reactionPipe?.numOfLikes" alt="">
+                            <img class="first" 
+                            #first
+                            [src]="reactionPipe?.numOfLoves | mostReaction : reactionPipe?.numOfSads : reactionPipe?.numOfWows : reactionPipe?.numOfHahas : reactionPipe?.numOfAngrys : reactionPipe?.numOfLikes : first" alt="">
                             <img #secondIMG  class="last" [src]="reactionPipe?.numOfLoves | secondReaction: reactionPipe?.numOfSads : reactionPipe?.numOfWows : reactionPipe?.numOfHahas : reactionPipe?.numOfAngrys : reactionPipe?.numOfLikes  : secondIMG" alt=""> 
                             <span  
                             *ngIf="reactionPipe?.numOfReactions">

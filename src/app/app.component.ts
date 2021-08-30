@@ -95,6 +95,8 @@ darkModeToggle() {
 }
 logOut() {
   this.authService.logout().subscribe(res => {
+    location.reload()
+    this.userProfilesService.userProfile=[]
     localStorage.removeItem("fakebookToken")
     this.router.navigate(["/auth/signin"])
   },err => {

@@ -344,7 +344,7 @@ nav.darkMode {
     .bell {
         small {
             top: 1px !important;
-            right: 3px !important;
+            right: 1px !important;
         }
     }
     .pageItems {
@@ -384,4 +384,9 @@ nav.darkMode {
     position: absolute;
     right: 12px;
     bottom: 25px;    
+}
+.preventScroll {
+    height: 100vh !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
 }

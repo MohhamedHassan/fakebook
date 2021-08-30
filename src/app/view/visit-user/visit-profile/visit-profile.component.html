@@ -187,14 +187,16 @@
                                     {{seeMoreIndex == i ? 'See Less' : '... See more'}}</span>
                             </p>
                             <img 
-                            (click)="postComments = [];getPostComments(post._id,i);popUP=true"
+                            (click)="postComments = [];userProfilesService.popUP=true;getPostComments(post._id,i)"
                             style="cursor: pointer;"
                             *ngIf="post?.image" [src]="post?.image" alt="" class="w-100 mt-3">
                             <div class="postOptions px-3">
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                         <div (click)="filterReactions='';reacionsModaClassIndex=-1;openReactionModal(post._id,reaction,i)"
                                         style="cursor: pointer;" class="position-relative   reactionsCount ">                                             
-                                                    <img class="first" [src]="post.love | mostReaction : post.sad : post.wow : post.haha : post.angry : post.like" alt="">
+                                                    <img class="first" 
+                                                    #first
+                                                    [src]="post.love | mostReaction : post.sad : post.wow : post.haha : post.angry : post.like : first" alt="">
                                                     <img #secondIMG  class="last" [src]="post.love | secondReaction: post.sad : post.wow : post.haha : post.angry : post.like  : secondIMG" alt=""> 
                                                     <span  
                                                     *ngIf="post?.numOfReactions">
@@ -379,140 +381,7 @@
                                     </div>
                                 </ng-container>
                             </div>
-                            <div *ngIf="popUP" class="popupp">
-                                <div class="imgSection">
-    
-                                    <img *ngIf="popupPost?.image;else popupLoading" [src]="popupPost?.image" alt="">
-                                    <ng-template #popupLoading>
-                                        <div class="lds-ring">
-                                            <div></div>
-                                            <div></div>
-                                            <div></div>
-                                            <div></div>
-                                        </div>
-                                    </ng-template>
-    
-                                    <p (click)="showCommentsInMobileScreen(commentsSection)" class="showComments">
-                                        <i class="far fa-comment-alt"></i> <span class="mx-2">Show Comments</span>
-                                    </p>
-                                    <i (click)="closePopup()" class="fas fa-times"></i>
-                                </div>
-                                <div #commentsSection class="zIndex commentsSection p-3">
-                                    <div class="d-flex align-items-center pt-3 ">
-                                        <img class="profilePopup"
-                                            [src]="popupPost?.author?.profilePhoto  | gender : popupPost?.author?.gender "
-                                            alt="">
-                                        <div class="mx-2">
-                                            <h2 class="m-0">
-                                                {{popupPost?.author?.firstName | titlecase | slice : 0 : 12}}
-                                                {{popupPost?.author?.lastName | titlecase | slice : 0 : 12}}
-                                            </h2>
-                                            <small class="text-secondary">
-                                                {{popupPost?.updatedAt | date : 'medium'}}
-                                            </small>
-                                        </div>
-                                        <i (click)="hideCommentsInMobileScreen(commentsSection)"
-                                            class="fas fa-times"></i>
-                                    </div>
-                                    <div class="autoScroll parentOfComments">
-                                        <p class="py-3 mx-2">{{popupPost?.content}}</p>
-                                        <div class="postOptions">
-                                            <div *ngIf="!commentsLoading" class="m-2 d-flex justify-content-between align-items-center">
-                                                <div 
-                                                 class="position-relative   reactionsCount ">                                             
-                                                            <img class="first" [src]="popupReactions?.numOfLoves | mostReaction : popupReactions?.numOfSads : popupReactions?.numOfWows : popupReactions?.numOfHahas : popupReactions?.numOfAngrys : popupReactions?.numOfLikes" alt="">
-                                                            <img #secondIMG  class="last" 
-                                                            [src]="popupReactions?.numOfLoves | secondReaction: popupReactions?.numOfSads : popupReactions?.numOfWows :popupReactions?.numOfHahas : popupReactions?.numOfAngrys : popupReactions?.numOfLikes  : secondIMG" alt=""> 
-                                                            <span  
-                                                            *ngIf="popupReactions?.numOfReactions">
-                                                            {{popupReactions?.numOfReactions}}</span>   
-                                                                              
-                                            </div>   
-                                            <p   *ngIf="postComments?.length">
-                                                {{postComments?.length}}
-                                                {{postComments?.length==1 ? "Comment" : "Comments"}}
-                                            </p>
-                                        </div>
-                                            <div class="parentOfComments mt-2">
-                                                <ul class="comments list-unstyled my-2">
-                                                    <ng-container *ngIf="commentsLoading;else commentsConetent">
-                                                        <li *ngFor="let item of swiperLoadingCount">
-                                                            <div [class.darkMode]="userProfilesService.userProfile?.darkMode"
-                                                                class="fb-item bg-white postsLoadingg rounded-lg">
-                                                                <div
-                                                                    class="first-section-wrapper d-flex align-items-center mb-3">
-                                                                    <div class="gravatar ">
-                                                                        <ngx-skeleton-loader appearance="circle"
-                                                                            [theme]="{
-                                                                        'width': '32px',
-                                                                        'height': '32px',
-                                                                        'margin':'0'
-                                                                    }">
-                                                                        </ngx-skeleton-loader>
-                                                                    </div>
-                                                                    <div class="gravatar-title mx-3">
-                                                                        <div>
-                                                                            <ngx-skeleton-loader [theme]="{
-                                                              width: '200px',
-                                                              'border-radius': '0',
-                                                              height: '5px',
-                                                              'margin-bottom': '5px'
-                                                            }"></ngx-skeleton-loader>
-                                                                        </div>
-                                                                        <div>
-                                                                            <ngx-skeleton-loader
-                                                                                [theme]="{ width: '170px', 'border-radius': '0', height: '5px' }">
-                                                                            </ngx-skeleton-loader>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ng-container>
-                                                    <ng-template #commentsConetent>
-                                                        <ng-container *ngIf="postComments?.length;else noCommentsYet">
-                                                            <li *ngFor="let comment of postComments;let commentIndex = index"
-                                                                class="d-flex">
-                                                                <img [routerLink]="['/visit',comment?.user?._id]"
-                                                                    style="cursor: pointer;"
-                                                                    [src]="comment?.user?.profilePhoto | gender :  comment.user?.gender"
-                                                                    alt="">
-                                                                <div class="mx-2">
-                                                                    <div class="commnetContent">
-                                                                        <p [routerLink]="['/visit',comment?.user?._id]"
-                                                                            style="cursor: pointer;"
-                                                                            class="font-weight-bold">
-                                                                            {{comment.user?.firstName | titlecase |
-                                                                            slice : 0 : 12}}
-                                                                            {{comment.user?.lastName | titlecase | slice
-                                                                            : 0 : 12}}
-                                                                        </p>
-                                                                        <p #commentP>{{comment?.comment | lang :
-                                                                            commentP}}</p>
-                                                                    </div>
-                                                                    <div class="position-relative">
-                                                                        <div class="timee d-inline-block">
-                                                                            <small
-                                                                                class="text-secondary ">{{comment?.createdAt
-                                                                                | date : 'medium'}}</small>
-                                                                            <small
-                                                                                class="timeOnHover">{{comment?.createdAt
-                                                                                | date :'medium'}}</small>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ng-container>
-                                                        <ng-template #noCommentsYet>
-                                                            <li>No Comments Yet</li>
-                                                        </ng-template>
-                                                    </ng-template>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                      
                         </div>
                     </ng-container>
                         <!-- start posts seection -->
@@ -582,3 +451,139 @@
         </div>
     </div>
 </ng-template>
+<div *ngIf="userProfilesService.popUP" class="popupp">
+    <div class="imgSection">
+
+        <img *ngIf="popupPost?.image;else popupLoading" [src]="popupPost?.image" alt="">
+        <ng-template #popupLoading>
+            <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </ng-template>
+
+        <p (click)="showCommentsInMobileScreen(commentsSection)" class="showComments">
+            <i class="far fa-comment-alt"></i> <span class="mx-2">Show Comments</span>
+        </p>
+        <i (click)="closePopup()" class="fas fa-times"></i>
+    </div>
+    <div #commentsSection class="zIndex commentsSection p-3">
+        <div class="d-flex align-items-center pt-3 ">
+            <img class="profilePopup"
+                [src]="popupPost?.author?.profilePhoto  | gender : popupPost?.author?.gender "
+                alt="">
+            <div class="mx-2">
+                <h2 class="m-0">
+                    {{popupPost?.author?.firstName | titlecase | slice : 0 : 12}}
+                    {{popupPost?.author?.lastName | titlecase | slice : 0 : 12}}
+                </h2>
+                <small class="text-secondary">
+                    {{popupPost?.updatedAt | date : 'medium'}}
+                </small>
+            </div>
+            <i (click)="hideCommentsInMobileScreen(commentsSection)"
+                class="fas fa-times"></i>
+        </div>
+        <div class="autoScroll parentOfComments">
+            <p class="py-3 mx-2">{{popupPost?.content}}</p>
+            <div class="postOptions">
+                <div *ngIf="!commentsLoading" class="m-2 d-flex justify-content-between align-items-center">
+                    <div 
+                     class="position-relative   reactionsCount ">                                             
+                                <img class="first" 
+                                #firstImg
+                                [src]="popupReactions?.numOfLoves | mostReaction : popupReactions?.numOfSads : popupReactions?.numOfWows : popupReactions?.numOfHahas : popupReactions?.numOfAngrys : popupReactions?.numOfLikes : firstImg" alt="">
+                                <img #secondIMG  class="last" 
+                                [src]="popupReactions?.numOfLoves | secondReaction: popupReactions?.numOfSads : popupReactions?.numOfWows :popupReactions?.numOfHahas : popupReactions?.numOfAngrys : popupReactions?.numOfLikes  : secondIMG" alt=""> 
+                                <span  
+                                *ngIf="popupReactions?.numOfReactions">
+                                {{popupReactions?.numOfReactions}}</span>   
+                                                  
+                </div>   
+                <p   *ngIf="postComments?.length">
+                    {{postComments?.length}}
+                    {{postComments?.length==1 ? "Comment" : "Comments"}}
+                </p>
+            </div>
+                <div class="parentOfComments mt-2">
+                    <ul class="comments list-unstyled my-2">
+                        <ng-container *ngIf="commentsLoading;else commentsConetent">
+                            <li *ngFor="let item of swiperLoadingCount">
+                                <div [class.darkMode]="userProfilesService.userProfile?.darkMode"
+                                    class="fb-item bg-white postsLoadingg rounded-lg">
+                                    <div
+                                        class="first-section-wrapper d-flex align-items-center mb-3">
+                                        <div class="gravatar ">
+                                            <ngx-skeleton-loader appearance="circle"
+                                                [theme]="{
+                                            'width': '32px',
+                                            'height': '32px',
+                                            'margin':'0'
+                                        }">
+                                            </ngx-skeleton-loader>
+                                        </div>
+                                        <div class="gravatar-title mx-3">
+                                            <div>
+                                                <ngx-skeleton-loader [theme]="{
+                                  width: '200px',
+                                  'border-radius': '0',
+                                  height: '5px',
+                                  'margin-bottom': '5px'
+                                }"></ngx-skeleton-loader>
+                                            </div>
+                                            <div>
+                                                <ngx-skeleton-loader
+                                                    [theme]="{ width: '170px', 'border-radius': '0', height: '5px' }">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ng-container>
+                        <ng-template #commentsConetent>
+                            <ng-container *ngIf="postComments?.length;else noCommentsYet">
+                                <li *ngFor="let comment of postComments;let commentIndex = index"
+                                    class="d-flex">
+                                    <img [routerLink]="['/visit',comment?.user?._id]"
+                                        style="cursor: pointer;"
+                                        [src]="comment?.user?.profilePhoto | gender :  comment.user?.gender"
+                                        alt="">
+                                    <div class="mx-2">
+                                        <div class="commnetContent">
+                                            <p [routerLink]="['/visit',comment?.user?._id]"
+                                                style="cursor: pointer;"
+                                                class="font-weight-bold">
+                                                {{comment.user?.firstName | titlecase |
+                                                slice : 0 : 12}}
+                                                {{comment.user?.lastName | titlecase | slice
+                                                : 0 : 12}}
+                                            </p>
+                                            <p #commentP>{{comment?.comment | lang :
+                                                commentP}}</p>
+                                        </div>
+                                        <div class="position-relative">
+                                            <div class="timee d-inline-block">
+                                                <small
+                                                    class="text-secondary ">{{comment?.createdAt
+                                                    | date : 'medium'}}</small>
+                                                <small
+                                                    class="timeOnHover">{{comment?.createdAt
+                                                    | date :'medium'}}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ng-container>
+                            <ng-template #noCommentsYet>
+                                <li>No Comments Yet</li>
+                            </ng-template>
+                        </ng-template>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

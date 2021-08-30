@@ -51,7 +51,6 @@ choseCategory(index:any) {
   this.personalInfo[index].status=true
 }
   ngOnInit(): void {
-    window.scroll(0,0)
   this.showInputs.length=10
   this.showInputs.fill(false,0,10)
    this.subscriptions.push(

@@ -64,6 +64,7 @@ signUp(userInfo:any) {
         this.signupError=''
         this.userservice.myNotifications=[]
         localStorage.setItem('fakebookToken',res.token)
+        location.reload()
         this.subscriptions.push(
           this.userservice.getMyNotifications().subscribe(
             (res:any) => {

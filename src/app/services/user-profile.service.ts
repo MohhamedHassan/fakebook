@@ -18,7 +18,7 @@ export class UserProfileService {
   skeltonLoadingForFollowing:boolean=true
   skeltonLoadingFollowers:boolean=true  
   HomePageSkeltonLoading: boolean = true
-
+  popUP:any=false
   constructor(private http:HttpClient) { }
   uploadCoverImg(coverImg:any) {
      return this.http.post(`${environment.apiUrl}/coverImage`,coverImg)

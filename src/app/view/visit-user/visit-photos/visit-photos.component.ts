@@ -12,7 +12,6 @@ export class VisitPhotosComponent implements OnInit {
   constructor(public visitUserService: VisitUserService,public userProfilesService:UserProfileService) {this.loadingCount.length=8 }
 
   ngOnInit(): void {
-    window.scroll(0,0)
   }
  
 }

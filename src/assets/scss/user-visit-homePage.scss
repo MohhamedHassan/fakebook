@@ -31,6 +31,41 @@
     height: 32px;
     border-radius: 50%;
 }
+%parentOfComentsss {
+    .comments {
+        padding-bottom: 50px;
+        li {
+            margin-bottom: 10px;
+        }
+        .commnetContent {
+            background-color: #F0F2F5;
+            padding:5px 10px;
+            border-radius: 10px;
+        }
+    }
+    img {
+        @extend %commentsImg;
+    }
+}
+%reactionsCount {
+    img {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+    }
+    img.first {
+        z-index: 2;
+    }
+    img.last {
+        left: 13px;
+        z-index: 1;
+    }
+     span {margin-left: 20px;
+        margin-top: -1px;
+         display: block;
+    }
+    .exist + span {margin-left: 35px !important;}
+}
 .postss {       
     position: relative;
     .postOptions {
@@ -39,23 +74,7 @@
             &:hover {text-decoration: underline;}
         }
         .reactionsCount {
-            img {
-                width: 16px;
-                height: 16px;
-                position: absolute;
-            }
-            img.first {
-                z-index: 2;
-            }
-            img.last {
-                left: 13px;
-                z-index: 1;
-            }
-             span {margin-left: 20px;
-                margin-top: -1px;
-                 display: block;
-            }
-            .exist + span {margin-left: 35px !important;}
+          @extend %reactionsCount;
         }
         .hideParentOfReactions {z-index: -1;}
         .showReactions:hover .reactions {margin-top: 0 ;}
@@ -104,25 +123,12 @@
             margin-right: 15px;
         }
         .options {
-        @extend %options
+        @extend %options;
         }
         .parentOfComments {
             max-height: 150px;
             overflow-y: scroll;
-            .comments {
-                padding-bottom: 50px;
-                li {
-                    margin-bottom: 10px;
-                }
-                .commnetContent {
-                    background-color: #F0F2F5;
-                    padding:5px 10px;
-                    border-radius: 10px;
-                }
-            }
-            img {
-                @extend %commentsImg;
-            }
+        @extend %parentOfComentsss;
         }
         .writeAcomment {
             img {
@@ -345,7 +351,11 @@
     {
         max-height: none !important;
         overflow-y:  auto !important;
+        @extend %parentOfComentsss;
     }
+    .reactionsCount {
+        @extend %reactionsCount;
+      }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {

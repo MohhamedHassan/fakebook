@@ -25,7 +25,6 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
   subscriptions :any[] = [];
   editCommentIndex: any = -1
   enterESCtoCancel:boolean=true
-  popUP:boolean=false
   popupReactions:any
   popupPost:any
   reactions:any = [
@@ -116,7 +115,9 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
     } 
 
   }
+  scrollY:any
   getPostComments(id: any, i: any) {
+    this.scrollY=window.scrollY
     this.commentsLoading = true
     this.postComments = []
     this.postCommentsIndex = i
@@ -124,7 +125,7 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
       this.userProfilesService.getPostComment(id).subscribe(
         (res: any) => {
           this.commentsLoading = false
-          if(!this.popUP) {
+          if(!this.userProfilesService.popUP) {
             this.cd.detectChanges()
             this.addCommentInput.nativeElement.focus()
           }
@@ -244,14 +245,15 @@ hideCommentsInMobileScreen(element:any) {
   this.rendrer.addClass(element,"zIndex")
 }
 closePopup() {
+  this.userProfilesService.popUP=false;
+  setTimeout(() => window.scrollTo(0, this.scrollY), 0);
   this.postComments = [];
   this.popupPost=[];
   this.postReactions=[]
   this.postCommentsIndex=-1;
-  this.popUP=false;
 }
 @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-  if(this.popUP) {
+  if(this.userProfilesService.popUP) {
      this. closePopup()
   }
 }

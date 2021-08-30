@@ -51,6 +51,15 @@ modalRef: BsModalRef
   ) { }
 
   ngOnInit(): void {
+    this.subscriptions.push(
+  
+        this.userService.getMyNotifications().subscribe(
+          (res:any) => {
+            this.userService.myNotifications=res?.newNotification
+          },
+          err => {}
+        )
+    )
     window.scroll(0,0)
    // start listen to users comments to push the comment in the comments array
    this.commentService.listen("comment").subscribe(

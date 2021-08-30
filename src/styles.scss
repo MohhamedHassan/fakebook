@@ -4,7 +4,6 @@
 @import "src/assets/scss/animationLoading.scss";
 
 p,h2,h3{margin-bottom: 0 !important;}
-html {scroll-behavior: smooth;}
 *:focus {
         outline: none;
 }
@@ -121,6 +120,9 @@ html {scroll-behavior: smooth;}
 /// end global
 
 @media only screen and (max-width: 600px) {
+   ::placeholder {
+     font-size:  medium !important;
+   }
         .signUp {
             width: 90% !important;
             label {font-size: small;}
@@ -132,7 +134,7 @@ html {scroll-behavior: smooth;}
       }
       .add-post {
           p {
-              font-size: small;
+              font-size: small !important;
           }
       }
     }

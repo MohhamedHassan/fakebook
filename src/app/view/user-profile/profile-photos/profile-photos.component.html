@@ -5,7 +5,7 @@
     <carousel [interval]="0">
         <slide *ngIf="userProfileService?.userProfile?.profilePhoto">
         <div class="position-relative">
-            <img [src]="userProfileService?.userProfile?.profilePhoto" alt="first slide" style="display: block; width: 100%;">
+            <img class="vhIMG" [src]="userProfileService?.userProfile?.profilePhoto" alt="first slide" style="display: block; width: 100%;">
             <i 
             (click)="openModal(deleteProfileRImg)"
             class="far fa-trash-alt"></i>
@@ -14,7 +14,7 @@
      <ng-container *ngIf="userProfileService?.userProfile?.previousProfilePhotos?.length">
         <slide *ngFor="let item of userProfileService?.userProfile?.previousProfilePhotos">
              <div class="position-relative">
-                <img [src]="item?.profilePhoto" alt="second slide" style="display: block; width: 100%;">
+                <img class="vhIMG" [src]="item?.profilePhoto" alt="second slide" style="display: block; width: 100%;">
                 <i (click)="oldImgId=item?._id;openModal(deleteOldProfileRImg)" class="far fa-trash-alt"></i>
              </div>
           </slide>

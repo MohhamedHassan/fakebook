@@ -11,8 +11,11 @@ import {
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { io } from 'socket.io-client';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
+import { environment } from 'src/environments/environment';
 import SwiperCore, { Navigation } from 'swiper/core';
 SwiperCore.use([Navigation,]);
 @Component({
@@ -33,7 +36,6 @@ export class HompageComponent implements OnInit,OnDestroy {
   subscriptions :any[] = [];
   editCommentIndex: any = -1
   enterESCtoCancel:boolean=true
-  popUP:boolean=false
   popupPost:any
   popupReactions:any
   reactions:any = [
@@ -51,6 +53,7 @@ export class HompageComponent implements OnInit,OnDestroy {
   reacionsModaClassIndex:any=-1
   @ViewChild('editCommentInpu', { static: false }) editCommentInpu: ElementRef
   @ViewChild('addCommentInput', { static: false }) addCommentInput: ElementRef
+  socket:any
   constructor(public userProfileService: UserProfileService,
     private cd: ChangeDetectorRef,
     private commentService: CommentSocketService,
@@ -58,10 +61,15 @@ export class HompageComponent implements OnInit,OnDestroy {
     private modalService: BsModalService,
     private title:Title,
     private  rendrer:Renderer2,
-    private router:Router
-    ) { }
+    private router:Router,
+    private auth:AuthService
+    ) {
+     
+     }
 
   ngOnInit(): void {
+    this.socket = io(`${environment.apiUrl}`,
+    {query:{token:`${localStorage.getItem('fakebookToken')}`}})
     this.title.setTitle("Fakebook")
     window.scroll(0,0)
     this.swiperLoadingCount.length=5
@@ -150,8 +158,12 @@ export class HompageComponent implements OnInit,OnDestroy {
     } 
 
   }
-
+  scrollY:any
+  track(index: number) {
+    return index
+  }
   getPostComments(id: any, i: any) {
+    this.scrollY=window.scrollY
     this.commentsLoading = true
     this.postComments = []
     this.postCommentsIndex = i
@@ -159,7 +171,7 @@ export class HompageComponent implements OnInit,OnDestroy {
       this.userProfilesService.getPostComment(id).subscribe(
         (res: any) => {
           this.commentsLoading = false
-          if(!this.popUP) {
+          if(!this.userProfileService.popUP) {
             this.cd.detectChanges()
             this.addCommentInput.nativeElement.focus()
           }
@@ -269,14 +281,15 @@ export class HompageComponent implements OnInit,OnDestroy {
     this.rendrer.addClass(element,"zIndex")
   }
   closePopup() {
+    this.userProfileService.popUP=false;
+    setTimeout(() => window.scrollTo(0, this.scrollY), 0);
     this.postComments = [];
     this.popupPost=[];
     this.postReactions=[]
     this.postCommentsIndex=-1;
-    this.popUP=false;
   }
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    if(this.popUP) {
+    if(this.userProfileService.popUP) {
        this. closePopup()
     }
 }

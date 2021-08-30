@@ -21,7 +21,6 @@ export class VisitAboutComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    window.scroll(0,0)
   }
   choseCategory(index:any) {
     for(let i = 0;i<this.personalInfo.length;i++) {

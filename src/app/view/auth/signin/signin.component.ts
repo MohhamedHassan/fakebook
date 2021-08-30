@@ -4,7 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
-
+import { environment } from 'src/environments/environment';
+import { io } from 'socket.io-client';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -16,6 +18,7 @@ export class SigninComponent implements OnInit , OnDestroy  {
   signinError:string=''
   signinErrorLoading:boolean=false
   subscriptions:any[]=[]
+  socket:any
   constructor(private fb:FormBuilder,
     private authservice:AuthService,
     private title:Title,
@@ -42,7 +45,7 @@ export class SigninComponent implements OnInit , OnDestroy  {
           this.signinErrorLoading=false
           this.userservice.myNotifications=[]
           localStorage.setItem('fakebookToken',res?.token)
-
+          location.reload()
             this.subscriptions.push(
               this.userservice.getMyNotifications().subscribe(
                 (res:any) => {

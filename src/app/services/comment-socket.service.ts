@@ -14,7 +14,7 @@ export class CommentSocketService {
   notificationId:any
   constructor() {
     this.socket = io(`${environment.apiUrl}`,
-    {query:{token:`${localStorage.getItem('fakebookToken')}`}})
+    {query:{ token:`${localStorage.getItem('fakebookToken')}`} })
    }
    listen(eventName:any) {
     return new Observable((Subscriber) => {

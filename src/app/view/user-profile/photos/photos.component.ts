@@ -12,7 +12,6 @@ export class PhotosComponent implements OnInit {
   constructor(public userProfilesService:UserProfileService) { this.loadingCount.length=8 }
 
   ngOnInit(): void {
-    window.scroll(0,0)
   }
 
 }

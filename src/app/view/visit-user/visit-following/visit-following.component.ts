@@ -14,5 +14,5 @@ export class VisitFollowingComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  scrollTop() {window.scroll(0,0)}
+  scrollTop() {}
 }

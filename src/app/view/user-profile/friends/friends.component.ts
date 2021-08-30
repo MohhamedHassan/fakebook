@@ -15,7 +15,6 @@ loadingCount:any=[]
   constructor(public userprofileService:UserProfileService) { this.loadingCount.length=4 }
 
   ngOnInit(): void {
-    window.scroll(0,0)
   }
   
 

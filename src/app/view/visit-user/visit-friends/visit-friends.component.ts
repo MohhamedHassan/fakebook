@@ -18,7 +18,6 @@ export class VisitFriendsComponent implements OnInit {
     ) { this.loadingCount.length=4 }
 
   ngOnInit(): void {
-    window.scroll(0,0)
   }
 
 }

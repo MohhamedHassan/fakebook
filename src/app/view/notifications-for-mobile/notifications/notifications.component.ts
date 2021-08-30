@@ -18,14 +18,15 @@ export class NotificationsComponent implements OnInit , OnDestroy {
     private title:Title) { }
 
   ngOnInit(): void {
+    window.scroll(0,0)
     this.title.setTitle("Notifications")
-    this.getMyNotifications(
-    )
+    this.getMyNotifications()
   }
   getMyNotifications() {
     this.subscription = this.userProfilesService.getMyNotifications().subscribe(
       (res:any) => {
         this.userProfilesService.myNotifications=res?.newNotification
+        console.log(this.userProfilesService.myNotifications)
       },
       err => {}
     )
@@ -40,11 +41,11 @@ export class NotificationsComponent implements OnInit , OnDestroy {
     }).then(
       res => {
           this.router.navigate(["/postDetails",postId])
-          this.getMyNotifications()
       } , err => {
         this.router.navigate(["/error"])
       }
     )
+  
   }
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe()

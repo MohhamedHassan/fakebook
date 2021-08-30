@@ -43,7 +43,6 @@ export class UserprofileComponent implements OnInit, OnDestroy {
   subscriptions: any[] = [];
   editCommentIndex: any = -1
   enterESCtoCancel:boolean=true
-  popUP:boolean=false
   popupPost:any
   popupReactions:any
   reactions:any = [
@@ -75,7 +74,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): any {
-    window.scroll(0, 0)
+    window.scroll(0,0)
     this.swiperLoadingCount.length = 5
     // start listen to users comments to push the comment in the comments array
     this.commentService.listen("comment").subscribe(
@@ -293,8 +292,9 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     }
   }
  
-
+scrollY:any
  getPostComments(id: any, i: any) {
+     this.scrollY = window.scrollY
     this.commentsLoading = true
     this.postComments = []
     this.postCommentsIndex = i
@@ -302,7 +302,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
       this.userProfilesService.getPostComment(id).subscribe(
         (res: any) => {
           this.commentsLoading = false
-          if(!this.popUP) {
+          if(!this.userProfilesService.popUP) {
             this.cd.detectChanges()
             this.addCommentInput.nativeElement.focus()
           }
@@ -408,14 +408,15 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     this.rendrer.addClass(element,"zIndex")
   }
   closePopup() {
+    this.userProfilesService.popUP=false;
+    setTimeout(() => window.scrollTo(0, this.scrollY), 0);
     this.postComments = [];
     this.popupPost=[];
     this.postReactions=[]
     this.postCommentsIndex=-1;
-    this.popUP=false;
   }
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    if(this.popUP) {
+    if(this.userProfilesService.popUP) {
        this. closePopup()
     }
   }
