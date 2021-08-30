@@ -130,6 +130,7 @@ class SignupComponent {
                 this.signupError = '';
                 this.userservice.myNotifications = [];
                 localStorage.setItem('fakebookToken', res.token);
+                location.reload();
                 this.subscriptions.push(this.userservice.getMyNotifications().subscribe((res) => {
                     this.userservice.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
                     this.subscriptions.push(this.userservice.getMyProfile().subscribe((res) => {
@@ -484,6 +485,7 @@ class SigninComponent {
             this.signinErrorLoading = false;
             this.userservice.myNotifications = [];
             localStorage.setItem('fakebookToken', res === null || res === void 0 ? void 0 : res.token);
+            location.reload();
             this.subscriptions.push(this.userservice.getMyNotifications().subscribe((res) => {
                 this.userservice.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
                 this.subscriptions.push(this.userservice.getMyProfile().subscribe((res) => {

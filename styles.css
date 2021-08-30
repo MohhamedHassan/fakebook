@@ -3580,9 +3580,6 @@ button.swiper-pagination-bullet {
 p, h2, h3 {
   margin-bottom: 0 !important;
 }
-html {
-  scroll-behavior: smooth;
-}
 *:focus {
   outline: none;
 }
@@ -3690,6 +3687,10 @@ textarea::-webkit-scrollbar-thumb:hover,
   color: #0B86ED;
 }
 @media only screen and (max-width: 600px) {
+  ::placeholder {
+    font-size: medium !important;
+  }
+
   .signUp {
     width: 90% !important;
   }
@@ -3702,7 +3703,7 @@ textarea::-webkit-scrollbar-thumb:hover,
   }
 
   .add-post p {
-    font-size: small;
+    font-size: small !important;
   }
 }
 @media only screen and (min-width: 600px) and (max-width: 992px) {

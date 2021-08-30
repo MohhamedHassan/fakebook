@@ -94,12 +94,14 @@ class NotificationsComponent {
         this.title = title;
     }
     ngOnInit() {
+        window.scroll(0, 0);
         this.title.setTitle("Notifications");
         this.getMyNotifications();
     }
     getMyNotifications() {
         this.subscription = this.userProfilesService.getMyNotifications().subscribe((res) => {
             this.userProfilesService.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
+            console.log(this.userProfilesService.myNotifications);
         }, err => { });
     }
     openNotification(id, postId) {
@@ -111,7 +113,6 @@ class NotificationsComponent {
             id: id
         }).then(res => {
             this.router.navigate(["/postDetails", postId]);
-            this.getMyNotifications();
         }, err => {
             this.router.navigate(["/error"]);
         });
@@ -122,7 +123,7 @@ class NotificationsComponent {
     }
 }
 NotificationsComponent.ɵfac = function NotificationsComponent_Factory(t) { return new (t || NotificationsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_user_profile_service__WEBPACK_IMPORTED_MODULE_1__["UserProfileService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_comment_socket_service__WEBPACK_IMPORTED_MODULE_2__["CommentSocketService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["Title"])); };
-NotificationsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NotificationsComponent, selectors: [["app-notifications"]], decls: 9, vars: 4, consts: [[1, "notificationsMobile"], [1, "container", "py-5"], [1, "font-weight-bold"], [1, "m-0", "list-unstyled"], [4, "ngIf", "ngIfElse"], ["notificationsContent", ""], ["class", "mb-3", 3, "click", 4, "ngFor", "ngForOf"], [1, "mb-3", 3, "click"], [1, "d-flex", "align-items-center"], [1, "position-relative"], ["alt", "", 1, "mainIMG", 3, "src"], ["class", "fas fa-comment-alt nav", 4, "ngIf", "ngIfElse"], ["react", ""], [1, "ml-3"], [1, "fas", "fa-comment-alt", "nav"], ["alt", "", 1, "notificationImg", 3, "src"]], template: function NotificationsComponent_Template(rf, ctx) { if (rf & 1) {
+NotificationsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NotificationsComponent, selectors: [["app-notifications"]], decls: 9, vars: 4, consts: [[1, "notificationsMobile", 2, "margin-left", "20px"], [1, "container-fluid", "py-5"], [1, "font-weight-bold"], [1, "m-0", "list-unstyled"], [4, "ngIf", "ngIfElse"], ["notificationsContent", ""], ["class", "mb-3", 3, "click", 4, "ngFor", "ngForOf"], [1, "mb-3", 3, "click"], [1, "d-flex", "align-items-center"], [1, "position-relative"], ["alt", "", 1, "mainIMG", 3, "src"], ["class", "fas fa-comment-alt nav", 4, "ngIf", "ngIfElse"], ["react", ""], [1, "ml-3"], [1, "fas", "fa-comment-alt", "nav"], ["alt", "", 1, "notificationImg", 3, "src"]], template: function NotificationsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h1", 2);
