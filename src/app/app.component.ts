@@ -24,59 +24,62 @@ export class AppComponent implements OnInit    {
       if(this.authService.isLogin()) {
         this.getProfile()
         this.getMyNotifications()
-      }
-      this.commentService.listen("comment").subscribe(
-        (res: any) => {
-          if(res?.author == this.userProfilesService.userProfile?._id &&
-             res?.user?._id != this.userProfilesService.userProfile?._id) {
-            this.getMyNotifications()
-            this.commentService.ownerOfTheComent = res?.user
-            this.commentService.postId = res?.comment?.post?._id
-            this.commentService.notificationId=res?.notificationId
-            this.commentService.commenrOrReact = "comment"
-            this.commentService.showNotification = true
-            
-            setTimeout(() => {
-              this.commentService.showNotification = false
-            }, 20000);
-          }
-        }, err => {
-          this.router.navigate(["/error"])
-        }
-      )
-      this.commentService.listen("reaction").subscribe(
-        (res:any) => {
-          if(res?.author == this.userProfilesService.userProfile?._id &&
-            res?.user?._id != this.userProfilesService.userProfile?._id) {
-              this.getMyNotifications()
-           this.commentService.ownerOfTheComent = res?.user
-           this.commentService.postId = res?.react?.post?._id
-           this.commentService.notificationId=res?.notificationId
-           this.commentService.commenrOrReact = "react"
-           this.reactImgSrc=`assets/${res?.react?.reaction}.png` 
-           this.commentService.showNotification = true
-           setTimeout(() => {
-             this.commentService.showNotification = false
-           }, 20000);
-         }
-        },
-        err => { this.router.navigate(["/error"])}
-      )
-      this.commentService.listen("follow").subscribe(
-        (res:any) => {
-           if(res?.id == this.userProfilesService.userProfile?._id) {
-            this.getMyNotifications()
-            this.commentService.ownerOfTheComent = res?.user
-            this.commentService.notificationId=res?.notificationId
-            this.commentService.showFollowNotification=true
 
-            setTimeout(() => {
-              this.commentService.showFollowNotification = false
-            }, 20000);
+
+        this.commentService.listen("comment").subscribe(
+          (res: any) => {
+            if(res?.author == this.userProfilesService.userProfile?._id &&
+               res?.user?._id != this.userProfilesService.userProfile?._id) {
+              this.getMyNotifications()
+              this.commentService.ownerOfTheComent = res?.user
+              this.commentService.postId = res?.comment?.post?._id
+              this.commentService.notificationId=res?.notificationId
+              this.commentService.commenrOrReact = "comment"
+              this.commentService.showNotification = true
+              
+              setTimeout(() => {
+                this.commentService.showNotification = false
+              }, 20000);
+            }
+          }, err => {
+            this.router.navigate(["/error"])
+          }
+        )
+        this.commentService.listen("reaction").subscribe(
+          (res:any) => {
+            if(res?.author == this.userProfilesService.userProfile?._id &&
+              res?.user?._id != this.userProfilesService.userProfile?._id) {
+                this.getMyNotifications()
+             this.commentService.ownerOfTheComent = res?.user
+             this.commentService.postId = res?.react?.post?._id
+             this.commentService.notificationId=res?.notificationId
+             this.commentService.commenrOrReact = "react"
+             this.reactImgSrc=`assets/${res?.react?.reaction}.png` 
+             this.commentService.showNotification = true
+             setTimeout(() => {
+               this.commentService.showNotification = false
+             }, 20000);
            }
-        },
-        err => { this.router.navigate(["/error"])}
-      )
+          },
+          err => { this.router.navigate(["/error"])}
+        )
+        this.commentService.listen("follow").subscribe(
+          (res:any) => {
+             if(res?.id == this.userProfilesService.userProfile?._id) {
+              this.getMyNotifications()
+              this.commentService.ownerOfTheComent = res?.user
+              this.commentService.notificationId=res?.notificationId
+              this.commentService.showFollowNotification=true
+  
+              setTimeout(() => {
+                this.commentService.showFollowNotification = false
+              }, 20000);
+             }
+          },
+          err => { this.router.navigate(["/error"])}
+        )
+      }
+  
   }
 
 ngOnInit() {

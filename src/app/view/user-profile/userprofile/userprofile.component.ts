@@ -249,8 +249,10 @@ export class UserprofileComponent implements OnInit, OnDestroy {
   // end swiper carousel options
   getPostsAfterEdit() {
     this.subscriptions.push(
+
       this.userProfilesService.getMyProfile().subscribe(
         (res:any) => {
+          this.postCommentsIndex=-1
           this.userProfilesService.userPosts = res?.posts
         },
         err => {

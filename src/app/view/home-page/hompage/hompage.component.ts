@@ -106,6 +106,7 @@ export class HompageComponent implements OnInit,OnDestroy {
      this.subscriptions.push(
       this.userProfileService.getMyFollowingPosts().subscribe(
         res => {
+          this.postCommentsIndex=-1
           this.userProfileService.myFollowingPosts = res
           this.userProfileService.HomePageSkeltonLoading = false
         }, err => {
