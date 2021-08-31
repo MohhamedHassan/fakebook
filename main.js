@@ -888,7 +888,7 @@ function AppComponent_nav_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("darkModeNotification", ctx_r0.userProfilesService.userProfile == null ? null : ctx_r0.userProfilesService.userProfile.darkMode);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !(ctx_r0.userProfilesService == null ? null : ctx_r0.userProfilesService.myNotifications == null ? null : ctx_r0.userProfilesService.myNotifications.length))("ngIfElse", _r9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !(ctx_r0.userProfilesService == null ? null : ctx_r0.userProfilesService.myNotifications == null ? null : ctx_r0.userProfilesService.myNotifications.length) && !(ctx_r0.userProfilesService == null ? null : ctx_r0.userProfilesService.oldNotifications == null ? null : ctx_r0.userProfilesService.oldNotifications.length))("ngIfElse", _r9);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r0.userProfilesService == null ? null : ctx_r0.userProfilesService.myNotifications == null ? null : ctx_r0.userProfilesService.myNotifications.length);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
@@ -1048,7 +1048,7 @@ class AppComponent {
                 this.commentService.showNotification = true;
                 setTimeout(() => {
                     this.commentService.showNotification = false;
-                }, 6000);
+                }, 20000);
             }
         }, err => {
             this.router.navigate(["/error"]);
@@ -1067,7 +1067,7 @@ class AppComponent {
                 this.commentService.showNotification = true;
                 setTimeout(() => {
                     this.commentService.showNotification = false;
-                }, 6000);
+                }, 20000);
             }
         }, err => { this.router.navigate(["/error"]); });
         this.commentService.listen("follow").subscribe((res) => {
@@ -1080,7 +1080,7 @@ class AppComponent {
                 this.commentService.showFollowNotification = true;
                 setTimeout(() => {
                     this.commentService.showFollowNotification = false;
-                }, 6000);
+                }, 20000);
             }
         }, err => { this.router.navigate(["/error"]); });
     }
