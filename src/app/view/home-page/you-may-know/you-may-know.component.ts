@@ -14,7 +14,7 @@ SwiperCore.use([Navigation,]);
 })
 export class YouMayKnowComponent implements OnInit,OnDestroy {
   skip: any = 0
-  suggestedFriends: any = []
+  suggestedFriends: any[] = []
   peopleYouMayKnowLoading: boolean = true
   followLoading:any=false
   swiperLoadingCount:any=[]
@@ -30,11 +30,13 @@ export class YouMayKnowComponent implements OnInit,OnDestroy {
     private socketService:CommentSocketService) { }
 
   ngOnInit(): void {
+    
     this.swiperLoadingCount.length=5
     this.subscriptions.push(
       this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
-          res => {
+          (res:any) => {
             this.suggestedFriends = res
+            console.log( this.suggestedFriends.length)
             this.peopleYouMayKnowLoading = false
           },
           err => {
@@ -44,20 +46,20 @@ export class YouMayKnowComponent implements OnInit,OnDestroy {
   }
 // start fetch more suggested on click on swiper arrow
 fetchMoreSuggestedFriends() {
-
-  this.skip += 10
-  this.subscriptions.push(
-    this.peopleYouMayKnow.peopleYouMAyKnow(this.skip).subscribe(
-      (res: any) => {
-        this.suggestedFriends.push(...res)
-        this.cd.detectChanges()
-        this.updtaeSwiper.swiperRef.update()
-      },
-      err => {}
+  
+ 
+    this.skip += 10
+    this.subscriptions.push(
+      this.peopleYouMayKnow.peopleYouMAyKnow(this.skip).subscribe(
+        (res: any) => {
+           this.suggestedFriends.push(...res)
+          this.cd.detectChanges()
+          this.updtaeSwiper.swiperRef.update()
+        },
+        err => {}
+      )
     )
-  )
-
-}
+  }
 // end fetch more suggested on click on swiper arrow
 // start navigate from swiper carousel to another component 
 navigatee(id: any) {
@@ -73,32 +75,34 @@ navigatee(id: any) {
     this.subscriptions.push(
       this.folloOrUnfollowService.followOrUnFollow(id).subscribe(
         res => {
-        this.subscriptions.push(
-          this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
-            res => {
-              this.socketService.emit("follow",{id}).then(
-                res => {
-                  this.suggestedFriends=res
-                  this.peopleYouMayKnowLoading=false
-                  this.followLoading=false
-                  this.getMyFollowingPosts()
-                  this._snackBar.open( "Followed up successfully",  "successfully", {
-                   horizontalPosition: 'left',
-                   verticalPosition: 'bottom',
-                   duration: 3000
-                 });
-                } , err => {this.router.navigate(["/error"])}
-              )
-            },
-            err => {
-            }
+          this.socketService.emit("follow",{id}).then(
+             res => {
+              this.subscriptions.push(
+                this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
+                  (res:any) => {
+                    this.suggestedFriends=res
+                    this.peopleYouMayKnowLoading=false
+                    this.followLoading=false
+                    this.getMyFollowingPosts()
+                    this._snackBar.open( "Followed up successfully",  "successfully", {
+                     horizontalPosition: 'left',
+                     verticalPosition: 'bottom',
+                     duration: 3000
+                   });
+                  } , err => {}
+                )
+                )
+             } , err => {
+              this.router.navigate(["/error"])
+             }
           )
-        )
+     
         },
         err => {}
       )
     )
     }
+   
      // end follow users method
      getMyFollowingPosts() {
       this.subscriptions.push(

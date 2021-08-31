@@ -90,7 +90,8 @@ class="bg-white">
                          [class.darkModeNotification]="userProfilesService.userProfile?.darkMode"
                          class="notificationsMenuee" >
                             <h2 mat-menu-item class="font-weight-bold">Notifications</h2>
-                            <ng-container  *ngIf="!userProfilesService?.myNotifications?.length;else notificationsContent">
+                            <ng-container  *ngIf="!userProfilesService?.myNotifications?.length && 
+                            !userProfilesService?.oldNotifications?.length;else notificationsContent">
                                 <p mat-menu-item>No Notifications</p>
                             </ng-container>
                             <ng-template #notificationsContent>

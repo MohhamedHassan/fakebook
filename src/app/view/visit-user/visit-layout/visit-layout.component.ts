@@ -25,7 +25,8 @@ export class VisitLayoutComponent implements OnInit,OnDestroy {
       private folloOrUnfollowService:FollowOrUnfollowService,
       private title:Title,
       public userProfilesService:UserProfileService,
-      private router:Router
+      private router:Router,
+      private commentService:CommentSocketService
     ) { }
 
   ngOnInit(): void {
@@ -98,17 +99,26 @@ followOrUnFollow(id:any) {
   this.subscriptions.push(
     this.folloOrUnfollowService.followOrUnFollow(id).subscribe(
       res => {
+        if(!this.followingStatus) {
+          this.commentService.emit("follow",{
+            id
+          }).then (
+            res => {},
+            err => {this.router.navigate(["/error"])}
+          )
+        }
+      
         this.followingStatus=!this.followingStatus
-       this.subscriptions.push(
-        this.visituser.getUserFollowers(this.userId).subscribe(
-          (res: any) => {
-            this.followLoading=false
-            this.visituser.followers = res?.followers
-            this.visituser.skeltonLoadingFollowers=false
-          },
-          err => {}
+        this.subscriptions.push(
+         this.visituser.getUserFollowers(this.userId).subscribe(
+           (res: any) => {
+             this.followLoading=false
+             this.visituser.followers = res?.followers
+             this.visituser.skeltonLoadingFollowers=false
+           },
+           err => {}
+         )
         )
-       )
       },
       err => {}
     )
