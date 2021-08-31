@@ -1055,7 +1055,6 @@ class AppComponent {
         });
         this.commentService.listen("reaction").subscribe((res) => {
             var _a, _b, _c, _d, _e, _f;
-            console.log(res);
             if ((res === null || res === void 0 ? void 0 : res.author) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id) &&
                 ((_b = res === null || res === void 0 ? void 0 : res.user) === null || _b === void 0 ? void 0 : _b._id) != ((_c = this.userProfilesService.userProfile) === null || _c === void 0 ? void 0 : _c._id)) {
                 this.getMyNotifications();
@@ -1072,7 +1071,6 @@ class AppComponent {
         }, err => { this.router.navigate(["/error"]); });
         this.commentService.listen("follow").subscribe((res) => {
             var _a;
-            console.log(res);
             if ((res === null || res === void 0 ? void 0 : res.id) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id)) {
                 this.getMyNotifications();
                 this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
@@ -1146,7 +1144,6 @@ class AppComponent {
         this.userProfilesService.getMyNotifications().subscribe((res) => {
             this.userProfilesService.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
             this.userProfilesService.oldNotifications = res === null || res === void 0 ? void 0 : res.oldNotification;
-            console.log(res);
         }, err => { });
     }
     openNotification(id, postId) {
