@@ -357,7 +357,16 @@
         @extend %reactionsCount;
       }
 }
-
+.popupp.darkMode {
+    .commentsSection {
+        background-color: #242526 !important;
+        color:#E4E6EB !important;
+        .commnetContent {
+            background-color: rgba(227, 227, 227, 0.1) !important;
+            color: #E4E6EB !important;
+        }
+    }
+}
 @media only screen and (min-width: 600px) and (max-width: 992px) {
     .popupp {
         .imgSection {

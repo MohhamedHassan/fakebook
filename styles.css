@@ -3798,6 +3798,10 @@ body {
   .profileOnHover, .timeOnHover {
     display: none !important;
   }
+
+  h2:hover {
+    border-color: transparent !important;
+  }
 }
 .fa-paper-plane {
   position: absolute;

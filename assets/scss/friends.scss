@@ -6,6 +6,7 @@
     right:0;
     bottom: 0;
     background-color: rgb(122 115 115 / 17%);
+    border-radius: 10px;
  }
  %profileOnHover {
     position: absolute;
@@ -37,7 +38,6 @@
     .overIMG {
        position: relative;
                 border-radius: 10px;
-                overflow: hidden;
                 &:hover::after {
                     @extend %overIMG;
                 }
@@ -123,6 +123,9 @@
  ::ng-deep .postsLoadingg.darkMode .loader{
     background-color: #323232 !important;
     border: 1px solid #323232
+ }
+ ::ng-deep {
+   .gravatar-title{width: 100% !important;}
  }
  
  
