@@ -81,6 +81,16 @@ export class VisitLayoutComponent implements OnInit,OnDestroy {
     
     })
    )
+ this.subscriptions.push(
+  this.userProfilesService.getMyNotifications().subscribe(
+    (res:any) => {
+      this.userProfilesService.myNotifications=res?.newNotification
+      console.log(this.userProfilesService.myNotifications)
+    },
+    err => {}
+  )
+ )
+  
   }
   profilePhotoss(img:any) {
     if( this.visituser.userProfile?.profilePhoto) {
