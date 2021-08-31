@@ -1035,52 +1035,52 @@ class AppComponent {
         if (this.authService.isLogin()) {
             this.getProfile();
             this.getMyNotifications();
+            this.commentService.listen("comment").subscribe((res) => {
+                var _a, _b, _c, _d, _e;
+                if ((res === null || res === void 0 ? void 0 : res.author) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id) &&
+                    ((_b = res === null || res === void 0 ? void 0 : res.user) === null || _b === void 0 ? void 0 : _b._id) != ((_c = this.userProfilesService.userProfile) === null || _c === void 0 ? void 0 : _c._id)) {
+                    this.getMyNotifications();
+                    this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
+                    this.commentService.postId = (_e = (_d = res === null || res === void 0 ? void 0 : res.comment) === null || _d === void 0 ? void 0 : _d.post) === null || _e === void 0 ? void 0 : _e._id;
+                    this.commentService.notificationId = res === null || res === void 0 ? void 0 : res.notificationId;
+                    this.commentService.commenrOrReact = "comment";
+                    this.commentService.showNotification = true;
+                    setTimeout(() => {
+                        this.commentService.showNotification = false;
+                    }, 20000);
+                }
+            }, err => {
+                this.router.navigate(["/error"]);
+            });
+            this.commentService.listen("reaction").subscribe((res) => {
+                var _a, _b, _c, _d, _e, _f;
+                if ((res === null || res === void 0 ? void 0 : res.author) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id) &&
+                    ((_b = res === null || res === void 0 ? void 0 : res.user) === null || _b === void 0 ? void 0 : _b._id) != ((_c = this.userProfilesService.userProfile) === null || _c === void 0 ? void 0 : _c._id)) {
+                    this.getMyNotifications();
+                    this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
+                    this.commentService.postId = (_e = (_d = res === null || res === void 0 ? void 0 : res.react) === null || _d === void 0 ? void 0 : _d.post) === null || _e === void 0 ? void 0 : _e._id;
+                    this.commentService.notificationId = res === null || res === void 0 ? void 0 : res.notificationId;
+                    this.commentService.commenrOrReact = "react";
+                    this.reactImgSrc = `assets/${(_f = res === null || res === void 0 ? void 0 : res.react) === null || _f === void 0 ? void 0 : _f.reaction}.png`;
+                    this.commentService.showNotification = true;
+                    setTimeout(() => {
+                        this.commentService.showNotification = false;
+                    }, 20000);
+                }
+            }, err => { this.router.navigate(["/error"]); });
+            this.commentService.listen("follow").subscribe((res) => {
+                var _a;
+                if ((res === null || res === void 0 ? void 0 : res.id) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id)) {
+                    this.getMyNotifications();
+                    this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
+                    this.commentService.notificationId = res === null || res === void 0 ? void 0 : res.notificationId;
+                    this.commentService.showFollowNotification = true;
+                    setTimeout(() => {
+                        this.commentService.showFollowNotification = false;
+                    }, 20000);
+                }
+            }, err => { this.router.navigate(["/error"]); });
         }
-        this.commentService.listen("comment").subscribe((res) => {
-            var _a, _b, _c, _d, _e;
-            if ((res === null || res === void 0 ? void 0 : res.author) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id) &&
-                ((_b = res === null || res === void 0 ? void 0 : res.user) === null || _b === void 0 ? void 0 : _b._id) != ((_c = this.userProfilesService.userProfile) === null || _c === void 0 ? void 0 : _c._id)) {
-                this.getMyNotifications();
-                this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
-                this.commentService.postId = (_e = (_d = res === null || res === void 0 ? void 0 : res.comment) === null || _d === void 0 ? void 0 : _d.post) === null || _e === void 0 ? void 0 : _e._id;
-                this.commentService.notificationId = res === null || res === void 0 ? void 0 : res.notificationId;
-                this.commentService.commenrOrReact = "comment";
-                this.commentService.showNotification = true;
-                setTimeout(() => {
-                    this.commentService.showNotification = false;
-                }, 20000);
-            }
-        }, err => {
-            this.router.navigate(["/error"]);
-        });
-        this.commentService.listen("reaction").subscribe((res) => {
-            var _a, _b, _c, _d, _e, _f;
-            if ((res === null || res === void 0 ? void 0 : res.author) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id) &&
-                ((_b = res === null || res === void 0 ? void 0 : res.user) === null || _b === void 0 ? void 0 : _b._id) != ((_c = this.userProfilesService.userProfile) === null || _c === void 0 ? void 0 : _c._id)) {
-                this.getMyNotifications();
-                this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
-                this.commentService.postId = (_e = (_d = res === null || res === void 0 ? void 0 : res.react) === null || _d === void 0 ? void 0 : _d.post) === null || _e === void 0 ? void 0 : _e._id;
-                this.commentService.notificationId = res === null || res === void 0 ? void 0 : res.notificationId;
-                this.commentService.commenrOrReact = "react";
-                this.reactImgSrc = `assets/${(_f = res === null || res === void 0 ? void 0 : res.react) === null || _f === void 0 ? void 0 : _f.reaction}.png`;
-                this.commentService.showNotification = true;
-                setTimeout(() => {
-                    this.commentService.showNotification = false;
-                }, 20000);
-            }
-        }, err => { this.router.navigate(["/error"]); });
-        this.commentService.listen("follow").subscribe((res) => {
-            var _a;
-            if ((res === null || res === void 0 ? void 0 : res.id) == ((_a = this.userProfilesService.userProfile) === null || _a === void 0 ? void 0 : _a._id)) {
-                this.getMyNotifications();
-                this.commentService.ownerOfTheComent = res === null || res === void 0 ? void 0 : res.user;
-                this.commentService.notificationId = res === null || res === void 0 ? void 0 : res.notificationId;
-                this.commentService.showFollowNotification = true;
-                setTimeout(() => {
-                    this.commentService.showFollowNotification = false;
-                }, 20000);
-            }
-        }, err => { this.router.navigate(["/error"]); });
     }
     ngOnInit() {
         if (this.authService.isLogin()) {

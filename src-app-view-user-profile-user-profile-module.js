@@ -4338,6 +4338,7 @@ class UserprofileComponent {
     // end swiper carousel options
     getPostsAfterEdit() {
         this.subscriptions.push(this.userProfilesService.getMyProfile().subscribe((res) => {
+            this.postCommentsIndex = -1;
             this.userProfilesService.userPosts = res === null || res === void 0 ? void 0 : res.posts;
         }, err => {
         }));
