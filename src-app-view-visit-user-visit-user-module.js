@@ -1051,6 +1051,10 @@ class VisitLayoutComponent {
                 this.visituser.skeltonLoadingPhotos = false;
             }, err => { }));
         }));
+        this.subscriptions.push(this.userProfilesService.getMyNotifications().subscribe((res) => {
+            this.userProfilesService.myNotifications = res === null || res === void 0 ? void 0 : res.newNotification;
+            console.log(this.userProfilesService.myNotifications);
+        }, err => { }));
     }
     profilePhotoss(img) {
         var _a;
