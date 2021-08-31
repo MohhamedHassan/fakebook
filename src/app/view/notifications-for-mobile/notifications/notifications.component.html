@@ -10,14 +10,18 @@ class="container-fluid py-5 ">
     <h1 class="font-weight-bold">Notifications</h1>
     <ul class="m-0 list-unstyled">
         <li>
-            <ng-container  *ngIf="!userProfilesService?.myNotifications?.length;else notificationsContent">
+            <ng-container  *ngIf="!userProfilesService?.myNotifications?.length && 
+            !userProfilesService?.oldNotifications?.length;else notificationsContent">
                 <p>No Notifications</p>
             </ng-container>
         </li>
         <ng-template #notificationsContent>
-        <li class="mb-3" (click)="openNotification(item?._id,item?.post)"
+        <li class="mb-3" 
         *ngFor="let item of userProfilesService?.myNotifications">
-                   <div class="d-flex align-items-center">
+                   <div 
+                   (click)="openNotification(item?._id,item?.post)"
+                   *ngIf="item?.type !='follow' "
+                   class="d-flex align-items-center">
                        <div class="position-relative">
                            <img class="mainIMG" [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
                            <i *ngIf="item?.type=='comment';else react" class="fas fa-comment-alt nav"></i>
@@ -28,7 +32,69 @@ class="container-fluid py-5 ">
                        <div class="ml-3">
                           <strong>
                             {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                          </strong> {{item?.type=="comment" ? "Cmomented on" : "Reacted to"}} your post <br> <small> {{item?.createdAt | date }}</small>
+                          </strong> {{item?.type=="comment" ? "Cmomented on" : "Reacted to"}} your post 
+                          <div class="d-flex justify-content-between align-items-center">
+                            <small> {{item?.createdAt | date }}</small>
+                            <span class="sign bg-primary"></span>
+                          </div>
+                       </div>
+                   </div>
+                   <div 
+                   (click)="openFollowNotification(item?.sender?._id,item?._id)"
+                   *ngIf="item?.type =='follow' "
+                   class="d-flex align-items-center">
+                       <div class="position-relative">
+                           <img class="mainIMG" [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
+                           <i *ngIf="item?.type=='follow'" class="fas fa-user nav"></i>    
+                       </div>
+                       <div class="ml-3">
+                          <strong>
+                            {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
+                          </strong> is following you
+                          <div class="d-flex justify-content-between align-items-center">
+                            <small> {{item?.createdAt | date }}</small>
+                            <span class="sign bg-primary"></span>
+                          </div>
+                       </div>
+                   </div>
+        </li>
+        <li class="mb-3" 
+        *ngFor="let item of userProfilesService?.oldNotifications">
+                   <div 
+                   (click)="openNotification(item?._id,item?.post)"
+                   *ngIf="item?.type !='follow' "
+                   class="d-flex align-items-center">
+                       <div class="position-relative">
+                           <img class="mainIMG" [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
+                           <i *ngIf="item?.type=='comment';else react" class="fas fa-comment-alt nav"></i>
+                         <ng-template #react>
+                            <img class="notificationImg" [src]="'assets/'+item?.type+'.png'" alt="">
+                         </ng-template>       
+                       </div>
+                       <div class="ml-3">
+                          <strong>
+                            {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
+                          </strong> {{item?.type=="comment" ? "Cmomented on" : "Reacted to"}} your post 
+                          <div class="d-flex justify-content-between align-items-center">
+                            <small> {{item?.createdAt | date }}</small>
+                          </div>
+                       </div>
+                   </div>
+                   <div 
+                   (click)="openFollowNotification(item?.sender?._id,item?._id)"
+                   *ngIf="item?.type =='follow' "
+                   class="d-flex align-items-center">
+                       <div class="position-relative">
+                           <img class="mainIMG" [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
+                           <i *ngIf="item?.type=='follow'" class="fas fa-user nav"></i>    
+                       </div>
+                       <div class="ml-3">
+                          <strong>
+                            {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
+                          </strong> is following you
+                          <div class="d-flex justify-content-between align-items-center">
+                            <small> {{item?.createdAt | date }}</small>
+                          </div>
                        </div>
                    </div>
         </li>

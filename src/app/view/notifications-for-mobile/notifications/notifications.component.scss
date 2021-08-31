@@ -10,22 +10,47 @@
         height: 60px;
         border-radius: 50%
     }
-    .fa-comment-alt.nav {
-        @extend %notificationnn;
-        color: white;
-        background: #48D06A;
-        width: 28px;
-        height: 28px;
+    .sign {
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
-    .notificationImg  {
-        width: 25px !important;
-        height: 25px !important;
-        @extend %notificationnn;
-    }
+%notificationnn {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: -6px !important;
+}
+%commomn {
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-comment-alt.nav {
+    @extend %notificationnn;
+    @extend %commomn;
+    background: #48D06A;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-user.nav {
+    @extend %notificationnn;
+    @extend %commomn;
+    background: #139AEC;
+
+}
+.notificationImg  {
+    width: 25px !important;
+    height: 25px !important;
+    @extend %notificationnn;
+}
 }
 .notificationsMobile.darkMode {
     background: #242526 !important;

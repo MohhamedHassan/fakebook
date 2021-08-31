@@ -47,6 +47,19 @@ export class NotificationsComponent implements OnInit , OnDestroy {
     )
   
   }
+  openFollowNotification(userId:any,id:any) {
+    this.commentService.emit("opened",{
+     id
+   }).then(
+     res => {
+         this.router.navigate(["/visit",userId])
+         this.commentService.showFollowNotification=false
+         this.getMyNotifications()
+     } , err => {
+       this.router.navigate(["/error"])
+     }
+   )
+  }
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe()
   }

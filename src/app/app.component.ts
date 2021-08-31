@@ -46,7 +46,6 @@ export class AppComponent implements OnInit    {
       )
       this.commentService.listen("reaction").subscribe(
         (res:any) => {
-          console.log(res)
           if(res?.author == this.userProfilesService.userProfile?._id &&
             res?.user?._id != this.userProfilesService.userProfile?._id) {
               this.getMyNotifications()
@@ -65,7 +64,6 @@ export class AppComponent implements OnInit    {
       )
       this.commentService.listen("follow").subscribe(
         (res:any) => {
-           console.log(res)
            if(res?.id == this.userProfilesService.userProfile?._id) {
             this.getMyNotifications()
             this.commentService.ownerOfTheComent = res?.user
@@ -149,7 +147,6 @@ getMyNotifications() {
     (res:any) => {
       this.userProfilesService.myNotifications=res?.newNotification
       this.userProfilesService.oldNotifications=res?.oldNotification
-      console.log(res)
     },
     err => {}
   )

@@ -101,7 +101,7 @@ class="bg-white">
                                 >
                                    <div 
                                    (click)="openNotification(item?._id,item?.post)"
-                                    *ngIf="item?.type!='follow'"
+                                    *ngIf="item?.type !='follow' "
                                    class="d-flex align-items-center">
                                        <div class="position-relative">
                                            <img [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
