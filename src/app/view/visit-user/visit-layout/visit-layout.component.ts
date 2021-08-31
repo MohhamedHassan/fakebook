@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
@@ -29,7 +29,7 @@ export class VisitLayoutComponent implements OnInit,OnDestroy {
     ) { }
 
   ngOnInit(): void {
-    window.scroll(0,0)
+  
    this.subscriptions.push(
     this.activatedroute.params.subscribe(param => {
       this.visituser.userId=param.id
@@ -45,6 +45,7 @@ export class VisitLayoutComponent implements OnInit,OnDestroy {
             this.visituser.skeltonLoading=false
             this.visituser.userProfileLoading=false
             this.visituser.darkMode=res?.darkMode
+            window.scroll(0,0)
           },
           err => {}
         )

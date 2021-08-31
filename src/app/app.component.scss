@@ -10,6 +10,13 @@
     position: absolute;
     
 }
+%followAndComment {
+    color: white;
+    padding: 8px;
+    border-radius: 50%;  
+    right: -10px;
+    bottom: 0;
+}
 .notification {
     width: 300px;
     background: white;
@@ -20,6 +27,14 @@
     left: 20px;
     z-index: 1000000;
     padding: 10px;
+    .sign {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        right: 12px;
+        bottom: 25px;    
+    }
     img {
         width: 60px;
         height: 60px;
@@ -28,12 +43,13 @@
     .commentOrReaction {
         .fa-comment-alt {
             background: #48D06A;
-            color: white;
-            padding: 8px;
-            border-radius: 50%;  
-            right: -10px;
-            bottom: 0;
+            @extend %followAndComment;
            @extend %reactionsImg;
+        }
+        .fa-user {
+             background-color: #139AEC;
+            @extend %followAndComment;
+            @extend %reactionsImg;
         }
         img:not(.userImg) {
             width: 20px;
@@ -64,6 +80,7 @@ nav {
     width: 100%;
     z-index: 11111111111111111111;
     top: 0;
+
     .bell {
         small {
             background: #F02849;
@@ -273,6 +290,7 @@ nav.darkMode {
             &:hover {background-color: #3A3B3C;}
         }
     }
+
 }
     ::ng-deep  {
         .mat-menu-item {
@@ -305,15 +323,28 @@ nav.darkMode {
             min-height: 70vh !important;
             max-height: 70vh !important;
             min-width: 300px !important;
-           
+            .sign {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
         %notificationnn {
             position: absolute !important;
             bottom: 0 !important;
             right: -6px !important;
         }
+        %commomn {
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .fa-comment-alt.nav {
             @extend %notificationnn;
-            color: white;
+            @extend %commomn;
             background: #48D06A;
             width: 28px;
             height: 28px;
@@ -321,6 +352,12 @@ nav.darkMode {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .fa-user.nav {
+            @extend %notificationnn;
+            @extend %commomn;
+            background: #139AEC;
+       
         }
         .notificationImg  {
             width: 25px !important;
@@ -330,6 +367,7 @@ nav.darkMode {
        
         .notificationsMenuee{
             padding-top: 10px;
+            min-height: 70vh !important;
            }
      
         .mat-menu-panel{min-height:  auto !important;}
@@ -377,14 +415,7 @@ nav.darkMode {
         .userNameSpan {font-size: small !important;}
     }
 }
-.sign {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    position: absolute;
-    right: 12px;
-    bottom: 25px;    
-}
+
 .preventScroll {
     height: 100vh !important;
     overflow: hidden !important;

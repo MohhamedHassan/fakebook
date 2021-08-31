@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { FollowOrUnfollowService } from 'src/app/services/follow-or-unfollow.service';
 import { PeopleYouMayKnowService } from 'src/app/services/people-you-may-know.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
@@ -25,7 +26,8 @@ export class PeopeYouMayKnowComponent implements OnInit {
     private _ngZone: NgZone,
     private router:Router,
     private folloOrUnfollowService:FollowOrUnfollowService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private socketService:CommentSocketService) { }
 
   ngOnInit(): void {
     this.swiperLoadingCount.length=5
@@ -92,18 +94,23 @@ export class PeopeYouMayKnowComponent implements OnInit {
     this.subscriptions.push(
       this.folloOrUnfollowService.followOrUnFollow(id).subscribe(
         res => {
-          this.getPeopleYouMAyKnow()
-          this.subscriptions.push(
-            this.userProfilesService.getFollowing().subscribe(
-              (res: any) => {
-                this.userProfilesService.skeltonLoadingForFollowing = false
-                this.userProfilesService.following = res?.followings?.following
-                this.followLoading = false
-                this.openSnackBar("Followed up successfully", "successfully")
-              },
-              err => { }
-            )
+          this.socketService.emit("follow",{id}).then(
+            res => {
+              this.getPeopleYouMAyKnow()
+              this.subscriptions.push(
+                this.userProfilesService.getFollowing().subscribe(
+                  (res: any) => {
+                    this.userProfilesService.skeltonLoadingForFollowing = false
+                    this.userProfilesService.following = res?.followings?.following
+                    this.followLoading = false
+                    this.openSnackBar("Followed up successfully", "successfully")
+                  },
+                  err => { }
+                )
+              )
+            } , err => {this.router.navigate(["/error"])}
           )
+   
         },
         err => { }
       )

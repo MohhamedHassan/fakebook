@@ -156,7 +156,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userProfilesService.deletPost(id).subscribe(
         res => {
-          this.openSnackBar('The Bost Deleted Successfully', 'Deleted')
+          this.openSnackBar('post Deleted Successfully', 'Deleted')
           this.modalRef.hide()
           this.deletePostLoading = false
           this.getPostsAfterEdit()
@@ -181,7 +181,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userProfilesService.updatePostContent(this.chosenPostToEdit?._id, value).subscribe(
         res => {
-          this.openSnackBar('The Bost Updated Successfully', 'Updated')
+          this.openSnackBar('post Updated Successfully', 'Updated')
           this.postImage = ''
           this.modalRef.hide()
           this.postLoading = false
@@ -310,7 +310,6 @@ scrollY:any
        
           this.postComments = res?.comments
           this.popupPost=res?.post
-
         }, err => {
         }
       )
@@ -414,6 +413,10 @@ scrollY:any
     this.popupPost=[];
     this.postReactions=[]
     this.postCommentsIndex=-1;
+  }
+  navigate(id:any) {
+    this.closePopup()
+    this.router.navigate(['/visit',id])
   }
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if(this.userProfilesService.popUP) {

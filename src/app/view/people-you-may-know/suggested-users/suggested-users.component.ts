@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { FollowOrUnfollowService } from 'src/app/services/follow-or-unfollow.service';
 import { PeopleYouMayKnowService } from 'src/app/services/people-you-may-know.service';
@@ -21,7 +22,9 @@ subscriptions :any[] = [];
     private folloOrUnfollowService:FollowOrUnfollowService,
     private _snackBar: MatSnackBar,
     public userService:UserProfileService,
-    private title:Title) { }
+    private title:Title,
+    private socketService:CommentSocketService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.title.setTitle("Friends | Fakebook")
@@ -37,12 +40,17 @@ subscriptions :any[] = [];
      this.subscriptions.push(
       this.folloOrUnfollowService.followOrUnFollow(id).subscribe(
         res => {
-          this._snackBar.open( "Followed up successfully",  "successfully", {
-            horizontalPosition: 'left',
-            verticalPosition: 'bottom',
-            duration: 3000
-          });
-          this.getSuggested()
+           this.socketService.emit("follow",{id}).then(
+             res => {
+              this._snackBar.open( "Followed up successfully",  "successfully", {
+                horizontalPosition: 'left',
+                verticalPosition: 'bottom',
+                duration: 3000
+              });
+              this.getSuggested()
+             } , err => {this.router.navigate(["/error"])}
+           )
+      
         },
         err =>{}
       )

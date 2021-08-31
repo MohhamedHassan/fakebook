@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { FollowOrUnfollowService } from 'src/app/services/follow-or-unfollow.service';
 import { PeopleYouMayKnowService } from 'src/app/services/people-you-may-know.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
@@ -25,7 +26,8 @@ export class YouMayKnowComponent implements OnInit,OnDestroy {
     private _ngZone: NgZone,
     private router:Router,
     private folloOrUnfollowService:FollowOrUnfollowService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private socketService:CommentSocketService) { }
 
   ngOnInit(): void {
     this.swiperLoadingCount.length=5
@@ -74,15 +76,19 @@ navigatee(id: any) {
         this.subscriptions.push(
           this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
             res => {
-             this.suggestedFriends=res
-             this.peopleYouMayKnowLoading=false
-             this.followLoading=false
-             this.getMyFollowingPosts()
-             this._snackBar.open( "Followed up successfully",  "successfully", {
-              horizontalPosition: 'left',
-              verticalPosition: 'bottom',
-              duration: 3000
-            });
+              this.socketService.emit("follow",{id}).then(
+                res => {
+                  this.suggestedFriends=res
+                  this.peopleYouMayKnowLoading=false
+                  this.followLoading=false
+                  this.getMyFollowingPosts()
+                  this._snackBar.open( "Followed up successfully",  "successfully", {
+                   horizontalPosition: 'left',
+                   verticalPosition: 'bottom',
+                   duration: 3000
+                 });
+                } , err => {this.router.navigate(["/error"])}
+              )
             },
             err => {
             }
@@ -100,6 +106,7 @@ navigatee(id: any) {
          res => {
            this.userProfileService.myFollowingPosts = res
            this.userProfileService.HomePageSkeltonLoading = false
+
          }, err => {
          }
        )

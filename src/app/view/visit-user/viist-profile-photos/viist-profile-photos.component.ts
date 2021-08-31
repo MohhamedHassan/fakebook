@@ -35,7 +35,7 @@ export class ViistProfilePhotosComponent implements OnInit,OnDestroy {
   }
   reload() {location.reload()}
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    this.router.navigate(["/myProfile"])
+    this.router.navigate(['/visit',this.visituser?.userId])
  }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {

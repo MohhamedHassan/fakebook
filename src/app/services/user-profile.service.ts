@@ -13,6 +13,7 @@ export class UserProfileService {
   following:any[]=[]
   photos:any[]=[]
   myNotifications:any=[]
+  oldNotifications:any=[]
   skeltonLoading:boolean=true
   skeltonLoadingForPhotos:boolean=true
   skeltonLoadingForFollowing:boolean=true

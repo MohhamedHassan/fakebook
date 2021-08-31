@@ -33,7 +33,7 @@ class="container">
                      <div class="gravatar-title mx-3">
                          <div>
                              <ngx-skeleton-loader [theme]="{
-                       width: '200px',
+                       width: '90%',
                        'border-radius': '0',
                        height: '15px',
                        'margin-bottom': '10px'
@@ -41,7 +41,7 @@ class="container">
                          </div>
                          <div>
                              <ngx-skeleton-loader
-                                 [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }">
+                                 [theme]="{ width: '70%', 'border-radius': '0', height: '15px' }">
                              </ngx-skeleton-loader>
                          </div>
                      </div>
@@ -59,9 +59,11 @@ class="container">
                                 <div 
                                 [routerLink]='["/visit",item?._id]'
                                 class="overIMG" (mouseover)="profileOnHover=i" >
-                                    <img  
+                                    <div>
+                                        <img  
                                   
-                                    [src]="item?.profilePhoto | gender : item?.gender" alt="">
+                                        [src]="item?.profilePhoto | gender : item?.gender" alt="">
+                                    </div>
                                 </div>
                                <div class="mx-3" (mouseover)="profileOnHover=i"  (mouseleave)='profileOnHover=-1'>
                                    <h2  
@@ -144,7 +146,7 @@ class="container">
                      <div class="gravatar-title mx-3">
                          <div>
                              <ngx-skeleton-loader [theme]="{
-                       width: '200px',
+                       width: '90%',
                        'border-radius': '0',
                        height: '15px',
                        'margin-bottom': '10px'
@@ -152,7 +154,7 @@ class="container">
                          </div>
                          <div>
                              <ngx-skeleton-loader
-                                 [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }">
+                                 [theme]="{ width: '70%', 'border-radius': '0', height: '15px' }">
                              </ngx-skeleton-loader>
                          </div>
                      </div>

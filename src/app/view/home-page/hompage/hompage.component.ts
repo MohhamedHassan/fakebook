@@ -288,6 +288,10 @@ export class HompageComponent implements OnInit,OnDestroy {
     this.postReactions=[]
     this.postCommentsIndex=-1;
   }
+  navigate(id:any) {
+    this.closePopup()
+    this.router.navigate(['/visit',id])
+  }
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if(this.userProfileService.popUP) {
        this. closePopup()

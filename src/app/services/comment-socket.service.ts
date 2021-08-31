@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 export class CommentSocketService {
   socket:any
   showNotification:boolean=false
+  showFollowNotification:boolean=false
   ownerOfTheComent:any
   postId:any
   commenrOrReact:any

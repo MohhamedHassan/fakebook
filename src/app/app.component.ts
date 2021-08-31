@@ -38,7 +38,7 @@ export class AppComponent implements OnInit    {
             
             setTimeout(() => {
               this.commentService.showNotification = false
-            }, 4000);
+            }, 6000);
           }
         }, err => {
           this.router.navigate(["/error"])
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit    {
       )
       this.commentService.listen("reaction").subscribe(
         (res:any) => {
+          console.log(res)
           if(res?.author == this.userProfilesService.userProfile?._id &&
             res?.user?._id != this.userProfilesService.userProfile?._id) {
               this.getMyNotifications()
@@ -57,8 +58,24 @@ export class AppComponent implements OnInit    {
            this.commentService.showNotification = true
            setTimeout(() => {
              this.commentService.showNotification = false
-           }, 4000);
+           }, 6000);
          }
+        },
+        err => { this.router.navigate(["/error"])}
+      )
+      this.commentService.listen("follow").subscribe(
+        (res:any) => {
+           console.log(res)
+           if(res?.id == this.userProfilesService.userProfile?._id) {
+            this.getMyNotifications()
+            this.commentService.ownerOfTheComent = res?.user
+            this.commentService.notificationId=res?.notificationId
+            this.commentService.showFollowNotification=true
+
+            setTimeout(() => {
+              this.commentService.showFollowNotification = false
+            }, 6000);
+           }
         },
         err => { this.router.navigate(["/error"])}
       )
@@ -95,10 +112,10 @@ darkModeToggle() {
 }
 logOut() {
   this.authService.logout().subscribe(res => {
-    location.reload()
     this.userProfilesService.userProfile=[]
     localStorage.removeItem("fakebookToken")
     this.router.navigate(["/auth/signin"])
+    location.reload()
   },err => {
   })
 }
@@ -131,6 +148,8 @@ getMyNotifications() {
   this.userProfilesService.getMyNotifications().subscribe(
     (res:any) => {
       this.userProfilesService.myNotifications=res?.newNotification
+      this.userProfilesService.oldNotifications=res?.oldNotification
+      console.log(res)
     },
     err => {}
   )
@@ -152,5 +171,18 @@ openNotification(id:any,postId:any) {
       this.router.navigate(["/error"])
     }
   )
+}
+openFollowNotification(userId:any,id:any) {
+  this.commentService.emit("opened",{
+   id
+ }).then(
+   res => {
+       this.router.navigate(["/visit",userId])
+       this.commentService.showFollowNotification=false
+       this.getMyNotifications()
+   } , err => {
+     this.router.navigate(["/error"])
+   }
+ )
 }
 }

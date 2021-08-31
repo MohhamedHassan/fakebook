@@ -451,7 +451,9 @@
         </div>
     </div>
 </ng-template>
-<div *ngIf="userProfilesService.popUP" class="popupp">
+<div 
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+*ngIf="userProfilesService.popUP" class="popupp">
     <div class="imgSection">
 
         <img *ngIf="popupPost?.image;else popupLoading" [src]="popupPost?.image" alt="">
@@ -470,12 +472,20 @@
         <i (click)="closePopup()" class="fas fa-times"></i>
     </div>
     <div #commentsSection class="zIndex commentsSection p-3">
-        <div class="d-flex align-items-center pt-3 ">
-            <img class="profilePopup"
+        <div 
+        *ngIf="!commentsLoading"
+        class="d-flex align-items-center pt-3 ">
+            <img 
+            style="cursor: pointer;"
+            (click)="closePopup()"
+            class="profilePopup"
                 [src]="popupPost?.author?.profilePhoto  | gender : popupPost?.author?.gender "
                 alt="">
             <div class="mx-2">
-                <h2 class="m-0">
+                <h2 
+                style="cursor: pointer;"
+                (click)="closePopup()"
+                class="m-0">
                     {{popupPost?.author?.firstName | titlecase | slice : 0 : 12}}
                     {{popupPost?.author?.lastName | titlecase | slice : 0 : 12}}
                 </h2>
@@ -547,13 +557,15 @@
                             <ng-container *ngIf="postComments?.length;else noCommentsYet">
                                 <li *ngFor="let comment of postComments;let commentIndex = index"
                                     class="d-flex">
-                                    <img [routerLink]="['/visit',comment?.user?._id]"
+                                    <img 
+                                    (click)="navigate(comment?.user?._id)"
                                         style="cursor: pointer;"
                                         [src]="comment?.user?.profilePhoto | gender :  comment.user?.gender"
                                         alt="">
                                     <div class="mx-2">
                                         <div class="commnetContent">
-                                            <p [routerLink]="['/visit',comment?.user?._id]"
+                                            <p 
+                                              (click)="navigate(comment?.user?._id)"
                                                 style="cursor: pointer;"
                                                 class="font-weight-bold">
                                                 {{comment.user?.firstName | titlecase |

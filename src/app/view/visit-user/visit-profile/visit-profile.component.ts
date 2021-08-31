@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnChanges, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { FollowOrUnfollowService } from 'src/app/services/follow-or-unfollow.service';
@@ -54,7 +54,7 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
     private rendrer:Renderer2,
     private modalService: BsModalService,
     private router:Router) { }
-
+    
   ngOnInit(): void {
   
     this.scrollTop()
@@ -251,6 +251,11 @@ closePopup() {
   this.popupPost=[];
   this.postReactions=[]
   this.postCommentsIndex=-1;
+}
+navigate(id:any) {
+  this.closePopup()
+  this.router.navigate(['/visit',id])
+  
 }
 @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
   if(this.userProfilesService.popUP) {
