@@ -214,20 +214,29 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
     this.subscriptions.push(
       this.folloOrUnfollowService.followOrUnFollow(id).subscribe(
         res => {
-         this.subscriptions.push(
-          this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
+          this.commentService.emit("follow",{
+            id
+          }).then(
             res => {
-             this.followLoading=false
-             this._snackBar.open( "Followed up successfully",  "successfully", {
-              horizontalPosition: 'left',
-              verticalPosition: 'bottom',
-              duration: 3000
-            });
-            },
-            err => {
+              this.subscriptions.push(
+                this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
+                  res => {
+                   this.followLoading=false
+                   this._snackBar.open( "Followed up successfully",  "successfully", {
+                    horizontalPosition: 'left',
+                    verticalPosition: 'bottom',
+                    duration: 3000
+                  });
+                  },
+                  err => {
+                  }
+                )
+               )
+            } , err => {
+              this.router.navigate(["/error"])
             }
           )
-         )
+      
         },
         err => {}
       )

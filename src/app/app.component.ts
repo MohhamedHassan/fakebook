@@ -38,7 +38,7 @@ export class AppComponent implements OnInit    {
             
             setTimeout(() => {
               this.commentService.showNotification = false
-            }, 6000);
+            }, 20000);
           }
         }, err => {
           this.router.navigate(["/error"])
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit    {
            this.commentService.showNotification = true
            setTimeout(() => {
              this.commentService.showNotification = false
-           }, 6000);
+           }, 20000);
          }
         },
         err => { this.router.navigate(["/error"])}
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit    {
 
             setTimeout(() => {
               this.commentService.showFollowNotification = false
-            }, 6000);
+            }, 20000);
            }
         },
         err => { this.router.navigate(["/error"])}
