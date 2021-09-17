@@ -3687,6 +3687,11 @@ textarea::-webkit-scrollbar-thumb:hover,
   color: #0B86ED;
 }
 @media only screen and (max-width: 600px) {
+  .reactions img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
   ::placeholder {
     font-size: medium !important;
   }
@@ -3791,7 +3796,7 @@ body {
 @media only screen and (max-width: 600px) {
   .postss .options > li {
     padding: 5px 10px !important;
-    font-size: 15px !important;
+    font-size: 10px !important;
   }
 }
 @media only screen and (max-width: 992px) {
@@ -3808,15 +3813,129 @@ body {
   top: 10px;
   font-size: medium;
 }
-@media only screen and (max-width: 350px) {
-  .reactions img {
-    width: 20px !important;
-  }
-}
 .userReact span, .postss {
   -webkit-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+.rtll {
+  direction: rtl;
+  text-align: right;
+  font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;
+}
+.rtll h1, .rtll h2, .rtll h3, .rtll h4, .rtll h5, .rtll h6, .rtll span, .rtll p, .rtll small, .rtll strong {
+  font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;
+}
+.rtll .fa-eye, .rtll .fa-eye-slash {
+  right: auto !important;
+  left: 35px !important;
+}
+.rtll .parentOfSignin .fa-exclamation-triangle {
+  left: 10px !important;
+  right: auto !important;
+}
+.rtll .signUp .fa-times {
+  right: auto !important;
+  left: 15px !important;
+}
+.rtll .signUp select {
+  background-position: left 5px center !important;
+}
+.rtll .inputsError::after {
+  right: auto !important;
+  left: 10px !important;
+}
+.rtll .add-post .yrMind {
+  margin-right: 10px;
+  margin-left: 0 !important;
+}
+.rtll .postss .reactions li:not(:last-of-type) {
+  margin-left: 10px !important;
+  margin-right: 0 !important;
+}
+.rtll .postss .timeOnHover {
+  left: auto;
+  right: -18px;
+}
+.rtll .profileOnHover {
+  left: auto !important;
+  right: 0;
+}
+.rtll .postss .reactionsCount img.last, .rtll .popupp .reactionsCount img.last {
+  left: auto !important;
+  right: 13px !important;
+}
+.rtll .postss .reactionsCount span, .rtll .popupp .reactionsCount span {
+  margin-right: 20px !important;
+  margin-left: 0 !important;
+}
+.rtll .postss .reactionsCount .exist + span, .rtll .popupp .reactionsCount .exist + span {
+  margin-right: 35px !important;
+  margin-left: 0 !important;
+}
+.rtll .popupp .imgSection .fa-times {
+  left: auto !important;
+  right: 15px;
+}
+.rtll .popupp .commentsSection .fa-times {
+  right: auto !important;
+  left: 10px !important;
+}
+.rtll ::placeholder {
+  text-align: right !important;
+}
+.rtll .profileImg .addprofileImg {
+  right: auto !important;
+  left: 0 !important;
+}
+.rtll .coverImg .addCVR {
+  right: auto !important;
+  left: 25px !important;
+}
+.rtll ul.followersIMGS li:not(:last-of-type) > img {
+  border-left: 2px solid white !important;
+  border-right: none !important;
+}
+.rtll ul.followersIMGS li:nth-of-type(6) > img {
+  right: 145px !important;
+}
+.rtll ul.followersIMGS li:nth-of-type(5) > img {
+  right: 120px !important;
+}
+.rtll ul.followersIMGS li:nth-of-type(4) > img {
+  right: 90px !important;
+}
+.rtll ul.followersIMGS li:nth-of-type(3) > img {
+  right: 60px !important;
+}
+.rtll ul.followersIMGS li:nth-of-type(2) > img {
+  right: 30px !important;
+}
+.rtll ul.followersIMGS li:first-of-type > img {
+  right: 0 !important;
+}
+.rtll nav .mainLogo input {
+  padding: 12px 20px 8px 35px !important;
+}
+.rtll nav .rightUL li:not(.img) {
+  margin-left: 0 !important;
+  margin-right: 10px !important;
+}
+.rtll .notification .sign {
+  right: auto !important;
+  left: 12px !important;
+}
+@media only screen and (min-width: 767px) {
+  .rtll nav .bell small {
+    right: auto !important;
+    left: -6px !important;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .rtll .notification {
+    right: 20px !important;
+    left: auto !important;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map*/

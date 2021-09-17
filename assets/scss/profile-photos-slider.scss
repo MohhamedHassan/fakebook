@@ -4,20 +4,21 @@
     .fa-redo-alt,.fa-times,.fa-trash-alt {
         position: absolute;
         color: white;
-        text-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-        background: rgba(0,0,0,.5);
+        text-shadow: rgb(0 0 0) 0px 3px 8px;
+        background: none !important;
         padding: 10px;
         border-radius: 10px;
         cursor: pointer;
         z-index: 111;
     }
-    .fa-times{top: 40px;right: 35px;font-size: 25px;}
-    .fa-redo-alt{top: 40px;right: 75px;font-size: 25px;}
-    .fa-trash-alt{top: 35px;right: 35px;font-size: 15px;}
+    .fa-times{top: 40px;right: 35px;font-size: 15px;}
+    .fa-redo-alt{top: 40px;right: 75px;font-size: 15px;}
+    .fa-trash-alt{top: 40px;right: 120px;font-size: 15px;}
 }
 ::ng-deep {
     .vhIMG {
-        height: 100vh;
+        max-height: 100vh;
+        max-width: 100%;
     }
     .carousel-indicators{display: none;}
     .icon-next,.icon-prev {
@@ -37,11 +38,11 @@
     .icon-next {&:after {content: "\f054";right: 45px;}}
     .icon-prev {&:after {content: "\f053";left: 45px;}}
 }
-.profilePhotosWidth {width: 50%;}
+// .profilePhotosWidth {width: 50%;}
 @media only screen and (max-width: 600px) {
-    .profilePhotosWidth {
-        width: 95%;
-    }
+    // .profilePhotosWidth {
+    //     width: 95%;
+    // }
     .fa-trash-alt
     {
         top: 40px !important;
