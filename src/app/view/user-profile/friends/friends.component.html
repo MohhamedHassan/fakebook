@@ -6,9 +6,9 @@ class="container">
         <div class="row bg-white mb-5 mx-md-0 p-3 rounded-lg">
             <div class="col-md-12 mb-3">
               <div class="d-block d-md-flex justify-content-between align-items-center">
-                <h2 class="font-weight-bold  mb-2 mb-md-0">Following</h2>
+                <h2 class="font-weight-bold  mb-2 mb-md-0">{{'leftSide.following' | translate}}</h2>
                 <div class="position-relative parentOfSearch">
-                    <input [(ngModel)]="searchPipeValue" placeholder="Search" type="search">
+                    <input [(ngModel)]="searchPipeValue" placeholder="{{'posts.search' | translate}}" type="search">
                      <i class="fas fa-search text-secondary"></i>
                 </div>
               </div>
@@ -70,8 +70,8 @@ class="container">
                                    [routerLink]='["/visit",item?._id]'
                                    class="userName mb-1">{{item?.firstName | titlecase | slice : 0 : 12}}
                                        {{item?.lastName | titlecase | slice : 0 : 12}}</h2>
-                                       <p class="text-secondary m-0"><i class="far fa-calendar-alt mr-2"></i> Born on 
-                                          {{item?.birthDate |date}}</p>
+                                       <p class="text-secondary m-0"><i class="far fa-calendar-alt"></i> <span class="mx-1"> {{'posts.bornOn' | translate}}</span>
+                                          {{item?.birthDate |date : "longDate" : undefined : lang}}</p>
                                           <div *ngIf="profileOnHover==i" class=" profileOnHover bg-white rounded-lg p-3">
                                               <div class="d-flex align-items-center">
                                               <div>
@@ -90,8 +90,8 @@ class="container">
                                                           titlecase | slice : 0 : 12}}
                                                           {{item?.lastName | titlecase | slice
                                                           : 0 : 12}}</h2>
-                                                      <p><i class="far fa-calendar-alt mr-2"></i> Born on
-                                                          {{item?.birthDate |date}}</p>
+                                                      <p><i class="far fa-calendar-alt"></i> <span class="mx-1">{{'posts.bornOn' | translate}}</span>
+                                                          {{item?.birthDate |date : "longDate" : undefined : lang}}</p>
                                                   </div>
                                               </div>
                                           </div>
@@ -102,7 +102,7 @@ class="container">
                     <h2 
                     *ngIf="result?.length === 0"
                     class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
-                       No Result For : {{searchPipeValue}}
+                        {{'leftSide.noResultFor' | translate}} {{searchPipeValue}}
                     </h2>
                 </ng-container>
                 
@@ -110,7 +110,7 @@ class="container">
             </ng-container>
             <ng-template #noFollowing>
                 <h2 class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
-                    No Friends To Show
+                    {{'leftSide.noFriends' | translate}} {{searchPipeValue}}
                 </h2>
             </ng-template>
         </ng-template>
@@ -119,9 +119,9 @@ class="container">
         <div class="row bg-white mx-md-0 p-3 rounded-lg">
             <div class="col-md-12 mb-3">
                 <div class="d-block d-md-flex justify-content-between align-items-center">
-                    <h2 class="mb-2 mb-md-0 font-weight-bold">Followers</h2>
+                    <h2 class="mb-2 mb-md-0 font-weight-bold">{{'leftSide.followers' | translate}}</h2>
                     <div class="position-relative parentOfSearch">
-                        <input [(ngModel)]="searchPipeValueTwo" placeholder="Search" type="search">
+                        <input [(ngModel)]="searchPipeValueTwo" placeholder="{{'posts.search' | translate}}" type="search">
                          <i class="fas fa-search text-secondary"></i>
                     </div>
                 </div>
@@ -181,8 +181,8 @@ class="container">
                                    [routerLink]='["/visit",item?._id]'
                                    class="userName mb-1">{{item?.firstName | titlecase | slice : 0 : 12}}
                                        {{item?.lastName | titlecase | slice : 0 : 12}}</h2>
-                                       <p class="text-secondary m-0"><i class="far fa-calendar-alt mr-2"></i> Born on 
-                                          {{item?.birthDate |date}}</p>
+                                       <p class="text-secondary m-0"><i class="far fa-calendar-alt"></i> <span class="mx-1">{{'posts.bornOn' | translate}}</span> 
+                                          {{item?.birthDate |date : "longDate" : undefined : lang}}</p>
                                           <div *ngIf="followersOnHover==i" class=" profileOnHover bg-white rounded-lg p-3">
                                               <div class="d-flex align-items-center">
                                                 <div>
@@ -199,8 +199,8 @@ class="container">
                                                           titlecase | slice : 0 : 12}}
                                                           {{item?.lastName | titlecase | slice
                                                           : 0 : 12}}</h2>
-                                                      <p><i class="far fa-calendar-alt mr-2"></i> Born on
-                                                          {{item?.birthDate |date}}</p>
+                                                      <p><i class="far fa-calendar-alt"></i> <span class="mx-1">{{'posts.bornOn' | translate}}</span>
+                                                          {{item?.birthDate |date : "longDate" : undefined : lang}}</p>
                                                   </div>
                                               </div>
                                           </div>
@@ -211,7 +211,7 @@ class="container">
                     <h2 
                     *ngIf="resultTwo?.length === 0"
                     class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
-                       No Result For : {{searchPipeValueTwo}}
+                    {{'leftSide.noResultFor' | translate}} {{searchPipeValueTwo}}
                     </h2>
                 </ng-container>
              
@@ -219,7 +219,7 @@ class="container">
             </ng-container>
             <ng-template #noFollowers>
                 <h2 class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
-                    No Followers To Show
+                    {{'leftSide.noFollowers' | translate}}  
                 </h2>
             </ng-template>
         </ng-template>

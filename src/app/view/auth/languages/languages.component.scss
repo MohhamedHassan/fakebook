@@ -1,0 +1,10 @@
+.regesterLang {
+    li {
+        margin-right: 5px;
+        color: blue;
+        cursor: pointer;
+        &:hover {
+           text-decoration: underline;
+        }
+    }
+}

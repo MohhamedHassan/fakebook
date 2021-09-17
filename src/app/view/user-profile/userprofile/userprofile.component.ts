@@ -12,6 +12,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
@@ -45,20 +46,13 @@ export class UserprofileComponent implements OnInit, OnDestroy {
   enterESCtoCancel:boolean=true
   popupPost:any
   popupReactions:any
-  reactions:any = [
-    {imgSrc:"assets/like.png",reaction:"like"},
-    {imgSrc:"assets/love.png",reaction:"love"},
-    {imgSrc:"assets/haha.png",reaction:"haha"},
-    {imgSrc:"assets/wow.png",reaction:"wow"},
-    {imgSrc:"assets/sad.png",reaction:"sad"},
-    {imgSrc:"assets/angry.png",reaction:"angry"},
-  ]
+  reactions:any = []
   postReactions:any=[]
   sortReaction:any = []
   reactionModalImgSrc:any=""
   filterReactions:any=''
   reacionsModaClassIndex:any=-1
-  
+  translatedSnackbar:any
   @ViewChild('editCommentInpu', { static: false }) editCommentInpu: ElementRef
   @ViewChild('addCommentInput', { static: false }) addCommentInput: ElementRef
   constructor(public userProfilesService: UserProfileService,
@@ -68,10 +62,23 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private cd: ChangeDetectorRef,
     private commentService: CommentSocketService,
-    private router:Router
+    private router:Router,
+    private translate:TranslateService
   ) {
-  }
+    this.subscriptions.push(
+      translate.get('posts.reactions').subscribe(
+        res => this.reactions = res
+     )
 
+     )
+     this.subscriptions.push(
+      translate.get('posts').subscribe(
+        res => this.translatedSnackbar=res
+     )
+
+     )
+  }
+get lang() {return localStorage.getItem("currenLanguage") || "en"}
 
   ngOnInit(): any {
     window.scroll(0,0)
@@ -156,7 +163,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userProfilesService.deletPost(id).subscribe(
         res => {
-          this.openSnackBar('post Deleted Successfully', 'Deleted')
+          this.openSnackBar(this.translatedSnackbar.postDeleted, this.translatedSnackbar.deleted)
           this.modalRef.hide()
           this.deletePostLoading = false
           this.getPostsAfterEdit()
@@ -181,7 +188,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userProfilesService.updatePostContent(this.chosenPostToEdit?._id, value).subscribe(
         res => {
-          this.openSnackBar('post Updated Successfully', 'Updated')
+          this.openSnackBar(this.translatedSnackbar.postUpdated, this.translatedSnackbar.updated)
           this.postImage = ''
           this.modalRef.hide()
           this.postLoading = false
@@ -203,7 +210,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.userProfilesService.updatePostImage(this.chosenPostToEdit?._id, img).subscribe(
           res => {
-            this.openSnackBar('The Image Updated Successfully', 'Updated')
+            this.openSnackBar(this.translatedSnackbar.imageUpdated, this.translatedSnackbar.updated)
             this.postImage = ''
             this.modalRef.hide()
             this.postLoading = false

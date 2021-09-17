@@ -140,11 +140,11 @@
                             <div class="p-3 d-flex justify-content-between align-items-center">
                                 <div (mouseleave)='profileOnHover=-1' class="d-flex  align-items-center ">
                                     <div (mouseover)="profileOnHover=i">
-                                        <img (click)='scrollTop()' class="smllProfileImg mr-3" 
+                                        <img (click)='scrollTop()' class="smllProfileImg " 
                                         [src]="visitUserService.userProfile?.profilePhoto | gender  : visitUserService.userProfile?.gender" alt="">
                                     </div>
     
-                                    <div>
+                                    <div class="mx-3"> 
                                         <div (mouseover)="profileOnHover=i" (mouseleave)='profileOnHover=-1'>
                                             <h2 class="userName">{{visitUserService.userProfile?.firstName | titlecase |
                                                 slice : 0 : 12}}
@@ -163,8 +163,8 @@
                                                             titlecase | slice : 0 : 12}}
                                                             {{visitUserService.userProfile?.lastName | titlecase | slice
                                                             : 0 : 12}}</h2>
-                                                        <p><i class="far fa-calendar-alt mr-2"></i> Born on
-                                                            {{visitUserService.userProfile?.birthDate |date}}</p>
+                                                        <p><i class="far fa-calendar-alt"></i> <span class="mx-1">{{'posts.bornOn' | translate}}</span>
+                                                            {{visitUserService.userProfile?.birthDate |date : 'longDate' : undefined : lang}}</p>
                                                       
                                                     </div>
                                                 </div>
@@ -172,8 +172,8 @@
                                         </div>
                                         <div class="position-relative">
                                             <div class="timee d-inline-block">
-                                                <small class="text-secondary ">{{post?.updatedAt | date : 'medium'}}</small>
-                                                <small class="timeOnHover">{{post?.updatedAt | date :'medium'}}</small>
+                                                <small class="text-secondary ">{{post?.updatedAt | date : 'longDate' : undefined : lang}}</small>
+                                                <small class="timeOnHover">{{post?.updatedAt | date : 'longDate' : undefined : lang}}</small>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@
                                 <span *ngIf="post.content?.length>500" class="font-weight-bold text-secondary"
                                     style="cursor: pointer;direction: inherit;"
                                     (click)="seeMoreIndex = seeMoreIndex == i ? -1 : i">
-                                    {{seeMoreIndex == i ? 'See Less' : '... See more'}}</span>
+                                    {{(seeMoreIndex == i ? 'posts.seeLess' : 'posts.seeMore') | translate }}</span>
                             </p>
                             <img 
                             (click)="postComments = [];userProfilesService.popUP=true;getPostComments(post._id,i)"
@@ -205,7 +205,7 @@
                                     </div>   
                                     <p (click)="getPostComments(post._id,i)" class=" numOfComments" *ngIf="post?.numOfComments">
                                         {{post?.numOfComments}}
-                                        {{post?.numOfComments==1 ? "Comment" : "Comments"}}
+                                        {{(post?.numOfComments==1 ? "posts.comment" : "posts.comments") | translate}}
                                     </p>
                                 </div>
                                 <div class="position-relative">
@@ -215,15 +215,15 @@
                                             class="showReactions">
                                             <div class="userReact">
                                                 <div *ngIf="!post?.myReaction?.length;else reactionFound">
-                                                    <i class="far fa-thumbs-up"></i> <span class="mx-2">Like</span>
+                                                    <i class="far fa-thumbs-up"></i> <span class="mx-2">{{'posts.like' | translate}}</span>
                                                 </div>
                                                 <ng-template #reactionFound>
                                                     <ng-container *ngFor="let itemm of reactions">
                                                         <div *ngIf="post?.myReaction[0]?.reaction==itemm.reaction"
                                                             class="d-flex justify-content-center">
-                                                            <img [src]="'assets/'+itemm.reaction+'.png'">
+                                                            <img [src]="itemm?.imgSrc">
                                                             <span [class]="itemm.reaction" class="mx-2">
-                                                                {{itemm.reaction | titlecase}}</span>
+                                                                {{itemm.lang | titlecase}}</span>
                                                         </div>
                                                     </ng-container>
                                                 </ng-template>
@@ -239,7 +239,7 @@
                                         </li>
                                         <li (click)="getPostComments(post._id,i)">
                                             <i class="far fa-comment-alt "></i>
-                                            <span class="mx-2">Comment</span>
+                                            <span class="mx-2">{{'posts.comment' | translate}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -249,17 +249,25 @@
                                     class="d-flex writeAcomment">
                                         <img [src]="userProfilesService.userProfile?.profilePhoto | gender : userProfilesService.userProfile?.gender "
                                             alt="">
-                                        <div class="position-relative w-100" style="padding-right:25px">
-                                            <textarea (keydown.enter)="makeAComment($event,addCommentInput,post?._id,i)"
+                                        <div class="position-relative w-100" 
+                                        [ngStyle]="{paddingRight:lang=='ar' ? '0' : '25px',paddingLeft:lang=='ar' ? '25px' : '0'}"
+                                        >
+                                            <textarea
+                                            [attr.dir]="'auto'"
+                                            [ngClass]='{
+                                                "ml-2":lang!="ar",
+                                                "mr-2":lang=="ar"
+                                            }'
+                                            (keydown.enter)="makeAComment($event,addCommentInput,post?._id,i)"
                                                 (input)="textAreaHeightAuto(addCommentInput)" rows=1 #addCommentInput
-                                                type="text" class="ml-2" placeholder="Write a comment..."></textarea>
+                                                type="text" class="ml-2" placeholder="{{'posts.writeComment' | translate}}"></textarea>
                                             <i style="right: 30px;"
                                                 (click)="makeAComment($event,addCommentInput,post?._id,i)"
                                                 class="fas fa-paper-plane text-primary d-md-none "></i>
                                         </div>
                                     </div>
                                     <div class="parentOfComments mt-2">
-                                        <ul class="comments list-unstyled my-2">
+                                        <ul class="comments list-unstyled my-2 p-0">
                                             <ng-container *ngIf="commentsLoading;else commentsConetent">
                                                 <li *ngFor="let item of swiperLoadingCount">
                                                     <div [class.darkMode]="userProfilesService.userProfile?.darkMode"
@@ -277,7 +285,7 @@
                                                             <div class="gravatar-title mx-3">
                                                                 <div>
                                                                     <ngx-skeleton-loader [theme]="{
-                                                      width: '200px',
+                                                      width: '90%',
                                                       'border-radius': '0',
                                                       height: '5px',
                                                       'margin-bottom': '5px'
@@ -285,7 +293,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <ngx-skeleton-loader
-                                                                        [theme]="{ width: '170px', 'border-radius': '0', height: '5px' }">
+                                                                        [theme]="{ width: '70%', 'border-radius': '0', height: '5px' }">
                                                                     </ngx-skeleton-loader>
                                                                 </div>
                                                             </div>
@@ -304,10 +312,20 @@
                                                         <ng-container
                                                             *ngIf="editCommentIndex == commentIndex;else commentContent">
                                                             <div class="w-100">
-                                                                <div style="padding-right: 15px;"
+                                                                <div 
+                                                                [ngStyle]="{
+                                                                    'paddingRight': lang!='ar' ? '15px' : '0',
+                                                                    'paddingLeft': lang=='ar' ? '15px' : '0'
+                                                                }"
                                                                     class="position-relative">
     
-                                                                    <textarea class="ml-2"
+                                                                    <textarea 
+                                                                    [ngClass]='{
+                                                                        "ml-2":lang!="ar",
+                                                                        "mr-2":lang=="ar",
+                                                                        "mr-0":lang!="ar",
+                                                                        "ml-0":lang=="ar"
+                                                                    }'
                                                                         style="margin-right: 0;height:32px !important"
                                                                         #editCommentInpu
                                                                         (input)="textAreaHeightAuto(editCommentInpu)"
@@ -315,15 +333,15 @@
                                                                         (blur)="enterESCtoCancel=false"
                                                                         (keydown.esc)="editCommentIndex=-1"
                                                                         (keydown.enter)="updateComment(comment?._id,editCommentInpu.value,comment?.post,i,$event)"
-                                                                        placeholder="Write a comment...">{{comment?.comment | lang : editCommentInpu}}</textarea>
+                                                                        placeholder="{{'posts.writeComment' | translate}}">{{comment?.comment | lang : editCommentInpu}}</textarea>
                                                                     <i style="right: 20px;"
                                                                         (click)="updateComment(comment?._id,editCommentInpu.value,comment?.post,i,$event)"
                                                                         class="fas fa-paper-plane text-primary d-md-none"></i>
                                                                 </div>
                                                                 <small class="mx-2 "><span class="d-none d-md-inline"
-                                                                        *ngIf="enterESCtoCancel">Press Esc To </span>
+                                                                        *ngIf="enterESCtoCancel">{{'posts.pressESC' | translate}} </span>
                                                                     <span class="text-primary" style="cursor: pointer;"
-                                                                        (click)="editCommentIndex=-1">cancel</span>.</small>
+                                                                        (click)="editCommentIndex=-1">{{'posts.cancel' | translate}} </span>.</small>
                                                             </div>
                                                         </ng-container>
                                                         <ng-template #commentContent>
@@ -345,14 +363,17 @@
                                                                         <mat-menu #EditComment="matMenu">
                                                                             <div
                                                                                 [class.darkModeMenu]="userProfilesService.userProfile?.darkMode">
-                                                                                <button mat-menu-item
+                                                                                <button 
+                                                                                [class.text-right]="lang=='ar'"
+                                                                                mat-menu-item
                                                                                     (click)="editCommentIndex = commentIndex;resizeTextArea()">
-                                                                                    Edit
+                                                                                    {{'posts.edit' | translate}} 
                                                                                 </button>
                                                                                 <button
+                                                                                [class.text-right]="lang=='ar'"
                                                                                     (click)="deleteComment(comment?._id,comment?.post,i)"
                                                                                     mat-menu-item>
-                                                                                    Delete
+                                                                                    {{'posts.delete' | translate}} 
                                                                                 </button>
                                                                             </div>
                                                                         </mat-menu>
@@ -364,9 +385,9 @@
                                                                     <div class="timee d-inline-block">
                                                                         <small
                                                                             class="text-secondary ">{{comment?.createdAt
-                                                                            | date : 'medium'}}</small>
+                                                                            | date : 'longDate' : undefined : lang}}</small>
                                                                         <small class="timeOnHover">{{comment?.createdAt
-                                                                            | date :'medium'}}</small>
+                                                                            | date : 'longDate' : undefined : lang}}</small>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -374,7 +395,7 @@
                                                     </li>
                                                 </ng-container>
                                                 <ng-template #noCommentsYet>
-                                                    <li>No Comments Yet</li>
+                                                    <li>{{'posts.noComments' | translate}} </li>
                                                 </ng-template>
                                             </ng-template>
                                         </ul>
@@ -387,7 +408,7 @@
                         <!-- start posts seection -->
     <ng-template #noPosts>
         <h2 class="text-center py-4 font-weight-bold text-secondary">
-            No posts available
+            {{'posts.noPostsAvailable' | translate}}
         </h2>
     </ng-template>
                </ng-template>
@@ -409,7 +430,7 @@
     <ng-template swiperSlide>
         <div style="cursor: pointer;text-align:center;" class="p-2"
          [class.like]="filterReactions==''"
-        (click)="filterReactions='';reacionsModaClassIndex=-1">All</div>
+        (click)="filterReactions='';reacionsModaClassIndex=-1">{{'reactionModal.all' | translate}}</div>
     </ng-template>
     <ng-container *ngFor="let item of sortReaction;let i = index">
         <ng-template swiperSlide>
@@ -431,7 +452,7 @@
             </button>
         </div>
         <div class="modal-body parentOfimg reactionsModal">
-            <ul class="list-unstyled">
+            <ul class="list-unstyled p-0">
                 <li class="mb-3" *ngFor="let item of postReactions | reactionType : filterReactions">
                     <div class="d-flex align-items-center">
                         <div class="position-relative">
@@ -454,7 +475,7 @@
 <div 
 [class.darkMode]="userProfilesService.userProfile?.darkMode"
 *ngIf="userProfilesService.popUP" class="popupp">
-    <div class="imgSection">
+    <div class="imgSection d-flex justify-content-center align-items-center">
 
         <img *ngIf="popupPost?.image;else popupLoading" [src]="popupPost?.image" alt="">
         <ng-template #popupLoading>
@@ -467,7 +488,7 @@
         </ng-template>
 
         <p (click)="showCommentsInMobileScreen(commentsSection)" class="showComments">
-            <i class="far fa-comment-alt"></i> <span class="mx-2">Show Comments</span>
+            <i class="far fa-comment-alt"></i> <span class="mx-2">{{'posts.showComments' | translate}}</span>
         </p>
         <i (click)="closePopup()" class="fas fa-times"></i>
     </div>
@@ -490,14 +511,14 @@
                     {{popupPost?.author?.lastName | titlecase | slice : 0 : 12}}
                 </h2>
                 <small class="text-secondary">
-                    {{popupPost?.updatedAt | date : 'medium'}}
+                    {{popupPost?.updatedAt | date : 'longDate' : undefined : lang}}
                 </small>
             </div>
             <i (click)="hideCommentsInMobileScreen(commentsSection)"
                 class="fas fa-times"></i>
         </div>
         <div class="autoScroll parentOfComments">
-            <p class="py-3 mx-2">{{popupPost?.content}}</p>
+            <p #ee class="py-3 mx-2">{{popupPost?.content | lang : ee}}</p>
             <div class="postOptions">
                 <div *ngIf="!commentsLoading" class="m-2 d-flex justify-content-between align-items-center">
                     <div 
@@ -514,11 +535,11 @@
                 </div>   
                 <p   *ngIf="postComments?.length">
                     {{postComments?.length}}
-                    {{postComments?.length==1 ? "Comment" : "Comments"}}
+                    {{(postComments?.length==1 ? "posts.comment" : "posts.comments") | translate}}
                 </p>
             </div>
                 <div class="parentOfComments mt-2">
-                    <ul class="comments list-unstyled my-2">
+                    <ul class="comments list-unstyled my-2 p-0">
                         <ng-container *ngIf="commentsLoading;else commentsConetent">
                             <li *ngFor="let item of swiperLoadingCount">
                                 <div [class.darkMode]="userProfilesService.userProfile?.darkMode"
@@ -537,7 +558,7 @@
                                         <div class="gravatar-title mx-3">
                                             <div>
                                                 <ngx-skeleton-loader [theme]="{
-                                  width: '200px',
+                                  width: '90%',
                                   'border-radius': '0',
                                   height: '5px',
                                   'margin-bottom': '5px'
@@ -545,7 +566,7 @@
                                             </div>
                                             <div>
                                                 <ngx-skeleton-loader
-                                                    [theme]="{ width: '170px', 'border-radius': '0', height: '5px' }">
+                                                    [theme]="{ width: '70%', 'border-radius': '0', height: '5px' }">
                                                 </ngx-skeleton-loader>
                                             </div>
                                         </div>
@@ -580,17 +601,14 @@
                                             <div class="timee d-inline-block">
                                                 <small
                                                     class="text-secondary ">{{comment?.createdAt
-                                                    | date : 'medium'}}</small>
-                                                <small
-                                                    class="timeOnHover">{{comment?.createdAt
-                                                    | date :'medium'}}</small>
+                                                    | date : 'longDate' : undefined : lang}}</small>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
                             </ng-container>
                             <ng-template #noCommentsYet>
-                                <li>No Comments Yet</li>
+                                <li>{{'posts.noComments' | translate}}</li>
                             </ng-template>
                         </ng-template>
                     </ul>

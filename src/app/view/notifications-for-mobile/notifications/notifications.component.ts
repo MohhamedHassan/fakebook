@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
@@ -12,14 +13,18 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
 })
 export class NotificationsComponent implements OnInit , OnDestroy {
   subscription:Subscription
+  translationSub:Subscription
   constructor(public userProfilesService:UserProfileService,
     private commentService:CommentSocketService,
     private router:Router,
-    private title:Title) { }
-
+    private title:Title,
+    private translate:TranslateService) { }
+    get lang() {return localStorage.getItem("currenLanguage") || "en"}
   ngOnInit(): void {
     window.scroll(0,0)
-    this.title.setTitle("Notifications")
+    this.translationSub = this.translate.get('youMayKnow.snackBarTwo').subscribe(res => {
+        this.title.setTitle(res)
+     })
     this.getMyNotifications()
   }
   getMyNotifications() {
@@ -62,5 +67,6 @@ export class NotificationsComponent implements OnInit , OnDestroy {
   }
   ngOnDestroy() {
     if (this.subscription) this.subscription.unsubscribe()
+    if (this.translationSub) this.translationSub.unsubscribe()
   }
 }

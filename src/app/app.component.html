@@ -18,11 +18,11 @@ class="bg-white">
                         (keydown.enter)="searchForUsers(searcValue)"
                         (keydown.esc)="showSearchContainer=false"
                         (keyup)="cleartheInput(searcValue)"
-                         type="search" placeholder="Search Fakebook">
+                         type="search" placeholder="{{'appCom.searchFakeBook' | translate}}">
                         <i  class="fas fa-search"></i>
                     </div>
                     <div class="searcContainer" *ngIf="showSearchContainer">
-                       <ul class="list-unstyled m-0">
+                       <ul class="list-unstyled m-0 p-0">
                            <li class="d-flex justify-content-center" *ngIf="searchLoading;else searchContent">
                                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                             </li>
@@ -47,7 +47,7 @@ class="bg-white">
                                 </li>
                             </ng-container>
                              <ng-template #noResult>
-                                <li class="p-2 rounded-lg">No Result</li>
+                                <li class="p-2 rounded-lg">{{'posts.noResult' | translate}}</li>
                              </ng-template>
                           </ng-template>
                           
@@ -56,7 +56,7 @@ class="bg-white">
                 
                 </div>
             </div> 
-            <ul class="order-2 order-md-1 list-unstyled d-flex m-0 pageItems">
+            <ul class="order-2 order-md-1 list-unstyled d-flex m-0 pageItems p-0">
                 <li  routerLinkActive="active" routerLink="/homePage">
                     <i class="bi bi-house-door"></i>
                 </li>
@@ -64,7 +64,7 @@ class="bg-white">
                     <i class="bi bi-people"></i>
                 </li>
             </ul>
-            <ul class="order-1 order-md-2 list-unstyled d-flex align-items-center m-0 rightUL">
+            <ul class="order-1 order-md-2 list-unstyled d-flex align-items-center m-0 p-0 rightUL">
                 <li 
                 routerLinkActive="active" routerLink="/myProfile"
                 class="img d-none d-md-flex align-items-center">
@@ -89,13 +89,27 @@ class="bg-white">
                          <div 
                          [class.darkModeNotification]="userProfilesService.userProfile?.darkMode"
                          class="notificationsMenuee" >
-                            <h2 mat-menu-item class="font-weight-bold">Notifications</h2>
+                            <h2
+                            [ngStyle]='{
+                                textAlign:lang=="ar" ? "right" : "left",
+                                direction:lang=="ar" ? "rtl" : "ltr"
+                            }'
+                            mat-menu-item class="font-weight-bold">{{'notificationsMobile.notificatios' | translate}}</h2>
                             <ng-container  *ngIf="!userProfilesService?.myNotifications?.length && 
                             !userProfilesService?.oldNotifications?.length;else notificationsContent">
-                                <p mat-menu-item>No Notifications</p>
+                                <p mat-menu-item
+                                [ngStyle]='{
+                                    textAlign:lang=="ar" ? "right" : "left",
+                                    direction:lang=="ar" ? "rtl" : "ltr"
+                                }'
+                                >{{'notificationsMobile.noNotifications' | translate}}</p>
                             </ng-container>
                             <ng-template #notificationsContent>
                                 <button
+                                [ngStyle]='{
+                                    textAlign:lang=="ar" ? "right" : "left",
+                                    direction:lang=="ar" ? "rtl" : "ltr"
+                                }'
                                 mat-menu-item
                                   *ngFor="let item of userProfilesService?.myNotifications"
                                 >
@@ -108,13 +122,13 @@ class="bg-white">
                                            <i *ngIf="item?.type=='comment'" class="fas fa-comment-alt nav"></i>
                                             <img *ngIf="item?.type!='follow' && item?.type!='comment'" class="notificationImg" [src]="'assets/'+item?.type+'.png'" alt="">
                                        </div>
-                                       <div class="ml-3 w-100">
+                                       <div class="mx-3 w-100">
                                           <strong>
                                             {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
                                           </strong> 
-                                          {{item?.type=="comment" ? "Cmomented on" :  "Reacted to"}}  your post
+                                          {{(item?.type=="comment" ? "notificationsMobile.commentedOn" :  "notificationsMobile.reactedTo") | translate}}  {{'notificationsMobile.yourPost' | translate}}
                                           <div class="d-flex justify-content-between align-items-center">
-                                            <small> {{item?.createdAt | date }}</small>
+                                            <small> {{item?.createdAt | date : 'longDate' : undefined : lang }}</small>
                                             <span class="sign bg-primary"></span>
                                           </div>
                                          
@@ -129,12 +143,12 @@ class="bg-white">
                                         <i *ngIf="item?.type=='follow'" class="fas fa-user nav"></i>
                                    
                                     </div>
-                                    <div class="ml-3 w-100">
+                                    <div class="mx-3 w-100">
                                        <strong>
                                          {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                                       </strong> is following you
+                                       </strong> {{'notificationsMobile.isFollowingYou' | translate}}
                                        <div class="d-flex justify-content-between align-items-center">
-                                         <small> {{item?.createdAt | date }}</small>
+                                         <small> {{item?.createdAt | date : 'longDate' : undefined : lang }}</small>
                                          <span class="sign bg-primary"></span>
                                        </div>
                                       
@@ -142,6 +156,10 @@ class="bg-white">
                                 </div>
                                 </button>
                                 <button
+                                [ngStyle]='{
+                                    textAlign:lang=="ar" ? "right" : "left",
+                                    direction:lang=="ar" ? "rtl" : "ltr"
+                                }'
                                 mat-menu-item
                                   *ngFor="let item of userProfilesService?.oldNotifications"
                                 >
@@ -158,9 +176,9 @@ class="bg-white">
                                        <strong>
                                          {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
                                        </strong> 
-                                       {{item?.type=="comment" ? "Cmomented on" :  "Reacted to"}}  your post
+                                       {{(item?.type=="comment" ? "notificationsMobile.commentedOn" :  "notificationsMobile.reactedTo") | translate}} {{'notificationsMobile.yourPost' | translate}}
                                        <div class="d-flex justify-content-between align-items-center">
-                                         <small> {{item?.createdAt | date }}</small>
+                                         <small> {{item?.createdAt | date : 'longDate' : undefined : lang }}</small>
                                        </div>
                                       
                                     </div>
@@ -177,9 +195,9 @@ class="bg-white">
                                  <div class="ml-3 w-100">
                                     <strong>
                                       {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                                    </strong> is following you
+                                    </strong> {{'notificationsMobile.isFollowingYou' | translate}}
                                     <div class="d-flex justify-content-between align-items-center">
-                                      <small> {{item?.createdAt | date }}</small>
+                                      <small> {{item?.createdAt | date : 'longDate' : undefined : lang}}</small>
                                     </div>
                                    
                                  </div>
@@ -208,35 +226,65 @@ class="bg-white">
                 class="p-2 navBarMenu"
                 [class.darkMode]="userProfilesService.userProfile?.darkMode"
                 >
-                <button mat-menu-item>
+                <button
+                [ngStyle]='{
+                    textAlign:lang=="ar" ? "right" : "left",
+                    direction:lang=="ar" ? "rtl" : "ltr"
+                }'
+                mat-menu-item>
                   <div class="d-flex py-2" routerLink="/myProfile">
-                      <div class="mr-3">
+                      <div>
                         <img [src]="userProfilesService.userProfile?.profilePhoto | gender  :  userProfilesService.userProfile?.gender" alt="">
                       </div>
-                      <div>
+                      <div class="mx-3">
                           <h2 class="m-0">
                             {{userProfilesService?.userProfile?.firstName  | titlecase | slice : 0 : 12}}
-                            {{userProfilesService?.userProfile?.lastName  | titlecase | slice : 0 : 12}}
+                            <!-- {{userProfilesService?.userProfile?.lastName  | titlecase | slice : 0 : 12}} -->
                           </h2>
-                          <span class="text-secondary">See your profile</span>
+                          <span class="text-secondary">{{'appCom.seeYourProfile' | translate}}</span>
                       </div>
                   </div>
                 </button>
-                 <button  mat-menu-item  routerLink="/myProfile/layout/about">                         
-                    <i class="fas fa-cog"></i>   <span class="mx-3">Settings</span>  
+                 <button  
+                 [ngStyle]='{
+                    textAlign:lang=="ar" ? "right" : "left",
+                    direction:lang=="ar" ? "rtl" : "ltr"
+                }'
+                 mat-menu-item  routerLink="/myProfile/layout/about">                         
+                    <i class="fas fa-cog"></i>   <span class="mx-3">{{'appCom.settings' | translate}}</span>  
 
                  </button>
-             <button mat-menu-item
+             <button 
+             [ngStyle]='{
+                textAlign:lang=="ar" ? "right" : "left",
+                direction:lang=="ar" ? "rtl" : "ltr"
+            }'
+             mat-menu-item
              (click)="darkModeToggle()"
              >
                 <i class="fas fa-moon"></i> 
-                <span class="mx-3">Dark Mood</span>  
+                <span class="mx-3">{{'appCom.darkMood' | translate}}</span>  
                 <mat-slide-toggle [class.mat-checked]="userProfilesService.userProfile?.darkMode" ></mat-slide-toggle>
              </button>
+             <button
+             [ngStyle]='{
+                textAlign:lang=="ar" ? "right" : "left",
+                direction:lang=="ar" ? "rtl" : "ltr"
+            }'
+             mat-menu-item
+             routerLink="/language"
+             >
+             <i class="fas fa-globe"></i>
+                <span class="mx-3">{{'appCom.lang' | translate}}</span>  
+             </button>
              <button 
+             [ngStyle]='{
+                textAlign:lang=="ar" ? "right" : "left",
+                direction:lang=="ar" ? "rtl" : "ltr"
+            }'
              (click)="logOut()"
              mat-menu-item>
-                <i class="fas fa-sign-out-alt"></i> <span class="mx-3">Log Out</span> 
+                <i class="fas fa-sign-out-alt"></i> <span class="mx-3">{{'appCom.logOut' | translate}}</span> 
              </button>
                 </div>
              
@@ -254,7 +302,7 @@ class="bg-white">
 [class.darkMode]="userProfilesService.userProfile?.darkMode"
 class="notification" *ngIf="commentService.showNotification">
     <div class="mb-3 d-flex justify-content-between align-items-center">
-           <h3 class="m-0"><strong>New notification</strong></h3>
+           <h3 class="m-0"><strong>{{'appCom.newNoti' | translate}}</strong></h3>
            <i 
            (click)="commentService.showNotification=false"
            style="cursor: pointer;" class="fas fa-times"></i>
@@ -280,8 +328,8 @@ class="notification" *ngIf="commentService.showNotification">
                 <strong>
                     {{commentService.ownerOfTheComent?.firstName | titlecase | slice : 0 : 12}}
                 </strong> 
-                {{commentService.commenrOrReact == 'comment' ? 'Commented' : 'Reacted'}} on your post</p>
-            <p class="d-none d-md-block text-primary">a few seconds ago</p>
+                {{(commentService.commenrOrReact == 'comment' ? "notificationsMobile.commentedOn" :  "notificationsMobile.reactedTo") | translate}} {{'notificationsMobile.yourPost' | translate}}</p>
+            <p class="d-none d-md-block text-primary">{{'appCom.afew' | translate}}</p>
         </div>
     </div>
     <div class="d-none d-md-block sign bg-primary"></div>
@@ -290,7 +338,7 @@ class="notification" *ngIf="commentService.showNotification">
 [class.darkMode]="userProfilesService.userProfile?.darkMode"
 class="notification" *ngIf="commentService.showFollowNotification">
     <div class="mb-3 d-flex justify-content-between align-items-center">
-           <h3 class="m-0"><strong>New notification</strong></h3>
+           <h3 class="m-0"><strong>{{'appCom.newNoti' | translate}}</strong></h3>
            <i 
            (click)="commentService.showFollowNotification=false"
            style="cursor: pointer;" class="fas fa-times"></i>
@@ -312,8 +360,8 @@ class="notification" *ngIf="commentService.showFollowNotification">
                 <strong>
                     {{commentService.ownerOfTheComent?.firstName | titlecase | slice : 0 : 12}}
                 </strong> 
-                is following you</p>
-            <p class="d-none d-md-block text-primary">a few seconds ago</p>
+                {{'notificationsMobile.isFollowingYou' | translate}}</p>
+            <p class="d-none d-md-block text-primary">{{'appCom.afew' | translate}}</p>
         </div>
     </div>
     <div class="d-none d-md-block sign bg-primary"></div>
@@ -321,6 +369,6 @@ class="notification" *ngIf="commentService.showFollowNotification">
 <div *ngIf="darkModeLoading" class="darkModeLoading">
     <div class="text-center">
         <i style="font-size: 50px;" class="mb-2 text-white fas fa-moon"></i>
-        <h2 class="text-white">Loading</h2>
+        <h2 class="text-white">{{'appCom.loading' | translate}}</h2>
     </div>
 </div>

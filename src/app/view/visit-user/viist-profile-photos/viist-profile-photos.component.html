@@ -1,14 +1,18 @@
 <div class="profilePhotos position-relative overflow-hidden">
     <i [routerLink]="['/visit',visituser?.userId]" class="fas fa-times"></i>
     <i (click)="reload()" class="fas fa-redo-alt"></i>
-  <div class="profilePhotosWidth mx-auto">
+  <div class="profilePhotosWidth  mx-auto">
     <carousel [interval]="0">
         <slide *ngIf="visituser?.userProfile?.profilePhoto">
-            <img class="vhIMG" [src]="visituser?.userProfile?.profilePhoto" alt="first slide" style="display: block; width: 100%;">
+            <div style="height:100vh" class="d-flex justify-content-center align-items-center">
+              <img class="vhIMG" [src]="visituser?.userProfile?.profilePhoto" alt="first slide" style="display: block">
+            </div>
         </slide>
      <ng-container *ngIf="visituser?.userProfile?.previousProfilePhotos?.length">
         <slide *ngFor="let item of visituser?.userProfile?.previousProfilePhotos">
-                <img class="vhIMG" [src]="item?.profilePhoto" alt="second slide" style="display: block; width: 100%;">
+                <div style="height:100vh" class="d-flex justify-content-center align-items-center">
+                  <img class="vhIMG" [src]="item?.profilePhoto" alt="second slide" style="display: block">
+                </div>
           </slide>
      </ng-container>
       </carousel>

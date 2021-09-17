@@ -5,7 +5,7 @@ class="container photosSection">
     <div class="paddinggx">
         <div class="row bg-white mb-5 mx-md-0 p-3 rounded-lg">
             <div class="col-md-12 mb-3">
-                <h2 class="font-weight-bold m-0">Photos</h2>
+                <h2 class="font-weight-bold m-0">{{'leftSide.photos' | translate}}</h2>
             </div>
             <ng-container *ngIf="visitUserService?.skeltonLoadingPhotos;else content">
                 <div 
@@ -33,7 +33,7 @@ class="container photosSection">
                 </ng-container>
             <ng-template #noPhotos>
                 <h2 class="text-center mx-auto my-0 pb-4 font-weight-bold text-secondary">
-                    No Photos To Show
+                   {{'leftSide.noPhotos' | translate}}
                 </h2>
             </ng-template>
         </ng-template>

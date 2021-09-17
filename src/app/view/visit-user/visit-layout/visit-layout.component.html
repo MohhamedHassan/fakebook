@@ -18,9 +18,16 @@
                         [src]="visituser.userProfile?.profilePhoto | gender :  visituser.userProfile?.gender" alt="">
                     </div>
                     <div class="w-100 d-flex 
-                    text-center text-md-left
+                    text-center
                     flex-column flex-md-row
-                    justify-content-between align-items-center ml-md-5 position-relative">
+                    justify-content-between align-items-center  position-relative"
+                    [ngClass]='{
+                        "text-md-left":lang!="ar",
+                        "text-md-right":lang=="ar",
+                        "ml-md-5":lang!="ar",
+                        "mr-md-5":lang=="ar"
+                   }'
+                    >
                         <div>
                             <h1 class="mt-3  mb-1 font-weight-bold">
                                 {{visituser.userProfile?.firstName | titlecase | slice :
@@ -32,7 +39,7 @@
                             <ng-container *ngIf="visituser?.followers?.length">
                                 <p routerLink="friends" class="d-none d-md-block font-weight-bold mb-1 followersLength">
                                     {{visituser?.followers?.length}} 
-                                    {{visituser?.followers?.length==1 ? "Follower" : "Followers"}}
+                                    {{(visituser?.followers?.length==1 ? "leftSide.follower" : "leftSide.followers") | translate}}
                                 </p>
                                 <ul *ngIf="visituser.followers?.length" (mouseleave)="profileOnHoverforFollowers=-1"
                                     class="mb-5 d-none d-md-flex position-relative followersIMGS list-unstyled">
@@ -51,8 +58,9 @@
                                                     <h2 [routerLink]="['/visit',follow?._id]" class="mb-2 ">
                                                         {{follow?.firstName | titlecase | slice : 0 : 12}}
                                                         {{follow?.lastName | titlecase | slice : 0 : 12}}</h2>
-                                                    <p><i class="far fa-calendar-alt mr-2"></i> Born on
-                                                        {{follow?.birthDate |date}}</p>
+                                                    <p><i class="far fa-calendar-alt"></i>
+                                                       <span class="mx-1">  {{'posts.bornOn' | translate}}</span>
+                                                        {{follow?.birthDate |date : 'longDate' : undefined : lang}}</p>
                                                    
                                                 </div>
                                             </div>
@@ -65,23 +73,25 @@
                             <button [disabled]="followLoading" (click)="followOrUnFollow(userId)"
                                 class="btn btn-primary mt-3" style="font-weight: 500;">
                                 <ng-container *ngIf="followingStatus;else followw">
-                                    <i class="fas fa-user-minus"></i>
-                                    <span class="ml-2">Unfollow</span>
+                                    <i class="fas fa-user-minus mx-2"></i>
+                                    <span class="mx-2">{{'layOut.unFollow' | translate}}</span>
                                 </ng-container>
                                 <ng-template #followw>
-                                    <i class="fas fa-user-plus"></i>
-                                    <span class="ml-2">Follow</span>
+                                    <i class="fas fa-user-plus mx-2"></i>
+                                    <span class="mx-2">{{'layOut.follow' | translate}}</span>
                                 </ng-template>
                             </button>
                         </div>
                     </div>
                 </div>
                 <hr class="mb-0">
-                <ul class="list-unstyled d-flex mb-0 pageItems">
-                    <li routerLinkActive="active" routerLink="../layout/posts"><span>Posts</span></li>
-                    <li routerLinkActive="active" routerLink="../layout/about"><span>About</span></li>
-                    <li routerLinkActive="active" routerLink="../layout/friends"><span>Friends</span></li>
-                    <li routerLinkActive="active" routerLink="../layout/photos"><span>Photos</span></li>
+                <ul class="list-unstyled d-flex mb-0 pageItems p-0"
+                [class.tr]='lang=="tr"'
+                >
+                    <li routerLinkActive="active" routerLink="../layout/posts"><span>{{'layOut.posts' | translate}}</span></li>
+                    <li routerLinkActive="active" routerLink="../layout/about"><span>{{'layOut.about' | translate}}</span></li>
+                    <li routerLinkActive="active" routerLink="../layout/friends"><span>{{'layOut.friends' | translate}}</span></li>
+                    <li routerLinkActive="active" routerLink="../layout/photos"><span>{{'layOut.photos' | translate}}</span></li>
                 </ul>
 
             </div>

@@ -11,7 +11,7 @@ export class VisitFollowersComponent implements OnInit {
   profileOnHoverforFollowers:number=-1
   constructor(public visitUserService:VisitUserService,
     public userProfilesService:UserProfileService) { }
-
+get lang() {return localStorage.getItem("currenLanguage") || 'en'}
   ngOnInit(): void {
   }
   scrollTop() {}

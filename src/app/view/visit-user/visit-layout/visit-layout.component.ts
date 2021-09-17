@@ -28,7 +28,7 @@ export class VisitLayoutComponent implements OnInit,OnDestroy {
       private router:Router,
       private commentService:CommentSocketService
     ) { }
-
+    get lang() {return localStorage.getItem("currenLanguage") || 'en'}
   ngOnInit(): void {
   
    this.subscriptions.push(

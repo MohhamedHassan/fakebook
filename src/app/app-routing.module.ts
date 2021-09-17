@@ -21,6 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('src/app/view/user-profile/user-profile.module').then(m => m.UserProfileModule)
   },
   {
+    path:'language',
+    canActivate:[UserGuard],
+    loadChildren: () => import('src/app/view/language/language.module').then(m => m.LanguageModule)
+  },
+  {
     path:'postDetails/:id',
     canActivate:[UserGuard],
     loadChildren: () => import('src/app/view/post-details/post-details.module').then(m => m.PostDetailsModule)

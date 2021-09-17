@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TextPipe implements PipeTransform {
 
   transform(text:string,index:number,seeMoreIndex:number): any { 
+    if (text) {
     let output:string
     if (index==seeMoreIndex) return text
     else {
@@ -13,6 +14,7 @@ export class TextPipe implements PipeTransform {
       return output
     }
   }
+}
 
 
 }

@@ -1,38 +1,41 @@
 <div class=" add-post bg-white p-3 mb-3 rounded-lg" 
 [class.darkMode]="userProfilesService.userProfile?.darkMode">
     <div class="d-flex align-items-center ">
-        <img (click)='scrollTop()' class="smllProfileImg mr-3"
+        <img (click)='scrollTop()' class="smllProfileImg"
             [src]="userProfilesService.userProfile?.profilePhoto | gender : userProfilesService.userProfile?.gender "
             alt="">
-        <p class="m-0 w-100 px-3 py-2" (click)="openModal(template)">What's on your mind?</p>
+        <p class="mb-0 yrMind w-100 px-3 py-2" (click)="openModal(template)">
+            {{'addPost.yourMind' | translate}}  {{'addPost.mark' | translate}}
+        </p>
     </div>
     <hr>
     <div class="d-flex justify-content-between align-items-center text-secondary font-weight-bold">
-        Add to your post
+        {{'addPost.toYourPost' | translate}}
         <div class="d-flex align-items-center  photoIcon p-2" (click)="openModal(template)"
             style="cursor: pointer;">
-            <span class="iconn mr-2"></span> Photo
+            <span class="iconn"></span>   <span class="mx-2">{{'addPost.photo' | translate}}</span>
         </div>
     </div>
 </div>
 <ng-template #template>
     <div *ngIf="postLoading" class="postLoading d-flex justify-content-center align-items-center">
         <div class="text-center">
-
+            <p [class.darkMode]="userProfilesService.userProfile?.darkMode" class="font-weight-bold text-white">
+                {{'addPost.posting' | translate}}    
+            </p>
             <div class="lds-ellipsis">
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
-                <p [class.darkMode]="userProfilesService.userProfile?.darkMode" class="font-weight-bold text-white">
-                    posting</p>
+            
             </div>
         </div>
     </div>
     <div [class.popupDarkMode]="userProfilesService.userProfile?.darkMode">
         <div class="modal-header">
 
-            <h2 class="modal-title pull-left text-center w-100">Create Post</h2>
+            <h2 class="modal-title pull-left text-center w-100">{{'addPost.createPost' | translate}}</h2>
 
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                 <i class="fas fa-times"></i>
@@ -40,16 +43,16 @@
         </div>
         <div class="modal-body">
             <div class="d-flex align-items-center mb-2">
-                <img class="smllProfileImg mr-3"
+                <img class="smllProfileImg"
                     [src]="userProfilesService.userProfile?.profilePhoto | gender : userProfilesService.userProfile?.gender"
                     alt="">
-                <h2>{{userProfilesService.userProfile?.firstName | titlecase | slice : 0 : 12}}
+                <h2 class="mx-3">{{userProfilesService.userProfile?.firstName | titlecase | slice : 0 : 12}}
                     {{userProfilesService.userProfile?.lastName | titlecase | slice : 0 : 12}}</h2>
             </div>
             <form [formGroup]="postForm" (ngSubmit)='makeApost(postForm.value)'>
 
                 <textarea class="p-3 rounded-lg" [attr.dir]="'auto'" formControlName='content'
-                    placeholder="What's on your mind?"></textarea>
+                    placeholder="{{'addPost.yourMind' | translate}}"></textarea>
 
                 <div class="parentOfimg position-relative mb-2" *ngIf="imgUrl">
                     <i class="fas fa-times" (click)="deletePostImg(input)"></i>
@@ -57,14 +60,15 @@
                 </div>
                 <div
                     class=" toYourPost d-flex justify-content-between align-items-center text-secondary font-weight-bold">
-                    Add to your post
+                    {{'addPost.toYourPost' | translate}}
                     <div class="position-relative d-flex align-items-center  photoIcon p-2">
-                        <span class="iconn mr-2"></span> <span>Photo</span>
+                        <span class="iconn"></span>
+                         <span class="mx-2">  {{'addPost.photo' | translate}}</span>
                         <input accept="image/*" #input (change)="selectPostImg($event)" type="file">
                     </div>
                 </div>
                 <button [disabled]='postForm.invalid' type="submit" class="btn btn-primary w-100 mt-3 post">
-                    Post</button>
+                    {{'addPost.post' | translate}}</button>
             </form>
         </div>
     </div>

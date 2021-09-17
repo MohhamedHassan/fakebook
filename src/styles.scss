@@ -41,6 +41,7 @@ p,h2,h3{margin-bottom: 0 !important;}
         border-radius: 5px !important;
     }
 }
+
 .fa-eye,.fa-eye-slash
  {
   position: absolute;
@@ -120,6 +121,12 @@ p,h2,h3{margin-bottom: 0 !important;}
 /// end global
 
 @media only screen and (max-width: 600px) {
+  .reactions {
+    img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
    ::placeholder {
      font-size:  medium !important;
    }
@@ -219,7 +226,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       .options {
          > li {
               padding: 5px 10px !important;
-              font-size: 15px !important;
+              font-size: 10px !important;
           }
       }
   }
@@ -239,15 +246,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: medium;
 }
 
-@media only screen and (max-width: 350px) {
-     
-  .reactions {
-      img {
-          width: 20px !important;
-      }
-  }
-     
-}
+
 .userReact span,.postss {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -255,4 +254,146 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+////// rtl style
+
+.rtll {
+  direction: rtl;
+  text-align: right;
+  font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;
+  h1,h2,h3,h4,h5,h6,span,p,small,strong { font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;}
+  .fa-eye,.fa-eye-slash
+ {
+  right: auto !important;
+  left: 35px !important;
+ }
+ .parentOfSignin {
+  .fa-exclamation-triangle {
+      left: 10px !important;
+      right: auto !important;
+  }
+}
+.signUp {
+  .fa-times {
+    right:auto !important;
+    left: 15px !important;
+  }
+   select {
+    background-position: left 5px center !important;
+   }
+}
+.inputsError::after {
+  right: auto !important;
+  left: 10px !important;
+}
+.add-post {
+  .yrMind {margin-right: 10px;margin-left: 0 !important;}
+}
+.postss {
+  .reactions li:not(:last-of-type) {
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+}
+
+.timeOnHover {
+  left: auto;
+  right: -18px;;
+}
+
+}
+.profileOnHover {
+  left: auto !important;
+  right: 0
+}
+.postss,.popupp {
+  .reactionsCount {
+    img.last {
+      left: auto !important;
+      right: 13px !important;
+    }
+    span {
+      margin-right: 20px !important;
+      margin-left: 0 !important;
+    }
+    .exist + span {margin-right: 35px !important;margin-left: 0 !important;}
+  }
+}
+.popupp {
+.imgSection .fa-times{left: auto !important;right: 15px;}
+ .commentsSection .fa-times {right: auto !important;left: 10px !important;}
+}
+::placeholder {text-align: right !important;}
+.profileImg .addprofileImg {
+  right: auto !important;
+  left: 0 !important;
+}
+.coverImg .addCVR {
+  right: auto !important;
+  left: 25px !important;
+}
+ul.followersIMGS {
+  li:not(:last-of-type) > img{border-left: 2px solid white !important;border-right: none !important;}
+   li:nth-of-type(6) {
+      > img {
+           right:145px !important;
+       }
+   }
+  li:nth-of-type(5) {
+   > img {
+       right:120px !important;
+   }
+  }
+  li:nth-of-type(4) {
+ >  img {
+       right:90px !important;
+   }
+  }
+  li:nth-of-type(3) {
+ >  img {
+       right:60px !important;
+   }
+  }
+  li:nth-of-type(2) {
+  > img {
+       right: 30px !important;
+   }
+  }
+  li:first-of-type {
+  > img {
+       right: 0 !important;
+   }
+  }
+
+}
+nav {
+  .mainLogo input {
+    padding: 12px 20px 8px 35px !important
+  }
+ 
+  .rightUL li:not(.img) {margin-left: 0 !important; margin-right: 10px !important;}
+}
+.notification {
+  .sign {
+    right: auto !important;
+    left:  12px !important;
+  }
+}
+
+
+}
+
+@media only screen and (min-width:767px) {
+  .rtll {
+   nav {
+    .bell small{right: auto !important; left:  -6px !important;}
+   }
+  }
+}
+@media only screen and (min-width:600px) {
+  .rtll {
+    .notification {
+      right: 20px !important;
+      left:  auto !important;
+  }
+}
 }

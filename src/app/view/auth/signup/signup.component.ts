@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,16 +20,51 @@ signupError:string=""
 textOrPassword:boolean=true
 daysOfBirth:number[]=[]
 yearsOfBirth:number[]=[]
-monthsOfBirth:string[]=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+monthsOfBirth:string[]
 subscriptions:any[]=[]
+languages = [
+  {lang:"English",code:"en"},
+  {lang:"Deutsch",code:"de"},
+  {lang:"Türkçe",code:"tr"},
+  {lang:"العربية",code:"ar"},
+]
   constructor(private fb:FormBuilder,
     private rendere:Renderer2,
     private authservice:AuthService,
     private title:Title,
     private router:Router,
-    private userservice:UserProfileService) { 
-     title.setTitle('Sign Up')
+    private userservice:UserProfileService,
+    private translate:TranslateService) { 
+      this.subscriptions.push( this.translate.get('auth.months').subscribe(res => {
+        this.monthsOfBirth=res
+     }))
+     this.subscriptions.push(
+      this.translate.get('auth.signupTitle').subscribe(res => {
+        title.setTitle(res)
+     })
+     )
+     
+  
   }
+  saveLanguageToLocalStorage(lang:any) {
+    if(lang=='ar') {
+      document.body.classList.add('rtll')
+    } else {
+      document.body.classList.remove('rtll')
+    }
+    this.signupError=''
+    this.translate.setDefaultLang(lang)
+    this.translate.use(lang)
+    localStorage.setItem("currenLanguage",lang)
+    this.subscriptions.push( this.translate.get('auth.months').subscribe(res => {
+      this.monthsOfBirth=res
+   }))
+   this.subscriptions.push(
+    this.translate.get('auth.signupTitle').subscribe(res => {
+      this.title.setTitle(res)
+   })
+   )
+ }
 get inputs() {
   return this.signUpForm.controls
 }
@@ -88,7 +124,11 @@ signUp(userInfo:any) {
       },
       err => {
        this.signupErrorLoading=false
-       this.signupError=err.error.error
+       let lang = localStorage.getItem("currenLanguage")
+       if (lang == 'ar') this.signupError=err?.error?.arabic
+       else if (lang == 'tr') this.signupError=err?.error?.turkish
+       else if (lang == 'de') this.signupError=err?.error?.german
+       else if (lang == 'en') this.signupError=err?.error?.english
       }
     )
   )

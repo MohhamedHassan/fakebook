@@ -8,6 +8,7 @@ import { VisitUserService } from 'src/app/services/visit-user.service';
 import SwiperCore, { Navigation, Swiper  } from 'swiper/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 SwiperCore.use([Navigation, ]);
 @Component({
   selector: 'app-visit-profile',
@@ -27,14 +28,7 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
   enterESCtoCancel:boolean=true
   popupReactions:any
   popupPost:any
-  reactions:any = [
-    {imgSrc:"assets/like.png",reaction:"like"},
-    {imgSrc:"assets/love.png",reaction:"love"},
-    {imgSrc:"assets/haha.png",reaction:"haha"},
-    {imgSrc:"assets/wow.png",reaction:"wow"},
-    {imgSrc:"assets/sad.png",reaction:"sad"},
-    {imgSrc:"assets/angry.png",reaction:"angry"},
-  ]
+  reactions:any 
   postReactions:any=[]
   sortReaction:any = []
   reactionModalImgSrc:any=""
@@ -44,6 +38,8 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
   @ViewChild('updtaeSwiper') updtaeSwiper: { swiperRef: Swiper };
   @ViewChild('editCommentInpu', { static: false }) editCommentInpu: ElementRef
   @ViewChild('addCommentInput', { static: false }) addCommentInput: ElementRef
+  translatedSnacBarTextOne:any
+translatedSnacBarTextTwo:any
   constructor(public visitUserService: VisitUserService,
     public peopleYouMayKnow:PeopleYouMayKnowService,
     public userProfilesService:UserProfileService,
@@ -53,8 +49,23 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
     private _snackBar: MatSnackBar,
     private rendrer:Renderer2,
     private modalService: BsModalService,
-    private router:Router) { }
-    
+    private router:Router,
+    private translate:TranslateService) {
+      this.subscriptions.push(
+        translate.get('posts.reactions').subscribe(
+          res => this.reactions = res
+       )
+
+       )
+       this.subscriptions.push( this.translate.get('youMayKnow.snackBarOne').subscribe(res => {
+        this.translatedSnacBarTextOne=res
+     }))
+     this.subscriptions.push(
+      this.translate.get('youMayKnow.snackBarTwo').subscribe(res => {
+        this.translatedSnacBarTextTwo=res
+     }))
+     }
+     get lang() {return localStorage.getItem("currenLanguage") || 'en'}
   ngOnInit(): void {
   
     this.scrollTop()
@@ -222,7 +233,7 @@ export class VisitProfileComponent implements OnInit,OnDestroy {
                 this.peopleYouMayKnow.peopleYouMAyKnow(0).subscribe(
                   res => {
                    this.followLoading=false
-                   this._snackBar.open( "Followed up successfully",  "successfully", {
+                   this._snackBar.open(  this.translatedSnacBarTextOne,  this.translatedSnacBarTextTwo, {
                     horizontalPosition: 'left',
                     verticalPosition: 'bottom',
                     duration: 3000

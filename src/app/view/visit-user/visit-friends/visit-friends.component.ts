@@ -16,7 +16,7 @@ export class VisitFriendsComponent implements OnInit {
   constructor(public visitUserService: VisitUserService,
     public userProfilesService:UserProfileService
     ) { this.loadingCount.length=4 }
-
+    get lang() {return localStorage.getItem("currenLanguage") || 'en'}
   ngOnInit(): void {
   }
 

@@ -5,8 +5,8 @@
 
         <div class="   col-md-4 mb-4">
             <div class="rounded-lg left h-100  bg-white p-3">
-                <h2 class="font-weight-bold mb-2">About</h2>
-                <ul class="list-unstyled">
+                <h2 class="font-weight-bold mb-2">{{'about.about' | translate}}</h2>
+                <ul class="list-unstyled p-0">
                     <li *ngFor="let item of personalInfo;let i = index" (click)="choseCategory(i)"
                         [class.active]="item.status">{{item.name}}</li>
                 </ul>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div *ngIf="personalInfo[0].status" class="imgsiz right">
-                    <h2>Basic Info</h2>
+                    <h2>{{'about.basicInfo' | translate}}</h2>
                     <div class="namee my-3  ">
                         <div class=" d-flex justify-content-between align-items-center ">
                             <div class="d-flex">
@@ -33,12 +33,12 @@
                                 <div class="mx-3">
                                     <span class="d-block mb-1">{{visitUserService.userProfile?.firstName |
                                         titlecase}}</span>
-                                    <small class="text-secondary">First Name</small>
+                                    <small class="text-secondary">{{'about.firstName' | translate}}</small>
                                 </div>
                                 <div>
                                     <span class="d-block mb-1">{{visitUserService.userProfile?.lastName |
                                         titlecase}}</span>
-                                    <small class="text-secondary">Last Name</small>
+                                    <small class="text-secondary">{{'about.lastName' | translate}}</small>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="mx-3">
                                     <span class="d-block">{{visitUserService.userProfile?.gender | titlecase }}</span>
-                                    <small class="text-secondary">Gender</small>
+                                    <small class="text-secondary">{{'about.gender' | translate}}</small>
                                 </div>
                             </div>
                         </div>
@@ -66,9 +66,10 @@
                             <div class="d-flex">
                                 <i class="fas fa-birthday-cake"></i>
                                 <div class="mx-3">
-                                    <span class="d-block mb-1">{{visitUserService.userProfile?.birthDate | date
-                                        }}</span>
-                                    <small class="text-secondary">Birth date</small>
+                                    <span class="d-block mb-1">
+                                        {{visitUserService.userProfile?.birthDate | date : 'longDate' : undefined : lang}}
+                                    </span>
+                                    <small class="text-secondary">{{'about.birthDate' | translate}}</small>
                                 </div>
                             </div>
                         </div>
@@ -80,64 +81,64 @@
                             <i class="far fa-envelope"></i>
                             <div class="mx-3">
                                 <span class="d-block mb-1">{{visitUserService.userProfile?.email }}</span>
-                                <small class="text-secondary">Email</small>
+                                <small class="text-secondary">{{'about.email' | translate}}</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="personalInfo[1].status" class="right">
-                    <h2>Work</h2>
+                    <h2>{{'about.work' | translate}}</h2>
                     <div *ngIf="visitUserService.userProfile?.work;else work">
 
                         <h3>
                             <i class="mx-2 fas fa-briefcase"></i>
-                            Works At {{visitUserService.userProfile?.work}}
+                            {{'about.worksAt' | translate}} {{visitUserService.userProfile?.work}}
                         </h3>
                     </div>
                     <ng-template #work>
                         <h3 class="font-weight-bold noAvailable">
                             <i class="fas fa-briefcase "></i>
-                           <span class="mx-2"> No workplaces to show</span>
+                           <span class="mx-2">{{'about.noWork' | translate}}</span>
                         </h3>
                     </ng-template>
 
                 </div>
                 <div *ngIf="personalInfo[3].status" class="right">
-                    <h2>Place Lived</h2>
+                    <h2>{{'about.placeLived' | translate}}</h2>
                     <div *ngIf="visitUserService.userProfile?.location;else city">
 
                         <h3>
                              <i class="fas fa-home "></i> 
-                             <span class="mx-2">Lives In {{visitUserService.userProfile?.location}}</span>
+                             <span class="mx-2">{{'about.livesIn' | translate}} {{visitUserService.userProfile?.location}}</span>
                         </h3>
                     </div>
                     <ng-template #city>
                         <h3 class="font-weight-bold noAvailable">
                             <i class="fas fa-home "></i>
-                            <span class="mx-2"> No places to show</span>
+                            <span class="mx-2">{{'about.noPlaceToShow' | translate}}</span>
                         </h3>
                     </ng-template>
                 </div>
                 <div *ngIf="personalInfo[2].status" class="right">
-                    <h2>Education</h2>
+                    <h2>{{'about.edu' | translate }}</h2>
                     <div *ngIf="visitUserService.userProfile?.study;else education">
                         <div class="d-flex align-items-center">
                             <div>
                                 <img class="rounded-circle" src="assets/education.png" alt="">
                             </div>
-                            <h3 class="mx-2">Studied at {{visitUserService.userProfile?.study}}</h3>
+                            <h3 class="mx-2">{{'about.studiedAt' | translate }} {{visitUserService.userProfile?.study}}</h3>
                         </div>
                     </div>
 
                     <ng-template #education>
                         <h3 class="font-weight-bold noAvailable">
                             <i class="fas fa-graduation-cap "></i>
-                           <span class="mx-2"> No schools/universities to show</span>
+                           <span class="mx-3">{{'about.noStudy' | translate }}</span>
                         </h3>
                     </ng-template>
                 </div>
                 <div *ngIf="personalInfo[4].status" class="right">
-                    <h2>Relationship</h2>
+                    <h2>{{'about.relation' | translate }}</h2>
 
                     <div *ngIf="visitUserService.userProfile?.socialCondition;else relation">
 
@@ -149,13 +150,13 @@
                     <ng-template #relation>
                         <h3 class="font-weight-bold noAvailable">
                             <i class="fas fa-heart "></i>
-                           <span class="mx-2"> No relationship info to show</span>
+                           <span class="mx-2">{{'about.noRelation' | translate }}</span>
                         </h3>
                     </ng-template>
 
                 </div>
                 <div *ngIf="personalInfo[5].status" class="right">
-                    <h2>Religion</h2>
+                    <h2>{{'about.Religion' | translate }}</h2>
                     <div *ngIf="visitUserService.userProfile?.religion;else religion">
                         <h3>
                             <i class="fas fa-praying-hands "></i>
@@ -165,7 +166,7 @@
                     <ng-template #religion>
                         <h3 class="font-weight-bold noAvailable">
                             <i class="fas fa-praying-hands"></i>
-                            <span class=" mx-3">No religion info to show</span>
+                            <span class=" mx-3">{{'about.noReligion' | translate }}</span>
                         </h3>
                     </ng-template>
                 </div>

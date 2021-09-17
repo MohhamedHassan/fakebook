@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { emptyContent } from 'src/app/shared/emptyContentValidator';
 
@@ -26,23 +27,35 @@ export class UserAboutComponent implements OnInit,OnDestroy {
   DayMonthYear: any;
   userProfileLoading:boolean=true
   showInputs:any = []
-  personalInfo:any= [
-    {name:'Basic Info',status:true},
-    {name:'Work',status:false},
-    {name:'Education',status:false},
-    {name:'Place Lived',status:false},
-    {name:'Relationship',status:false},
-    {name:'Religion',status:false}
-  ]
+  personalInfo:any
+  deleted:any
+  deletedSuc:any
   subscriptions :any[] = [];
   constructor(public userProfilesService:UserProfileService,
     private title:Title,
     private fb:FormBuilder,
     private userservice:UserProfileService,
     private datePipe: DatePipe,
-    private _snackBar: MatSnackBar
-
+    private _snackBar: MatSnackBar,
+    private translate:TranslateService
     ) { 
+      
+      this.subscriptions.push(
+        translate.get("about.personalInfo").subscribe(
+          res => this.personalInfo = res
+        )
+      )
+      this.subscriptions.push(
+        translate.get("about.deleted").subscribe(
+          res => this.deleted = res
+        )
+      )
+      this.subscriptions.push(
+        translate.get("about.deletedSuc").subscribe(
+          res => this.deletedSuc = res
+        )
+      )
+        
    } 
 choseCategory(index:any) {
   for(let i = 0;i<this.personalInfo.length;i++) {
@@ -50,6 +63,7 @@ choseCategory(index:any) {
   }
   this.personalInfo[index].status=true
 }
+get lang() {return localStorage.getItem("currenLanguage") || "en"}
   ngOnInit(): void {
   this.showInputs.length=10
   this.showInputs.fill(false,0,10)
@@ -141,7 +155,7 @@ deletePersonalInfo(value:any,info:any) {
   this.subscriptions.push(
     this.userProfilesService.deleteInfo(value).subscribe(
       res => {
-       this.openSnackBar(`${info} deleted Successfully`)
+       this.openSnackBar(this.deletedSuc)
        for (let i = 0 ; i < this.showInputs.length;i++) this.showInputs[i]=false
        this.getDataAfterUpdate()
       },
@@ -169,7 +183,7 @@ getDataAfterUpdate() {
  )
 }
 openSnackBar(one:any) {
-  this._snackBar.open( one,  'Deleted', {
+  this._snackBar.open( one,  this.deleted, {
     horizontalPosition: 'left',
     verticalPosition: 'bottom',
     duration: 3000

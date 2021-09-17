@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { emptyContent } from 'src/app/shared/emptyContentValidator';
@@ -24,6 +25,8 @@ export class UserLayoutComponent implements OnInit,OnDestroy {
   showRemaining:boolean=false
   profileOnHoverforFollowers:number=-1
   subscriptions :any[] = [];
+  translatedSnacBarTextOne:any
+  translatedSnacBarTextTwo:any
   @ViewChild('bioo') bioo:ElementRef
   constructor(
     public userProfilesService:UserProfileService,
@@ -32,13 +35,21 @@ export class UserLayoutComponent implements OnInit,OnDestroy {
     private fb:FormBuilder,
     private _snackBar: MatSnackBar,
     private router:Router,
-    private rendrer:Renderer2
-  ) {  }
+    private rendrer:Renderer2,
+    private translate:TranslateService
+  ) { 
+    this.subscriptions.push( this.translate.get('about.bioDeleted').subscribe(res => {
+      this.translatedSnacBarTextOne=res
+   }))
+   this.subscriptions.push(
+    this.translate.get('about.deleted').subscribe(res => {
+      this.translatedSnacBarTextTwo=res
+   }))
+   }
   remaining(bioo:any) {
       this.showRemaining=true
       this.textAreaLength = bioo.value.length
   }
-
   addBio(value:any) {
     this.bioLoading=true
     this.subscriptions.push(
@@ -64,6 +75,7 @@ export class UserLayoutComponent implements OnInit,OnDestroy {
       )
     )
   }
+  get lang() {return localStorage.getItem("currenLanguage") || "en"}
   ngOnInit(): void {
     window.scroll(0,0)
     this.subscriptions.push(
@@ -189,7 +201,7 @@ export class UserLayoutComponent implements OnInit,OnDestroy {
             this.userProfilesService.getMyProfile().subscribe(
               (res:any) =>{
                 this.userProfilesService.userProfile=res?.user
-                this.openSnackBar(`Bio deleted Successfully`,"Deleted")
+                this.openSnackBar(this.translatedSnacBarTextOne,this.translatedSnacBarTextTwo)
               },
               err => {
                 this.bioLoading=false

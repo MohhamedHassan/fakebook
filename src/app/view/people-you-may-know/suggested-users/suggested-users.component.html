@@ -2,8 +2,11 @@
 [class.darkMode]="userService.userProfile?.darkMode"
 >
     <div class="container">
-        <h2 class="font-weight-bold mb-2 mt-5">People you may know</h2>
+        
         <div class="row">
+            <div class="col-sm-12">
+                <h2  class="pad font-weight-bold mb-2 mt-5">{{'youMayKnow.people' | translate}}</h2>
+            </div>
             <!-- start users animation while loading -->
             <ng-container *ngIf="loading;else content">
               <div *ngFor="let item of loadingItems" class="col-sm-6 col-md-4 col-lg-3 mb-5">
@@ -56,9 +59,10 @@
                         <div class="px-2 py-3">
                             <div class="overflow-hidden mb-2">
                                 <h2  
+                                
                                 [routerLink]="['/visit',item._id]"
                                 class="mainName">
-                                    {{item?.firstName | titlecase | slice : 0 : 12}}
+                                    {{item?.firstName | titlecase | slice : 0 : 12 }}
                                     {{item?.lastName | titlecase | slice : 0 : 12}}
                                 </h2>
                             </div>
@@ -67,7 +71,7 @@
                            (click)="followOrUnFollow(item?._id)"
                             >
                                 <i class="fas fa-user-plus"></i>
-                                <span class="mx-1"> Follow</span>
+                                <span class="mx-1">{{'youMayKnow.follow' | translate}}</span>
                             </button>
         
                         </div>

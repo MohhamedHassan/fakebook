@@ -2,7 +2,7 @@
 *ngIf="suggestedFriends?.length"
 [class.darkMode]="userProfilesService.userProfile?.darkMode"
 class="bg-white parentOfSugested rounded-lg p-3" >
-    <h2 class="mb-2">People you may know</h2>
+    <h2 class="mb-2"> {{'youMayKnow.people' | translate}}</h2>
     <swiper (reachEnd)="fetchMoreSuggestedFriends()" #updtaeSwiper [config]="swiperConfig">
         <ng-container *ngIf="peopleYouMayKnowLoading;else swiperContent">
             <ng-container *ngFor="let item of swiperLoadingCount">
@@ -62,7 +62,7 @@ class="bg-white parentOfSugested rounded-lg p-3" >
                             <button [disabled]="followLoading" (click)="followOrUnFollow(item?._id)"
                                 class="follow">
                                 <i class="fas fa-user-plus"></i>
-                                <span class="mx-1"> Follow</span>
+                                <span class="mx-1"> {{'youMayKnow.follow' | translate}}</span>
                             </button>
                         </div>
                     </div>
@@ -72,6 +72,6 @@ class="bg-white parentOfSugested rounded-lg p-3" >
     </swiper>
     <div class="text-center mt-3">
         <span class="text-primary font-weight-bold " style="cursor: pointer;"
-            routerLink="/peopleYouMayKnow">See All</span>
+            routerLink="/peopleYouMayKnow">{{'youMayKnow.seeAll' | translate}}</span>
     </div>
 </div>

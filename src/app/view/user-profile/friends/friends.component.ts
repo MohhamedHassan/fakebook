@@ -13,7 +13,7 @@ searchPipeValue:any
 searchPipeValueTwo:any
 loadingCount:any=[]
   constructor(public userprofileService:UserProfileService) { this.loadingCount.length=4 }
-
+get lang() {return localStorage.getItem("currenLanguage") || "en"}
   ngOnInit(): void {
   }
   

@@ -7,6 +7,9 @@ import { ReactionTypePipe } from './reaction-type.pipe';
 import { GenderPipe } from './gender.pipe';
 import { MostReactionPipe } from './most-reaction.pipe';
 import { SecondReactionPipe } from './second-reaction.pipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 
@@ -21,8 +24,21 @@ import { SecondReactionPipe } from './second-reaction.pipe';
     SecondReactionPipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    TranslateModule.forChild({
+      defaultLanguage:'en',
+      loader: {
+        provide:TranslateLoader,
+        useFactory:createTranslateLoader,
+        deps:[HttpClient]
+      }
+    })
   ], 
-  exports: [TextPipe,LangPipe,SearchPipe,ReactionTypePipe,GenderPipe,MostReactionPipe,SecondReactionPipe]
+  exports: [TextPipe,LangPipe,SearchPipe,
+    ReactionTypePipe,GenderPipe,MostReactionPipe,
+    SecondReactionPipe,TranslateModule]
 })
 export class SharedModule { }
+export function createTranslateLoader(http:HttpClient) {
+  return new TranslateHttpLoader(http,'./assets/i18n/','.json')
+}

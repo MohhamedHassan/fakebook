@@ -1,0 +1,44 @@
+
+<div 
+[class.darkMode]="userProfilesService.userProfile?.darkMode"
+class="langg">
+    <div class="p-5 container " 
+
+>
+    <h1 class="font-weight-bold">{{'lang.langSettings' | translate }}</h1>
+    <div class="brdr py-3 d-flex justify-content-between">
+    <div *ngIf="show"  class="res w-50">
+        <h2 class="mb-2">{{'lang.fakeLang' | translate }}</h2>
+        <p>{{'lang.forBtns' | translate}}</p>
+    </div>
+    <div>
+        <div *ngIf="show;else change" class="d-flex align-items-center">
+            <h2 class="text-secondary">
+                {{currentLang=='en' ? 'English' :
+                 currentLang=='ar' ? 'العربية' :
+                  currentLang=='tr' ? "Türkçe" :
+                   currentLang=='de' ?  "Deutsch"  : "English"  }}
+            </h2>
+            <p (click)="show=false" class="text-primary mx-3 mb-0 edit"><i class="fas fa-pencil-alt"></i> {{'lang.edit' | translate}}</p>
+        </div>
+        <ng-template #change>
+           <div class="p-3">
+            <h3>{{'lang.show' |translate}}</h3>
+            <div class="form-group mt-2">
+                <select #select name="" id="" class="form-control">
+                    <option [selected]="currentLang=='en'" value="en">English</option>
+                    <option [selected]="currentLang=='de'" value="de">Deutsch</option>
+                    <option [selected]="currentLang=='tr'" value="tr">Türkçe</option>
+                    <option [selected]="currentLang=='ar'" value="ar">العربية</option>
+                </select>
+            </div>
+            <hr>
+            <button class="btn btn-primary m-2" (click)="saveLanguageToLocalStorage(select)">{{'lang.save' | translate}}</button>
+            <button class="btn btn-secondary m-2" (click)="show=true">{{'lang.cancel' | translate}}</button>
+           </div>
+        </ng-template>
+        
+    </div>
+</div>
+</div>
+</div>

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
@@ -26,14 +27,7 @@ enterESCtoCancel:boolean=true
 postId:any
 reactionPipe:any
 @ViewChild('editCommentInpu', { static: false }) editCommentInpu: ElementRef
-reactions:any = [
-  {imgSrc:"assets/like.png",reaction:"like"},
-  {imgSrc:"assets/love.png",reaction:"love"},
-  {imgSrc:"assets/haha.png",reaction:"haha"},
-  {imgSrc:"assets/wow.png",reaction:"wow"},
-  {imgSrc:"assets/sad.png",reaction:"sad"},
-  {imgSrc:"assets/angry.png",reaction:"angry"},
-]
+reactions:any 
 postReactions:any=[]
 sortReaction:any = []
 reactionModalImgSrc:any=""
@@ -47,9 +41,16 @@ modalRef: BsModalRef
     private rendrer:Renderer2,
     private cd:ChangeDetectorRef,
     public modalService: BsModalService,
-    private router:Router
-  ) { }
-
+    private router:Router,
+    private translate:TranslateService
+  ) {
+    this.subscriptions.push(
+      translate.get('posts.reactions').subscribe(
+        res => this.reactions = res
+     )
+     )
+   }
+get lang() {return localStorage.getItem('currenLanguage') || "en"}
   ngOnInit(): void {
     this.subscriptions.push(
   

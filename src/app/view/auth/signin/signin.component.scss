@@ -36,3 +36,16 @@ top:15px
      right: 10px;
      color: red;
  }
+ .regesterLang {
+    li {
+        margin-right: 5px;
+        color: blue;
+        cursor: pointer;
+        &:hover {
+           text-decoration: underline;
+        }
+    }
+}
+
+
+

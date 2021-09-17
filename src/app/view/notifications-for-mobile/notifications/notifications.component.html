@@ -6,13 +6,13 @@ class="notificationsMobile"
     <div 
 
 class="container-fluid py-5 ">
- <div style="margin-left: 20px;">
-    <h1 class="font-weight-bold">Notifications</h1>
-    <ul class="m-0 list-unstyled">
+ <div style="margin-left: 20px;margin-right: 20px;">
+    <h1 class="font-weight-bold">{{'notificationsMobile.notificatios' | translate}}</h1>
+    <ul class="m-0 list-unstyled p-0">
         <li>
             <ng-container  *ngIf="!userProfilesService?.myNotifications?.length && 
             !userProfilesService?.oldNotifications?.length;else notificationsContent">
-                <p>No Notifications</p>
+                <p>{{'notificationsMobile.noNotifications' | translate}}</p>
             </ng-container>
         </li>
         <ng-template #notificationsContent>
@@ -29,12 +29,12 @@ class="container-fluid py-5 ">
                             <img class="notificationImg" [src]="'assets/'+item?.type+'.png'" alt="">
                          </ng-template>       
                        </div>
-                       <div class="ml-3">
+                       <div class="mx-3 w-100">
                           <strong>
                             {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                          </strong> {{item?.type=="comment" ? "Cmomented on" : "Reacted to"}} your post 
+                          </strong> {{(item?.type=="comment" ? "notificationsMobile.commentedOn": "notificationsMobile.reactedTo") | translate }} {{'notificationsMobile.yourPost' | translate}} 
                           <div class="d-flex justify-content-between align-items-center">
-                            <small> {{item?.createdAt | date }}</small>
+                            <small> {{item?.createdAt | date : 'longDate' : undefined : lang}}</small>
                             <span class="sign bg-primary"></span>
                           </div>
                        </div>
@@ -47,12 +47,12 @@ class="container-fluid py-5 ">
                            <img class="mainIMG" [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
                            <i *ngIf="item?.type=='follow'" class="fas fa-user nav"></i>    
                        </div>
-                       <div class="ml-3">
+                       <div class="mx-3 w-100">
                           <strong>
                             {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                          </strong> is following you
+                          </strong> {{'notificationsMobile.isFollowingYou' | translate}}
                           <div class="d-flex justify-content-between align-items-center">
-                            <small> {{item?.createdAt | date }}</small>
+                            <small> {{item?.createdAt | date : 'longDate' : undefined : lang }}</small>
                             <span class="sign bg-primary"></span>
                           </div>
                        </div>
@@ -69,14 +69,15 @@ class="container-fluid py-5 ">
                            <i *ngIf="item?.type=='comment';else react" class="fas fa-comment-alt nav"></i>
                          <ng-template #react>
                             <img class="notificationImg" [src]="'assets/'+item?.type+'.png'" alt="">
-                         </ng-template>       
+                         </ng-template>
                        </div>
-                       <div class="ml-3">
+                       <div class="mx-3 w-100">
                           <strong>
                             {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                          </strong> {{item?.type=="comment" ? "Cmomented on" : "Reacted to"}} your post 
+                          </strong>
+                           {{(item?.type=="comment" ? "notificationsMobile.commentedOn" : "notificationsMobile.reactedTo") | translate}}  {{'notificationsMobile.yourPost' | translate}}
                           <div class="d-flex justify-content-between align-items-center">
-                            <small> {{item?.createdAt | date }}</small>
+                            <small> {{item?.createdAt | date : 'longDate' : undefined : lang }}</small>
                           </div>
                        </div>
                    </div>
@@ -88,12 +89,12 @@ class="container-fluid py-5 ">
                            <img class="mainIMG" [src]="item?.sender?.profilePhoto | gender : item?.sender?.gender" alt="">
                            <i *ngIf="item?.type=='follow'" class="fas fa-user nav"></i>    
                        </div>
-                       <div class="ml-3">
+                       <div class="mx-3 w-100">
                           <strong>
                             {{item?.sender?.firstName | slice : 0 : 12}} {{item?.sender?.lastName | slice : 0 : 12}}
-                          </strong> is following you
+                          </strong>  {{'notificationsMobile.isFollowingYou' | translate}}
                           <div class="d-flex justify-content-between align-items-center">
-                            <small> {{item?.createdAt | date }}</small>
+                            <small> {{item?.createdAt | date : 'longDate' : undefined : lang }}</small>
                           </div>
                        </div>
                    </div>

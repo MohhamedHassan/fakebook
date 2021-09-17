@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { FollowOrUnfollowService } from 'src/app/services/follow-or-unfollow.service';
 import { PeopleYouMayKnowService } from 'src/app/services/people-you-may-know.service';
@@ -18,16 +19,30 @@ loading:any=true
 loadingItems:any=[]
 followLoading:any=false
 subscriptions :any[] = [];
+translatedSnacBarTextOne:any
+translatedSnacBarTextTwo:any
   constructor(private peopleYouMayKnowService:PeopleYouMayKnowService,
     private folloOrUnfollowService:FollowOrUnfollowService,
     private _snackBar: MatSnackBar,
     public userService:UserProfileService,
     private title:Title,
     private socketService:CommentSocketService,
-    private router:Router) { }
+    private router:Router,
+    private translate:TranslateService) {
+      this.subscriptions.push( this.translate.get('youMayKnow.friends').subscribe(res => {
+        this.title.setTitle(`${res} | Fakebook`)
+     }))
+      this.subscriptions.push( this.translate.get('youMayKnow.snackBarOne').subscribe(res => {
+        this.translatedSnacBarTextOne=res
+     }))
+     this.subscriptions.push(
+      this.translate.get('youMayKnow.snackBarTwo').subscribe(res => {
+        this.translatedSnacBarTextTwo=res
+     }))
+     }
 
   ngOnInit(): void {
-    this.title.setTitle("Friends | Fakebook")
+  
     window.scroll(0,0)
  
     this.loadingItems.length=8
@@ -42,7 +57,7 @@ subscriptions :any[] = [];
         res => {
            this.socketService.emit("follow",{id}).then(
              res => {
-              this._snackBar.open( "Followed up successfully",  "successfully", {
+              this._snackBar.open( this.translatedSnacBarTextOne,  this.translatedSnacBarTextTwo, {
                 horizontalPosition: 'left',
                 verticalPosition: 'bottom',
                 duration: 3000
@@ -62,6 +77,7 @@ subscriptions :any[] = [];
       this.peopleYouMayKnowService.getAllPeopleYouMAyKnow().subscribe(
         res => {
           this.users=res
+           console.log(res)
           this.loading=false
          this.followLoading=false
         },

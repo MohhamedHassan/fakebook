@@ -5,7 +5,7 @@ class="darkModeClass"
 <div
 [class.darkMode]="userProfilesService.userProfile?.darkMode"
 class="  intro bg-white p-3 rounded-lg mb-3">
-    <h2 class="font-weight-bold">Intro</h2>
+    <h2 class="font-weight-bold">{{'leftSide.intro' | translate}}</h2>
     <!-- start Bio -->
     <div class="d-none d-md-block">
         <h3 *ngIf="visitUserService.userProfile?.bio" class="bi my-2 text-center">
@@ -17,7 +17,9 @@ class="  intro bg-white p-3 rounded-lg mb-3">
     <h3 *ngIf="visitUserService.userProfile?.work" class="my-2 d-flex ">
         <i class="fas fa-briefcase"></i>
         <span class="mx-2">
-            Works At
+            <span>
+                {{'about.worksAt' | translate}}
+            </span>
             <small class="font-weight-bold">
                 {{visitUserService.userProfile?.work | titlecase}}</small>
         </span>
@@ -25,14 +27,14 @@ class="  intro bg-white p-3 rounded-lg mb-3">
     <h3 *ngIf="visitUserService.userProfile?.study" class="my-2 d-flex ">
         <i class="fas fa-graduation-cap"></i>
         <span class="mx-2">
-            Studied at <small class="font-weight-bold">{{visitUserService.userProfile?.study |
+            {{'about.studiedAt' | translate}} <small class="font-weight-bold">{{visitUserService.userProfile?.study |
                 titlecase}}</small>
         </span>
     </h3>
     <h3 *ngIf="visitUserService.userProfile?.location" class="my-2 d-flex ">
         <i class="fas fa-home"></i>
         <span class="mx-2">
-            Lives In <small class="font-weight-bold">
+            {{'about.livesIn' | translate}} <small class="font-weight-bold">
                 {{visitUserService.userProfile?.location | titlecase }}
             </small>
         </span>

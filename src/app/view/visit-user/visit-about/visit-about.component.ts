@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { VisitUserService } from 'src/app/services/visit-user.service';
 
@@ -7,19 +9,18 @@ import { VisitUserService } from 'src/app/services/visit-user.service';
   templateUrl: './visit-about.component.html',
   styleUrls: ['./visit-about.component.scss']
 })
-export class VisitAboutComponent implements OnInit {
-  personalInfo:any= [
-    {name:'Basic Info',status:true},
-    {name:'Work',status:false},
-    {name:'Education',status:false},
-    {name:'Place Lived',status:false},
-    {name:'Relationship',status:false},
-    {name:'Religion',status:false}
-  ]
+export class VisitAboutComponent implements OnInit,OnDestroy {
+  personalInfo:any
+  personalSub:Subscription
   constructor(public visitUserService: VisitUserService,
-    public userProfilesService:UserProfileService
-    ) { }
-
+    public userProfilesService:UserProfileService,
+    private translate:TranslateService
+    ) { 
+    this.personalSub =  translate.get("about.personalInfo").subscribe(
+        res => this.personalInfo = res
+      )
+    }
+get lang() {return localStorage.getItem('currenLanguage') || 'en'}
   ngOnInit(): void {
   }
   choseCategory(index:any) {
@@ -27,5 +28,8 @@ export class VisitAboutComponent implements OnInit {
       this.personalInfo[i].status=false
     }
     this.personalInfo[index].status=true
+  }
+  ngOnDestroy() {
+    if(this.personalSub) this.personalSub.unsubscribe() 
   }
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { emptyContent } from 'src/app/shared/emptyContentValidator';
 
@@ -17,10 +18,20 @@ export class UserprofileIntroComponent implements OnInit,OnDestroy {
   subscriptions: any[] = [];
   textAreaLength: any = 0
   @ViewChild('bioo', { static: false }) bioo: ElementRef
+  translatedSnacBarTextOne:any
+  translatedSnacBarTextTwo:any
   constructor(public userProfilesService:UserProfileService,
     private cd: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private fb:FormBuilder) { }
+    private fb:FormBuilder,private translate:TranslateService) { 
+      this.subscriptions.push( this.translate.get('about.bioDeleted').subscribe(res => {
+        this.translatedSnacBarTextOne=res
+     }))
+     this.subscriptions.push(
+      this.translate.get('about.deleted').subscribe(res => {
+        this.translatedSnacBarTextTwo=res
+     }))
+    }
 
   ngOnInit(): void {
     this.bioForm = this.fb.group({
@@ -71,7 +82,7 @@ export class UserprofileIntroComponent implements OnInit,OnDestroy {
                   this.bioLoading = false
                   this.showBioTextArea = false
                   this.userProfilesService.userProfile = res?.user
-                  this.openSnackBar(`Bio deleted Successfully`, "Deleted")
+                  this.openSnackBar(this.translatedSnacBarTextOne, this.translatedSnacBarTextTwo)
                 },
                 err => {
                   this.bioLoading = false

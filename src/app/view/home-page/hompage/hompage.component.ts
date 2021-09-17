@@ -10,6 +10,7 @@ import {
    ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { io } from 'socket.io-client';
 import { AuthService } from 'src/app/services/auth.service';
@@ -38,14 +39,7 @@ export class HompageComponent implements OnInit,OnDestroy {
   enterESCtoCancel:boolean=true
   popupPost:any
   popupReactions:any
-  reactions:any = [
-    {imgSrc:"assets/like.png",reaction:"like"},
-    {imgSrc:"assets/love.png",reaction:"love"},
-    {imgSrc:"assets/haha.png",reaction:"haha"},
-    {imgSrc:"assets/wow.png",reaction:"wow"},
-    {imgSrc:"assets/sad.png",reaction:"sad"},
-    {imgSrc:"assets/angry.png",reaction:"angry"},
-  ]
+  reactions:any 
   postReactions:any=[]
   sortReaction:any = []
   reactionModalImgSrc:any=""
@@ -62,9 +56,15 @@ export class HompageComponent implements OnInit,OnDestroy {
     private title:Title,
     private  rendrer:Renderer2,
     private router:Router,
-    private auth:AuthService
+    private auth:AuthService,
+    private translate:TranslateService
     ) {
-     
+      
+       this.subscriptions.push(
+        translate.get('posts.reactions').subscribe(
+          res => this.reactions = res
+       )
+       )
      }
 
   ngOnInit(): void {
@@ -108,6 +108,7 @@ export class HompageComponent implements OnInit,OnDestroy {
         res => {
           this.postCommentsIndex=-1
           this.userProfileService.myFollowingPosts = res
+          console.log(res)
           this.userProfileService.HomePageSkeltonLoading = false
         }, err => {
         }
@@ -163,6 +164,7 @@ export class HompageComponent implements OnInit,OnDestroy {
   track(index: number) {
     return index
   }
+  get lang() {return localStorage.getItem("currenLanguage") || "en"}
   getPostComments(id: any, i: any) {
     this.scrollY=window.scrollY
     this.commentsLoading = true
@@ -255,7 +257,7 @@ export class HompageComponent implements OnInit,OnDestroy {
     this.cd.detectChanges()
     let textarea =  this.editCommentInpu.nativeElement
     textarea.focus()
-    textarea.selectionStart = textarea.value.length
+   textarea.selectionStart = textarea.value.length
     this.rendrer.setStyle(textarea, "height", `${textarea.scrollHeight}px`)
   }
   // start make user control on textarea height
@@ -299,6 +301,7 @@ export class HompageComponent implements OnInit,OnDestroy {
     }
 }
 makeReaction(reactionName:any,i:any,parentOfReactions:any,postId:any) {
+  console.log(reactionName)
   let userPost = this.userProfileService.myFollowingPosts[i]
   this.rendrer.addClass(parentOfReactions, "hideParentOfReactions")
   if(userPost?.myReaction?.length) {

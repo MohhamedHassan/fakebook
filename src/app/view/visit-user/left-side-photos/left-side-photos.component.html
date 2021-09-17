@@ -4,8 +4,8 @@ class="darkModeClass"
 >
 <div class=" photos mb-3 bg-white p-3 rounded-lg">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 routerLink="../photos" class="font-weight-bold main">Photos</h2>
-        <a routerLink="../photos"> See All Photos</a>
+        <h2 routerLink="../photos" class="font-weight-bold main">{{"leftSide.photos" | translate}}</h2>
+        <a routerLink="../photos"> {{'leftSide.seeAllPhotos' | translate}}</a>
     </div>
     <div class="row">
         <div *ngFor="let item of visitUserService.photos | slice : 0 : 3" class="col-4 col-md-4 py-3" >

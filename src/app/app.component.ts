@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth.service';
 import { CommentSocketService } from './services/comment-socket.service';
 import { UserProfileService } from './services/user-profile.service';
@@ -16,10 +17,15 @@ export class AppComponent implements OnInit    {
   searchLoading:any=true
   showSearchContainer:any=false
   reactImgSrc:any=""
+  currentLang:any
   constructor (public userProfilesService:UserProfileService,
     public commentService:CommentSocketService,
     private router:Router,
-    public authService:AuthService) {
+    public authService:AuthService,
+    private translateService:TranslateService) {
+      this.currentLang = localStorage.getItem("currenLanguage") || "en"
+      translateService.use(this.currentLang)
+      if(this.currentLang=='ar') document.body.classList.add("rtll")
       userProfilesService.myNotifications=[]
       if(this.authService.isLogin()) {
         this.getProfile()
@@ -81,7 +87,7 @@ export class AppComponent implements OnInit    {
       }
   
   }
-
+  get lang() {return localStorage.getItem("currenLanguage") || 'en'}
 ngOnInit() {
   if(this.authService.isLogin()) {
     this.getProfile()

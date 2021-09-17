@@ -4,12 +4,13 @@ class="darkModeClass"
 >
 <div class=" photos mb-3 bg-white p-3 rounded-lg">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 routerLink="../friends" class="font-weight-bold main">Followers</h2>
-        <a routerLink="../friends">See All Followers</a>
+        <h2 routerLink="../friends" class="font-weight-bold main">
+            {{'leftSide.followers' |  translate}}</h2>
+        <a routerLink="../friends">{{'leftSide.seeAllFollowers' | translate}}</a>
     </div>
     <p *ngIf="visitUserService.followers?.length" class="text-secondary mb-3">
         {{visitUserService?.followers?.length}} 
-        {{visitUserService?.followers?.length==1 ? "Follower" : "Followers"}} 
+        {{(visitUserService?.followers?.length==1 ? "leftSide.follower" : "leftSide.followers") | translate}} 
     </p>
     <div class="row">
         <div *ngFor="let item of visitUserService.followers | slice : 0 : 6;let i =index" class="col-4 col-md-4  pb-3"
@@ -44,8 +45,8 @@ class="darkModeClass"
                         [routerLink]='["/visit",item?._id]'
                         class="mb-2 ">{{item.firstName | titlecase | slice : 0 : 12}}
                             {{item?.lastName | titlecase | slice : 0 : 12}}</h2>
-                        <p><i class="far fa-calendar-alt mr-2"></i> Born on
-                            {{item?.birthDate |date}}</p>
+                        <p><i class="far fa-calendar-alt"></i> <span class="mx-1">{{'posts.bornOn' | translate}}</span>
+                            {{item?.birthDate | date : "longDate" : undefined : lang}}</p>
                      
                     </div>
                 </div>

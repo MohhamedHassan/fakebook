@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { CommentSocketService } from 'src/app/services/comment-socket.service';
 import { FollowOrUnfollowService } from 'src/app/services/follow-or-unfollow.service';
 import { PeopleYouMayKnowService } from 'src/app/services/people-you-may-know.service';
@@ -20,6 +21,8 @@ export class PeopeYouMayKnowComponent implements OnInit {
   swiperLoadingCount: any = []
   @ViewChild('updtaeSwiper') updtaeSwiper: { swiperRef: Swiper };
   subscriptions:any[]=[]
+  translatedSnacBarTextOne:any
+  translatedSnacBarTextTwo:any
   constructor(  private peopleYouMayKnow: PeopleYouMayKnowService,
     private cd: ChangeDetectorRef,
     public userProfilesService:UserProfileService,
@@ -27,7 +30,16 @@ export class PeopeYouMayKnowComponent implements OnInit {
     private router:Router,
     private folloOrUnfollowService:FollowOrUnfollowService,
     private _snackBar: MatSnackBar,
-    private socketService:CommentSocketService) { }
+    private socketService:CommentSocketService,
+    private translate:TranslateService) { 
+      this.subscriptions.push( this.translate.get('youMayKnow.snackBarOne').subscribe(res => {
+        this.translatedSnacBarTextOne=res
+     }))
+      this.subscriptions.push(
+        this.translate.get('youMayKnow.snackBarTwo').subscribe(res => {
+          this.translatedSnacBarTextTwo=res
+       }))
+    }
 
   ngOnInit(): void {
     this.swiperLoadingCount.length=5
@@ -103,7 +115,7 @@ export class PeopeYouMayKnowComponent implements OnInit {
                     this.userProfilesService.skeltonLoadingForFollowing = false
                     this.userProfilesService.following = res?.followings?.following
                     this.followLoading = false
-                    this.openSnackBar("Followed up successfully", "successfully")
+                    this.openSnackBar(this.translatedSnacBarTextOne,  this.translatedSnacBarTextTwo)
                   },
                   err => { }
                 )

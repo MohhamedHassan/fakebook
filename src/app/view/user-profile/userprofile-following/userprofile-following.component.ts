@@ -9,7 +9,7 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
 export class UserprofileFollowingComponent implements OnInit {
   profileOnHoverforFollowing = -1
   constructor(public userProfilesService:UserProfileService) { }
-
+get lang() {return localStorage.getItem('currenLanguage') || 'en'}
   ngOnInit(): void {
   }
 

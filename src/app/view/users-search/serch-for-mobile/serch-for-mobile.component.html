@@ -8,11 +8,12 @@ class="parentOfSearch">
         <div  class="d-flex align-items-center py-3">
             <i routerLink="/homePage" class="fas fa-arrow-left"></i>
             <div class="position-relative mx-3 w-100">
-                <input (keyup)="clear(searchInput)" (keydown.enter)="searchForUsers(searchInput)" #searchInput type="search" placeholder="Search"> 
+                <input (keyup)="clear(searchInput)" (keydown.enter)="searchForUsers(searchInput)" #searchInput type="search" 
+                placeholder="{{'posts.search' | translate}}"> 
                 <i (click)="searchForUsers(searchInput)" class="fas fa-search"></i>
             </div>
         </div>
-        <ul  class="list-unstyled m-0">
+        <ul  class="list-unstyled m-0 p-0">
             <li class="d-flex justify-content-center" *ngIf="searchLoading;else searchContent">
                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                 </li>
@@ -37,7 +38,7 @@ class="parentOfSearch">
                     </li>
                 </ng-container>
                 <ng-template #noResult>
-                    <li>No Result</li>
+                    <li>{{'posts.noResult' | translate}}</li>
                 </ng-template>
             </ng-template>
             
