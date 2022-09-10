@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'https://h-social-network.herokuapp.com'
+  apiUrl:'https://social-network.onrender.com'
 };
 
 /*
