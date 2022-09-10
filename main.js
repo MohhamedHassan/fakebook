@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\moHassan\socailMedia\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\430 G3\Desktop\facebookclone\fakebook\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -160,7 +160,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    apiUrl: 'https://h-social-network.herokuapp.com'
+    apiUrl: 'https://social-network.onrender.com'
 };
 /*
  * For easier debugging in development mode, you can import the following file
