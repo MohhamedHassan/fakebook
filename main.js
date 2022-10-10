@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\430 G3\Desktop\facebookclone\fakebook\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\430 G3\Desktop\fakebook\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -1487,10 +1487,8 @@ class SearchPipe {
         if (!inputValue)
             return friends;
         return friends.filter(i => {
-            if (i.firstName) {
-                return i.firstName.toLowerCase().includes(inputValue.toLowerCase()) ||
-                    i.lastName.toLowerCase().includes(inputValue.toLowerCase());
-            }
+            let name = `${i === null || i === void 0 ? void 0 : i.firstName} ${i === null || i === void 0 ? void 0 : i.lastName}`;
+            return name.toLowerCase().includes(inputValue.toLowerCase());
         });
     }
 }
