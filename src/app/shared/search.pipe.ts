@@ -9,10 +9,8 @@ export class SearchPipe implements PipeTransform {
     
     if (!inputValue) return friends
     return friends.filter(i => {
-      if (i.firstName) {
-        return i.firstName.toLowerCase().includes(inputValue.toLowerCase()) || 
-        i.lastName.toLowerCase().includes(inputValue.toLowerCase())
-      }
+      let name = `${i?.firstName} ${i?.lastName}`
+        return name.toLowerCase().includes(inputValue.toLowerCase())
     })
 
   }
